@@ -1,0 +1,802 @@
+[
+  {
+    "question": "How is tuberculosis diagnosed according to WHO guidelines?",
+    "ground_truth": "Bacteriological confirmation using sputum samples\nMicrobiological tests (smear microscopy, culture, molecular tests)\nClinical and radiological assessment as supportive evidence"
+  },
+  {
+    "question": "What tests are recommended for diagnosing active tuberculosis?",
+    "ground_truth": "Sputum smear microscopy\nMycobacterial culture\nWHO-endorsed rapid molecular tests (e.g. Xpert)"
+  },
+  {
+    "question": "What is sputum culture conversion and why is it important in TB management?",
+    "ground_truth": "Change from culture-positive to culture-negative\nIndicator of treatment response\nUsed for monitoring treatment effectiveness"
+  },
+  {
+    "question": "What does bacteriological confirmation mean in tuberculosis?",
+    "ground_truth": "Laboratory evidence of Mycobacterium tuberculosis\nPositive smear, culture, or molecular test"
+  },
+  {
+    "question": "What follow-up indicators are used to monitor TB treatment response?",
+    "ground_truth": "Sputum smear or culture results\nBacteriological failure or relapse\nTreatment outcomes at follow-up time points"
+  },
+  {
+    "question": "What is the role of sputum smear microscopy in TB diagnosis?",
+    "ground_truth": "Initial diagnostic test\nDetects acid-fast bacilli\nUsed in many resource-limited settings"
+  },
+  {
+    "question": "How is bacteriological failure defined in tuberculosis follow-up?",
+    "ground_truth": "Persistent or recurrent positive bacteriology\nOccurs during or after treatment\nIndicates ineffective therapy"
+  },
+  {
+    "question": "What outcomes are used to assess TB treatment success?",
+    "ground_truth": "Cure\nTreatment completion\nAbsence of bacteriological failure or relapse"
+  },
+  {
+    "question": "What are the first-line drugs used to treat tuberculosis?",
+    "ground_truth": "Isoniazid\nRifampin\nEthambutol\nPyrazinamide"
+  },
+  {
+    "question": "What is isoniazid used for in tuberculosis treatment?",
+    "ground_truth": "Core first-line anti-TB drug\nUsed in combination regimens\nActive against Mycobacterium tuberculosis"
+  },
+  {
+    "question": "What is rifampin and what role does it play in TB therapy?",
+    "ground_truth": "First-line anti-TB antibiotic\nBactericidal activity\nShortens treatment duration"
+  },
+  {
+    "question": "What are common adverse reactions of isoniazid?",
+    "ground_truth": "First-line anti-TB antibiotic\nBactericidal activity\nShortens treatment duration"
+  },
+  {
+    "question": "What adverse effects are associated with rifampin?",
+    "ground_truth": "Hepatotoxicity\nGastrointestinal upset\nDrug interactions via enzyme induction"
+  },
+  {
+    "question": "What precautions are listed for ethambutol use?",
+    "ground_truth": "Hepatotoxicity\nGastrointestinal upset\nDrug interactions via enzyme induction"
+  },
+  {
+    "question": "Why is combination therapy used in tuberculosis treatment?",
+    "ground_truth": "Prevent drug resistance\nImprove treatment efficacy\nTarget different bacterial populations"
+  },
+  {
+    "question": "How is community-acquired pneumonia diagnosed?",
+    "ground_truth": "Prevent drug resistance\nImprove treatment efficacy\nTarget different bacterial populations"
+  },
+  {
+    "question": "What clinical criteria are used to assess pneumonia severity?",
+    "ground_truth": "Vital signs\nLaboratory findings\nSeverity scoring systems (general mention)"
+  },
+  {
+    "question": "What are common symptoms of community-acquired pneumonia?",
+    "ground_truth": "Cough\nFever\nShortness of breath\nChest pain"
+  },
+  {
+    "question": "What diagnostic tests are recommended for suspected pneumonia?",
+    "ground_truth": "Chest radiography\nBlood tests\nMicrobiological testing when appropriate"
+  },
+  {
+    "question": "What factors influence initial antibiotic selection for CAP?",
+    "ground_truth": "Disease severity\nPatient comorbidities\nLikely pathogens"
+  },
+  {
+    "question": "What are common adverse reactions of azithromycin?",
+    "ground_truth": "Gastrointestinal upset\nQT prolongation\nLiver enzyme abnormalities"
+  },
+  {
+    "question": "What warnings are listed for levofloxacin?",
+    "ground_truth": "Tendon rupture\nQT prolongation\nCNS effects"
+  },
+  {
+    "question": "What is doxycycline commonly prescribed for?",
+    "ground_truth": "Bacterial infections\nRespiratory tract infections\nBroad-spectrum antibiotic use"
+  },
+  {
+    "question": "What drug interactions are associated with rifampin?",
+    "ground_truth": "Enzyme induction\nReduced effectiveness of co-administered drugs\nMultiple clinically significant interactions"
+  },
+  {
+    "question": "What precautions should be considered when prescribing fluoroquinolones?",
+    "ground_truth": "Risk of tendon injury\nQT prolongation\nCNS and neurological effects"
+  },
+  {
+    "question": "Why is adherence important in tuberculosis treatment?",
+    "ground_truth": "Prevent resistance\nEnsure treatment success\nReduce relapse risk"
+  },
+  {
+    "question": "What risks are associated with incomplete TB treatment?",
+    "ground_truth": "Drug resistance\nTreatment failure\nDisease relapse"
+  },
+  {
+    "question": "What is the purpose of standardized TB treatment regimens?",
+    "ground_truth": "Consistent care\nImproved outcomes\nSimplified programmatic management"
+  },
+  {
+    "question": "What is the purpose of bacteriological testing in suspected TB cases?",
+    "ground_truth": "Confirm active TB disease\nDistinguish TB from other conditions"
+  },
+  {
+    "question": "Why is microbiological confirmation prioritized in TB diagnosis?",
+    "ground_truth": "Diagnostic accuracy\nTreatment justification"
+  },
+  {
+    "question": "What does a negative sputum smear imply clinically?",
+    "ground_truth": "TB not excluded\nFurther testing required"
+  },
+  {
+    "question": "How are diagnostic algorithms structured in WHO TB guidelines?",
+    "ground_truth": "Stepwise testing\nLaboratory confirmation emphasis"
+  },
+  {
+    "question": "What is the role of clinical assessment when laboratory tests are negative?",
+    "ground_truth": "Supportive diagnosis\nDecision-making in smear-negative cases"
+  },
+  {
+    "question": "Why are multiple sputum samples sometimes collected?",
+    "ground_truth": "Improve diagnostic yield\nReduce false negatives"
+  },
+  {
+    "question": "What diagnostic evidence is required before declaring active TB?",
+    "ground_truth": "Bacteriological confirmation\nClinical-radiological correlation"
+  },
+  {
+    "question": "How does diagnostic certainty affect TB treatment initiation?",
+    "ground_truth": "Avoid overtreatment\nEnsure appropriate therapy"
+  },
+  {
+    "question": "What limitations exist in TB diagnostic testing?",
+    "ground_truth": "Sensitivity constraints\nResource limitations"
+  },
+  {
+    "question": "How is diagnostic follow-up used in TB care?",
+    "ground_truth": "Confirm initial results\nMonitor progression"
+  },
+  {
+    "question": "What distinguishes diagnostic testing from monitoring tests in TB?",
+    "ground_truth": "Timing\nPurpose"
+  },
+  {
+    "question": "Why is early diagnosis critical in TB management?",
+    "ground_truth": "Reduce transmission\nImprove outcomes"
+  },
+  {
+    "question": "How are diagnostic results documented in TB programs?",
+    "ground_truth": "Standardized reporting\nProgrammatic tracking"
+  },
+  {
+    "question": "What role do symptoms play in TB diagnostic decision-making?",
+    "ground_truth": "Screening\nTrigger for testing"
+  },
+  {
+    "question": "Why is laboratory quality important for TB diagnosis?",
+    "ground_truth": "Result reliability\nProgram effectiveness"
+  },
+  {
+    "question": "How do WHO guidelines address diagnostic uncertainty?",
+    "ground_truth": "Clinical judgment\nRepeat testing"
+  },
+  {
+    "question": "What diagnostic information supports TB case classification?",
+    "ground_truth": "Test results\nClinical findings"
+  },
+  {
+    "question": "What laboratory indicators are used to assess TB treatment response?",
+    "ground_truth": "Sputum smear\nCulture results"
+  },
+  {
+    "question": "How is bacteriological response evaluated during TB treatment?",
+    "ground_truth": "Conversion to negative\nTime-based assessment"
+  },
+  {
+    "question": "Why is culture monitoring important after treatment initiation?",
+    "ground_truth": "Detect failure\nConfirm response"
+  },
+  {
+    "question": "What constitutes an unfavorable TB treatment outcome?",
+    "ground_truth": "Failure\nRelapse\nDeath"
+  },
+  {
+    "question": "How are TB treatment outcomes categorized programmatically?",
+    "ground_truth": "Cure\nCompletion\nFailure"
+  },
+  {
+    "question": "What role does follow-up testing play in TB relapse detection?",
+    "ground_truth": "Post-treatment monitoring\nBacteriological confirmation"
+  },
+  {
+    "question": "Why is relapse considered separately from treatment failure?",
+    "ground_truth": "Timing\nClinical implications"
+  },
+  {
+    "question": "How does adherence influence bacteriological outcomes?",
+    "ground_truth": "Sustained drug exposure\nResistance prevention"
+  },
+  {
+    "question": "What factors can delay sputum culture conversion?",
+    "ground_truth": "Disease severity\nAdherence issues"
+  },
+  {
+    "question": "How is TB treatment success documented in guidelines?",
+    "ground_truth": "Negative tests\nCompleted regimen"
+  },
+  {
+    "question": "What clinical signs may suggest poor TB treatment response?",
+    "ground_truth": "Persistent symptoms\nPositive tests"
+  },
+  {
+    "question": "Why is standardized outcome reporting important in TB programs?",
+    "ground_truth": "Comparability\nSurveillance"
+  },
+  {
+    "question": "How are treatment failures investigated?",
+    "ground_truth": "Repeat testing\nRegimen review"
+  },
+  {
+    "question": "What monitoring strategies reduce risk of relapse?",
+    "ground_truth": "Follow-up testing\nAdherence monitoring"
+  },
+  {
+    "question": "How do guidelines define treatment completion?",
+    "ground_truth": "Finished regimen\nNo evidence of failure"
+  },
+  {
+    "question": "What is the role of time in assessing TB treatment outcomes?",
+    "ground_truth": "Fixed evaluation points\nLongitudinal assessment"
+  },
+  {
+    "question": "Why are bacteriological endpoints preferred over symptoms alone?",
+    "ground_truth": "Objectivity\nReliability"
+  },
+  {
+    "question": "How does treatment monitoring support public health goals?",
+    "ground_truth": "Transmission control\nProgram evaluation"
+  },
+  {
+    "question": "What programmatic challenges exist in TB outcome monitoring?",
+    "ground_truth": "Loss to follow-up\nResource constraints"
+  },
+  {
+    "question": "Why is outcome classification essential for TB control programs?",
+    "ground_truth": "Policy planning\nPerformance assessment"
+  },
+  {
+    "question": "What safety concerns are associated with isoniazid therapy?",
+    "ground_truth": "Hepatotoxicity\nNeuropathy risk"
+  },
+  {
+    "question": "Why is liver monitoring recommended during TB treatment?",
+    "ground_truth": "Drug-induced injury\nEarly detection"
+  },
+  {
+    "question": "What drug interactions are commonly associated with rifampin?",
+    "ground_truth": "Enzyme induction\nReduced drug efficacy"
+  },
+  {
+    "question": "What patient populations require caution with rifampin?",
+    "ground_truth": "Liver disease\nConcomitant medications"
+  },
+  {
+    "question": "Why is ethambutol-associated optic toxicity monitored?",
+    "ground_truth": "Vision impairment\nReversibility with early detection"
+  },
+  {
+    "question": "What precautions are recommended when prescribing pyrazinamide?",
+    "ground_truth": "Hepatic effects\nUric acid elevation"
+  },
+  {
+    "question": "How are adverse drug reactions identified during TB therapy?",
+    "ground_truth": "Clinical monitoring\nPatient reporting"
+  },
+  {
+    "question": "Why are drug warnings emphasized in TB guidelines?",
+    "ground_truth": "Patient safety\nRisk mitigation"
+  },
+  {
+    "question": "How do drug labels inform TB treatment decisions?",
+    "ground_truth": "Contraindications\nAdverse effects"
+  },
+  {
+    "question": "What is the role of baseline testing before TB drug initiation?",
+    "ground_truth": "Risk assessment\nSafety monitoring"
+  },
+  {
+    "question": "How do adverse effects impact treatment adherence?",
+    "ground_truth": "Discontinuation risk\nDose adjustments"
+  },
+  {
+    "question": "Why is patient education important for TB drug safety?",
+    "ground_truth": "Early symptom recognition\nReporting adverse events"
+  },
+  {
+    "question": "What monitoring is recommended for long-term TB drug use?",
+    "ground_truth": "Periodic testing\nClinical evaluation"
+  },
+  {
+    "question": "How are serious adverse reactions managed in TB treatment?",
+    "ground_truth": "Drug interruption\nRegimen modification"
+  },
+  {
+    "question": "Why is pharmacovigilance important in TB programs?",
+    "ground_truth": "Safety surveillance\nProgram improvement"
+  },
+  {
+    "question": "What warnings are common across first-line TB drugs?",
+    "ground_truth": "Hepatic risk\nHypersensitivity"
+  },
+  {
+    "question": "How do drug labels complement clinical guidelines?",
+    "ground_truth": "Regulatory detail\nSafety specificity"
+  },
+  {
+    "question": "Why must drug contraindications be reviewed before prescribing?",
+    "ground_truth": "Prevent harm\nPatient-specific risk"
+  },
+  {
+    "question": "How does drug safety monitoring support treatment success?",
+    "ground_truth": "Sustained adherence\nReduced complications"
+  },
+  {
+    "question": "What documentation is required for TB drug adverse events?",
+    "ground_truth": "Clinical records\nProgram reporting"
+  },
+  {
+    "question": "What clinical findings suggest community-acquired pneumonia?",
+    "ground_truth": "Respiratory symptoms\nSystemic signs"
+  },
+  {
+    "question": "How is chest imaging used in pneumonia diagnosis?",
+    "ground_truth": "Confirm infection\nAssess severity"
+  },
+  {
+    "question": "What factors guide antibiotic selection in CAP?",
+    "ground_truth": "Severity\nPatient risk factors"
+  },
+  {
+    "question": "Why is empirical therapy used in CAP?",
+    "ground_truth": "Immediate treatment\nUnknown pathogen"
+  },
+  {
+    "question": "What safety concerns are associated with fluoroquinolones?",
+    "ground_truth": "Tendon injury\nCNS effects"
+  },
+  {
+    "question": "How do macrolides function in respiratory infections?",
+    "ground_truth": "Antibacterial activity\nAnti-inflammatory effects"
+  },
+  {
+    "question": "What adverse effects are monitored with azithromycin use?",
+    "ground_truth": "QT prolongation\nGI symptoms"
+  },
+  {
+    "question": "Why are antibiotic warnings important in pneumonia treatment?",
+    "ground_truth": "Prevent adverse events\nAppropriate use"
+  },
+  {
+    "question": "How do guidelines define severe CAP?",
+    "ground_truth": "Clinical criteria\nNeed for hospitalization"
+  },
+  {
+    "question": "What role does patient age play in CAP management?",
+    "ground_truth": "Risk stratification\nDrug selection"
+  },
+  {
+    "question": "How is treatment response assessed in pneumonia?",
+    "ground_truth": "Symptom improvement\nClinical stability"
+  },
+  {
+    "question": "Why is antibiotic duration important in CAP?",
+    "ground_truth": "Prevent resistance\nEnsure cure"
+  },
+  {
+    "question": "What monitoring is recommended during antibiotic therapy?",
+    "ground_truth": "Adverse effects\nClinical response"
+  },
+  {
+    "question": "How do drug labels support pneumonia treatment decisions?",
+    "ground_truth": "Dosing\nContraindications"
+  },
+  {
+    "question": "Why is guideline-based therapy recommended for CAP?",
+    "ground_truth": "Evidence-based care\nOutcome improvement"
+  },
+  {
+    "question": "How do WHO guidelines define a bacteriologically confirmed TB case?",
+    "ground_truth": "Laboratory evidence\nPositive smear, culture, or molecular test"
+  },
+  {
+    "question": "What constitutes a clinically diagnosed TB case?",
+    "ground_truth": "Clinical judgment\nLack of bacteriological confirmation"
+  },
+  {
+    "question": "Why are standardized case definitions important in TB programs?",
+    "ground_truth": "Surveillance consistency\nComparability across settings"
+  },
+  {
+    "question": "How do TB case definitions affect reporting and monitoring?",
+    "ground_truth": "Program statistics\nOutcome evaluation"
+  },
+  {
+    "question": "What information is required to classify TB cases programmatically?",
+    "ground_truth": "Diagnostic results\nClinical findings"
+  },
+  {
+    "question": "How do diagnostic criteria differ between pulmonary and extrapulmonary TB?",
+    "ground_truth": "Specimen source\nDiagnostic methods"
+  },
+  {
+    "question": "Why is bacteriological confirmation prioritized in national TB programs?",
+    "ground_truth": "Accuracy\nTreatment justification"
+  },
+  {
+    "question": "What challenges exist in applying TB case definitions in practice?",
+    "ground_truth": "Limited diagnostics\nSmear-negative cases"
+  },
+  {
+    "question": "How do guidelines address uncertainty in TB case classification?",
+    "ground_truth": "Clinical assessment\nRepeat testing"
+  },
+  {
+    "question": "What role do diagnostic algorithms play in TB case identification?",
+    "ground_truth": "Structured decision-making\nStandardization"
+  },
+  {
+    "question": "How is TB diagnosis integrated into surveillance systems?",
+    "ground_truth": "Case notification\nProgram tracking"
+  },
+  {
+    "question": "Why are suspected TB cases monitored before confirmation?",
+    "ground_truth": "Early detection\nFollow-up testing"
+  },
+  {
+    "question": "What distinguishes a presumptive TB case from a confirmed case?",
+    "ground_truth": "Level of evidence\nDiagnostic certainty"
+  },
+  {
+    "question": "How do diagnostic delays impact TB case management?",
+    "ground_truth": "Transmission risk\nDisease progression"
+  },
+  {
+    "question": "Why is early case detection emphasized in TB control?",
+    "ground_truth": "Reduce spread\nImprove outcomes"
+  },
+  {
+    "question": "How do TB programs handle smear-negative cases?",
+    "ground_truth": "Additional testing\nClinical judgment"
+  },
+  {
+    "question": "What documentation supports TB case verification?",
+    "ground_truth": "Laboratory reports\nClinical records"
+  },
+  {
+    "question": "How does diagnostic classification influence treatment decisions?",
+    "ground_truth": "Regimen choice\nMonitoring intensity"
+  },
+  {
+    "question": "What role does quality assurance play in TB diagnosis?",
+    "ground_truth": "Reliable results\nProgram integrity"
+  },
+  {
+    "question": "Why is consistency important in TB diagnostic reporting?",
+    "ground_truth": "Epidemiological accuracy\nProgram evaluation"
+  },
+  {
+    "question": "What outcomes are considered favorable in TB treatment?",
+    "ground_truth": "Cure\nTreatment completion"
+  },
+  {
+    "question": "What outcomes are classified as unfavorable in TB programs?",
+    "ground_truth": "Failure\nRelapse\nDeath"
+  },
+  {
+    "question": "How is treatment failure identified bacteriologically?",
+    "ground_truth": "Persistent positive tests\nLack of conversion"
+  },
+  {
+    "question": "Why is outcome classification essential for TB program assessment?",
+    "ground_truth": "Performance monitoring\nPolicy decisions"
+  },
+  {
+    "question": "How do guidelines define TB treatment success?",
+    "ground_truth": "Negative bacteriology\nCompleted regimen"
+  },
+  {
+    "question": "What factors contribute to poor TB treatment outcomes?",
+    "ground_truth": "Non-adherence\nDrug toxicity"
+  },
+  {
+    "question": "How is loss to follow-up handled in TB outcome reporting?",
+    "ground_truth": "Program classification\nSurveillance impact"
+  },
+  {
+    "question": "Why is relapse monitored separately from initial treatment failure?",
+    "ground_truth": "Timing\nDifferent clinical implications"
+  },
+  {
+    "question": "How do bacteriological endpoints improve outcome assessment?",
+    "ground_truth": "Objectivity\nReduced bias"
+  },
+  {
+    "question": "What is the role of follow-up after TB treatment completion?",
+    "ground_truth": "Relapse detection\nLong-term monitoring"
+  },
+  {
+    "question": "How are treatment outcomes aggregated at the program level?",
+    "ground_truth": "Cohort analysis\nReporting frames"
+  },
+  {
+    "question": "Why is standardized outcome reporting required internationally?",
+    "ground_truth": "Comparability\nGlobal monitoring"
+  },
+  {
+    "question": "How do treatment interruptions affect outcome classification?",
+    "ground_truth": "Failure risk\nReclassification"
+  },
+  {
+    "question": "What challenges exist in measuring TB treatment outcomes?",
+    "ground_truth": "Incomplete data\nResource constraints"
+  },
+  {
+    "question": "How do clinical and bacteriological outcomes complement each other?",
+    "ground_truth": "Symptom resolution\nLaboratory confirmation"
+  },
+  {
+    "question": "Why is bacteriological monitoring preferred over symptoms alone?",
+    "ground_truth": "Reliability\nSpecificity"
+  },
+  {
+    "question": "How do outcome metrics inform TB policy decisions?",
+    "ground_truth": "Program improvement\nResource allocation"
+  },
+  {
+    "question": "What role does patient follow-up play in outcome accuracy?",
+    "ground_truth": "Data completeness\nRelapse detection"
+  },
+  {
+    "question": "How are adverse events incorporated into outcome evaluation?",
+    "ground_truth": "Treatment modification\nProgram reporting"
+  },
+  {
+    "question": "Why is outcome evaluation central to TB control strategies?",
+    "ground_truth": "Effectiveness assessment\nPublic health impact"
+  },
+  {
+    "question": "Why is hepatotoxicity a major concern in TB treatment?",
+    "ground_truth": "First-line drug effects\nLiver injury risk"
+  },
+  {
+    "question": "How are liver function tests used during TB therapy?",
+    "ground_truth": "Baseline assessment\nOngoing monitoring"
+  },
+  {
+    "question": "What contraindications are associated with isoniazid use?",
+    "ground_truth": "Liver disease\nHypersensitivity"
+  },
+  {
+    "question": "Why does rifampin require careful review of concomitant medications?",
+    "ground_truth": "Enzyme induction\nDrug interactions"
+  },
+  {
+    "question": "How is ethambutol-associated optic toxicity detected?",
+    "ground_truth": "Vision testing\nEarly symptom reporting"
+  },
+  {
+    "question": "What patient factors increase risk of TB drug toxicity?",
+    "ground_truth": "Age\nComorbidities"
+  },
+  {
+    "question": "How are adverse drug reactions managed during TB treatment?",
+    "ground_truth": "Drug interruption\nRegimen adjustment"
+  },
+  {
+    "question": "Why are warnings emphasized in TB drug labels?",
+    "ground_truth": "Risk communication\nPatient safety"
+  },
+  {
+    "question": "What role do drug labels play alongside clinical guidelines?",
+    "ground_truth": "Regulatory details\nSafety specifics"
+  },
+  {
+    "question": "How does toxicity monitoring support treatment adherence?",
+    "ground_truth": "Early intervention\nReduced discontinuation"
+  },
+  {
+    "question": "What documentation is required for serious TB drug adverse events?",
+    "ground_truth": "Clinical records\nProgram notification"
+  },
+  {
+    "question": "How do safety considerations influence regimen selection?",
+    "ground_truth": "Risk-benefit balance\nPatient-specific factors"
+  },
+  {
+    "question": "Why is patient education critical for TB drug safety?",
+    "ground_truth": "Symptom awareness\nTimely reporting"
+  },
+  {
+    "question": "How do guidelines address management of drug-induced liver injury?",
+    "ground_truth": "Treatment interruption\nRechallenge decisions"
+  },
+  {
+    "question": "What monitoring strategies reduce severe adverse events?",
+    "ground_truth": "Regular assessment\nEarly detection"
+  },
+  {
+    "question": "Why is pharmacovigilance important in TB programs?",
+    "ground_truth": "Safety surveillance\nProgram improvement"
+  },
+  {
+    "question": "How do adverse effects affect TB treatment outcomes?",
+    "ground_truth": "Adherence issues\nRegimen changes"
+  },
+  {
+    "question": "What role does baseline screening play before TB treatment?",
+    "ground_truth": "Risk identification\nSafety planning"
+  },
+  {
+    "question": "How are contraindications incorporated into prescribing decisions?",
+    "ground_truth": "Patient evaluation\nLabel guidance"
+  },
+  {
+    "question": "Why must TB drug safety be monitored throughout treatment?",
+    "ground_truth": "Cumulative toxicity\nSustained adherence"
+  },
+  {
+    "question": "How is community-acquired pneumonia clinically distinguished from TB?",
+    "ground_truth": "Acute presentation\nDifferent diagnostic focus"
+  },
+  {
+    "question": "What diagnostic tools are recommended for suspected CAP?",
+    "ground_truth": "Chest imaging\nClinical evaluation"
+  },
+  {
+    "question": "Why is early antibiotic treatment important in CAP?",
+    "ground_truth": "Reduce mortality\nPrevent complications"
+  },
+  {
+    "question": "How do severity assessments guide CAP management?",
+    "ground_truth": "Hospitalization decisions\nTreatment intensity"
+  },
+  {
+    "question": "What factors influence empirical antibiotic choice in CAP?",
+    "ground_truth": "Severity\nComorbidities"
+  },
+  {
+    "question": "Why are fluoroquinolone warnings emphasized in pneumonia treatment?",
+    "ground_truth": "Serious adverse effects\nRisk-benefit consideration"
+  },
+  {
+    "question": "What adverse reactions are associated with macrolide antibiotics?",
+    "ground_truth": "QT prolongation\nGastrointestinal effects"
+  },
+  {
+    "question": "How do drug labels guide safe antibiotic prescribing?",
+    "ground_truth": "Contraindications\nDosing information"
+  },
+  {
+    "question": "Why is antibiotic duration specified in CAP guidelines?",
+    "ground_truth": "Prevent resistance\nEnsure efficacy"
+  },
+  {
+    "question": "How is clinical stability assessed in pneumonia treatment?",
+    "ground_truth": "Symptom improvement\nVital signs"
+  },
+  {
+    "question": "What monitoring is recommended during CAP antibiotic therapy?",
+    "ground_truth": "Adverse effects\nTreatment response"
+  },
+  {
+    "question": "How do patient characteristics affect CAP treatment decisions?",
+    "ground_truth": "Age\nUnderlying conditions"
+  },
+  {
+    "question": "Why is guideline adherence important in pneumonia care?",
+    "ground_truth": "Evidence-based outcomes\nReduced variability"
+  },
+  {
+    "question": "How do antibiotic side effects influence treatment modification?",
+    "ground_truth": "Dose adjustment\nDrug substitution"
+  },
+  {
+    "question": "What role does follow-up play after CAP treatment?",
+    "ground_truth": "Recovery assessment\nComplication detection"
+  },
+  {
+    "question": "How do drug interactions affect pneumonia antibiotic choice?",
+    "ground_truth": "Safety concerns\nEfficacy"
+  },
+  {
+    "question": "Why are warnings included in antibiotic drug labels?",
+    "ground_truth": "Risk awareness\nSafe use"
+  },
+  {
+    "question": "How do guidelines define treatment success in CAP?",
+    "ground_truth": "Clinical improvement\nResolution of infection"
+  },
+  {
+    "question": "What challenges exist in CAP diagnosis?",
+    "ground_truth": "Symptom overlap\nDiagnostic uncertainty"
+  },
+  {
+    "question": "How is antibiotic resistance considered in CAP management?",
+    "ground_truth": "Empirical choice\nStewardship"
+  },
+  {
+    "question": "What role does patient education play in CAP treatment?",
+    "ground_truth": "Adherence\nSymptom monitoring"
+  },
+  {
+    "question": "Why is adverse event reporting important in antibiotic use?",
+    "ground_truth": "Safety surveillance\nRegulatory oversight"
+  },
+  {
+    "question": "How do guidelines balance efficacy and safety in CAP therapy?",
+    "ground_truth": "Drug selection\nRisk mitigation"
+  },
+  {
+    "question": "What monitoring strategies reduce antibiotic-related harm?",
+    "ground_truth": "Clinical assessment\nLaboratory tests"
+  },
+  {
+    "question": "How do antibiotic contraindications affect prescribing decisions?",
+    "ground_truth": "Patient evaluation\nLabel guidance"
+  },
+  {
+    "question": "Why is empirical therapy adjusted once diagnosis is clarified?",
+    "ground_truth": "Targeted treatment\nReduced toxicity"
+  },
+  {
+    "question": "How do drug labels support antibiotic stewardship?",
+    "ground_truth": "Appropriate use\nRisk awareness"
+  },
+  {
+    "question": "What role does severity scoring play in CAP treatment planning?",
+    "ground_truth": "Care level decisions\nAntibiotic choice"
+  },
+  {
+    "question": "How is pneumonia treatment failure identified?",
+    "ground_truth": "Lack of improvement\nWorsening symptoms"
+  },
+  {
+    "question": "Why is follow-up imaging sometimes recommended in CAP?",
+    "ground_truth": "Confirm resolution\nExclude complications"
+  },
+  {
+    "question": "How do comorbidities affect pneumonia outcomes?",
+    "ground_truth": "Increased risk\nTreatment complexity"
+  },
+  {
+    "question": "What safety concerns exist with prolonged antibiotic use?",
+    "ground_truth": "Toxicity\nResistance"
+  },
+  {
+    "question": "How do guidelines address treatment escalation in severe CAP?",
+    "ground_truth": "Broader coverage\nIntensive care"
+  },
+  {
+    "question": "Why is early recognition of adverse effects critical in CAP therapy?",
+    "ground_truth": "Prevent serious harm\nMaintain adherence"
+  },
+  {
+    "question": "How do antibiotic warnings inform shared decision-making?",
+    "ground_truth": "Patient awareness\nRisk discussion"
+  },
+  {
+    "question": "What documentation supports CAP treatment evaluation?",
+    "ground_truth": "Clinical notes\nTreatment records"
+  },
+  {
+    "question": "How is treatment duration evaluated in pneumonia management?",
+    "ground_truth": "Clinical response\nGuideline recommendations"
+  },
+  {
+    "question": "Why is antibiotic stewardship emphasized in respiratory infections?",
+    "ground_truth": "Resistance prevention\nOptimal care"
+  },
+  {
+    "question": "How do guidelines integrate safety monitoring into CAP care?",
+    "ground_truth": "Ongoing assessment\nRisk management"
+  },
+  {
+    "question": "Why is evidence-based guidance essential for pneumonia treatment?",
+    "ground_truth": "Improved outcomes\nStandardized care"
+  }
+]
