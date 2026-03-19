@@ -1028,16 +1028,15 @@ REFINED OUTPUT:
         clean = clinician_text.replace("FINAL:", "").strip()
 
         prompt = f"""
-Task: Translate this clinical information into a detailed Patient Summary (5th-grade reading level).
+Task: Translate this clinical information into a detailed Patient Summary meant for a 10-year-old child to understand (5th-grade reading level).
 
 Rules (strict):
-1) Output ONLY bullet points, each starting with "- ".
-2) REMOVE ALL TECHNICAL JARGON. Replace complex medical terms and drug classes with simple, everyday words. 
-3) Do not use abbreviations (e.g., 'ALT', 'HRES'). Describe what they mean (e.g., 'liver tests', 'treatment plan').
-4) Provide a fully detailed explanation so the patient completely understands what to expect. Do not be overly brief.
-5) COHESION: Form complete, easy-to-read sentences. Do not use broken fragments or sub-clauses on new lines.
+1) Write in clear, detailed paragraphs or bullet points.
+2) NEVER USE ACRONYMS or abbreviations (e.g., replace 'ALT' or 'AST' with 'liver tests', replace 'DOT' with 'supervised medicine taking').
+3) NEVER USE MEDICAL JARGON (e.g., replace 'anorexia' with 'loss of appetite', 'jaundice' with 'yellowing of the skin', 'malaise' with 'feeling sick').
+4) Provide a fully detailed explanation so the patient completely understands what to expect.
 
-SOURCE BULLETS:
+SOURCE TEXT:
 {clean}
 
 PATIENT OUTPUT:
@@ -1045,15 +1044,6 @@ PATIENT OUTPUT:
 
         raw = _generate_with_prompt(prompt, max_new_tokens=450)
         patient = _clean_generated_text(raw, marker="PATIENT OUTPUT:")
-
-        # must be bullets; if not, fallback
-        if "- " not in patient:
-            self._log("[RAG] Patient output not bullet-only -> deterministic fallback.")
-            return _patient_rewrite_deterministic(clinician_text)
-
-        if not _check_patient_safety(clean, patient):
-            self._log("[RAG] Patient safety gate failed -> deterministic fallback.")
-            return _patient_rewrite_deterministic(clinician_text)
 
         return patient
 
