@@ -828,6 +828,10 @@ class RAGPipeline:
             return self._build_abstain_result(query, decision)
 
         evidence_text = "\n\n".join([f"[{i+1}] {c['text']}" for i, c in enumerate(final_chunks)])
+        # Clean broken PDF wrap lines globally
+        evidence_text = re.sub(r'(?<!\n)\n(?!\n)', ' ', evidence_text)
+        evidence_text = re.sub(r'\s+\.', '.', evidence_text)
+        
         citations = _collect_citations(final_chunks)
         primary_kb = final_chunks[0]["store"]
 
