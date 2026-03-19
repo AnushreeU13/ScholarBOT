@@ -29,14 +29,33 @@ Ensure you have your OpenAI API key set in your environment variables, as this p
 export OPENAI_API_KEY="your-api-key-here"
 ```
 
-### 2. Launch the Application
+### 2. Live Demo Link (Temporary API Endpoint)
+If you want to test the product live without installing it locally, use the temporary testing URL (via Serveo tunnel):
+*   **🔗 Public Test Link**: [https://fcc946645d53611c-76-191-28-39.serveousercontent.com](https://fcc946645d53611c-76-191-28-39.serveousercontent.com)
+*(Note: As this is a live tunnel from a local machine, the link will expire when the session is closed).*
+
+### 3. Launch the Web Application
 Navigate to the project directory and run the start script. This will orchestrate the Streamlit server and automatically open your default browser.
 ```bash
 python start_app.py
 ```
 *The app connects to `http://localhost:8501`.*
 
-### 3. Usage Flow
+### 4. Exposing via REST API
+For developer integration, ScholarBOT includes a fully headless REST API layer via FastAPI (`api.py`).
+1. Install FastAPI and Uvicorn: `pip install fastapi uvicorn pydantic`
+2. Start the API server:
+```bash
+uvicorn api:app --host 0.0.0.0 --port 8000
+```
+3. Test the endpoint:
+```bash
+curl -X POST "http://localhost:8000/api/query" \
+     -H "Content-Type: application/json" \
+     -d '{"query": "What are the adverse hepatic reactions for Isoniazid?", "user_uploaded_available": false}'
+```
+
+### 5. Usage Flow
 1. **Scope Selection**: Use the left sidebar to select your search scope (e.g., *Main KB Only*, *User Document Only*).
 2. **Document Upload**: You can drag-and-drop clinical PDFs (like patient records or unique guidelines) directly into the UI.
 3. **Query**: Ask your specific clinical question in the chat box (e.g., *"What are the hepatic adverse reactions for Isoniazid?"*).
