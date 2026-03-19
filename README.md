@@ -31,8 +31,7 @@ export OPENAI_API_KEY="your-api-key-here"
 
 ### 2. Live Demo Link (Temporary API Endpoint)
 If you want to test the product live without installing it locally, use the temporary testing URL (via Serveo tunnel):
-*   **🔗 Public Test Link**: [https://fcc946645d53611c-76-191-28-39.serveousercontent.com](https://fcc946645d53611c-76-191-28-39.serveousercontent.com)
-*(Note: As this is a live tunnel from a local machine, the link will expire when the session is closed).*
+*   **🔗 Public Test Link**: 
 
 ### 3. Launch the Web Application
 Navigate to the project directory and run the start script. This will orchestrate the Streamlit server and automatically open your default browser.
