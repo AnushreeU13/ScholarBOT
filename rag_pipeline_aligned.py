@@ -865,7 +865,7 @@ class RAGPipeline:
                 clinician_answer = self._generate_clinician_answer(query, evidence_text, intent="guideline")
                 mode = "guideline_synthesis"
             else:
-                clinician_answer = "FINAL:\n" + evidence_text[:700] + "..."
+                clinician_answer = "FINAL:\n" + evidence_text[:1400] + "..."
                 mode = "legacy_extract"
 
         if "ABSTAIN" in clinician_answer:
@@ -1028,15 +1028,14 @@ REFINED OUTPUT:
         clean = clinician_text.replace("FINAL:", "").strip()
 
         prompt = f"""
-Task: Rewrite for a patient (6th-grade reading level).
+Task: Translate this clinical information into a detailed Patient Summary (5th-grade reading level).
 
 Rules (strict):
 1) Output ONLY bullet points, each starting with "- ".
-2) Do NOT add background explanations or definitions (no "X is a ...").
-3) Do NOT introduce new drugs, diseases, tests, or examples.
-4) Do NOT write a patient story (do NOT say "the patient has...").
+2) REMOVE ALL TECHNICAL JARGON. Replace complex medical terms and drug classes with simple, everyday words. 
+3) Do not use abbreviations (e.g., 'ALT', 'HRES'). Describe what they mean (e.g., 'liver tests', 'treatment plan').
+4) Provide a fully detailed explanation so the patient completely understands what to expect. Do not be overly brief.
 5) COHESION: Form complete, easy-to-read sentences. Do not use broken fragments or sub-clauses on new lines.
-6) Keep meaning same as source; shorter is better.
 
 SOURCE BULLETS:
 {clean}
@@ -1044,7 +1043,7 @@ SOURCE BULLETS:
 PATIENT OUTPUT:
 """.strip()
 
-        raw = _generate_with_prompt(prompt, max_new_tokens=200)
+        raw = _generate_with_prompt(prompt, max_new_tokens=450)
         patient = _clean_generated_text(raw, marker="PATIENT OUTPUT:")
 
         # must be bullets; if not, fallback
