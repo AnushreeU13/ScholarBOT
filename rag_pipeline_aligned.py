@@ -934,10 +934,9 @@ Rules:
 1) ANSWER FIRST: Start with a direct answer to the question using bullet points.
 2) BOILERPLATE: Minimal boilerplate (e.g., "Based on the evidence...") is allowed if it makes reading easier.
 3) BULLET FORMAT: Each bullet must start with "- ".
-4) GROUNDING: Only include information that is explicitly stated in the EVIDENCE.
+4) EVIDENCE PRIORITIZATION: Prioritize the provided EVIDENCE to build your answer. You may use standard clinical knowledge to define fundamental concepts if they are missing from the evidence, but NEVER contradict the evidence.
 5) COMPLETE SENTENCES: Write in complete, cohesive, and grammatical English sentences.
 6) COHESIVE STRUCTURE: Avoid line-breaks or fragments mid-sentence. Each point must be meaningful on its own.
-7) ABSTAIN: If the evidence does not contain the answer, output ONLY the word ABSTAIN.
 
 {negative}
 
@@ -1011,9 +1010,9 @@ EVIDENCE:
 INSTRUCTION:
 1. Examine each bullet point in the DRAFT ANSWER.
 2. Cross-reference it with the EVIDENCE.
-3. If a claim is not 100% supported by the EVIDENCE, DELETE IT.
+3. Eliminate or correct any claim that explicitly CONTRADICTS the EVIDENCE. General foundational definitions (like what a disease is) are allowed to remain even if not explicitly supported, so long as they aren't contradicted.
 4. Output only the surviving bullet points. 
-5. If no bullet points are 100% supported, output ABSTAIN.
+5. If the draft answer has been entirely rejected, output ABSTAIN.
 
 REFINED OUTPUT:
 """
