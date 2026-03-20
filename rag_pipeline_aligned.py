@@ -263,23 +263,24 @@ def _clean_pdf_text(s: str) -> str:
     t = re.sub(r"\s+", " ", t).strip()
     return t
 
-def _stable_citation(meta: Dict[str, Any]) -> str:
-    if not meta: return "Unknown source"
+def _stable_citation(meta: Dict[str, Any], store_name: str = "") -> str:
+    from config import KB_USER_FACT
+    kb_str = "[User KB]" if store_name == KB_USER_FACT else "[Existing KB]"
+    
+    if not meta: return f"{kb_str} Unknown source"
+    
     if meta.get("source") == "DailyMed" or meta.get("doc_type") == "druglabel_spl":
         title = meta.get("title") or meta.get("source_title") or "DrugLabel"
-        section = meta.get("section_title") or meta.get("section_group") or "Section"
-        date = meta.get("source_date") or meta.get("upload_date") or "n/a"
-        return f"DailyMed | {title} | {section} | {date}"
-    doc = meta.get("document") or meta.get("title") or "Guideline"
-    sec = meta.get("section") or meta.get("section_title") or ""
-    year = meta.get("year") or "n/a"
-    return f"{doc} | {sec} | {year}"
+        return f"{kb_str} {title}"
+        
+    doc = meta.get("document_name") or meta.get("document") or meta.get("title") or "Guideline"
+    return f"{kb_str} {doc}"
 
 def _collect_citations(chunks: List[Dict], max_items: int = 5) -> List[str]:
     seen = set()
     out = []
     for c in chunks:
-        cit = _stable_citation(c.get("metadata", {}))
+        cit = _stable_citation(c.get("metadata", {}), c.get("store", ""))
         if cit not in seen:
             seen.add(cit)
             out.append(cit)
@@ -845,8 +846,9 @@ class RAGPipeline:
                         hits = store.similarity_search_with_score_by_vector(base_vec, k=2)
                         for doc, score in hits:
                             nm = doc.metadata.get("document_name") or doc.metadata.get("source") or test_kb
-                            pg = doc.metadata.get("page_number", "?")
-                            citations.append(f"[Standard KB Evidence] {nm} (p.{pg}) - \"{doc.page_content[:150]}...\"")
+                            new_cit = f"[Existing KB] {nm}"
+                            if new_cit not in citations:
+                                citations.append(new_cit)
             except Exception as e:
                 self._log(f"[v9] Failed to pull supplementary citations: {e}")
 
@@ -898,7 +900,7 @@ class RAGPipeline:
         for c in final_chunks:
             evidence_chunks.append({
                 "text": (c.get("text") or "")[:1600],   # chunk text (truncate for UI)
-                "citation": _stable_citation(c.get("metadata", {})),
+                "citation": _stable_citation(c.get("metadata", {}), c.get("store", "")),
                 "store": c.get("store"),
             })
 
