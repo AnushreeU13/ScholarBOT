@@ -87,9 +87,7 @@ USE_CLINICIAN_LLM = True
 LOCAL_QA_PROMPT = """You are a meticulous clinical assistant.
 Your answers must be in fluent, complete English sentences.
 Do not use fragmented phrases or lists without context.
-Use ONLY the provided evidence.
-If you cannot answer confidently, say ABSTAIN.
-"""
+Prioritize the provided evidence, but you may supplement it with standard clinical knowledge to define fundamental concepts if they are missing."""
 
 # =============================
 # Local LLM (only used if USE_CLINICIAN_LLM == True)
