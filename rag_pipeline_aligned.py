@@ -835,6 +835,21 @@ class RAGPipeline:
         citations = _collect_citations(final_chunks)
         primary_kb = final_chunks[0]["store"]
 
+        if KB_USER_FACT in decision.target_kbs and getattr(self, "user_kb", None) is not None:
+            self._log("[v9] Adding supplementary citations from Standard KB to User Context...")
+            try:
+                base_vec = self.query_embedder.embed_query(query)
+                for test_kb in [KB_GUIDELINES, KB_DRUGLABELS]:
+                    store = self._get_store_by_name(test_kb)
+                    if store:
+                        hits = store.similarity_search_with_score_by_vector(base_vec, k=2)
+                        for doc, score in hits:
+                            nm = doc.metadata.get("document_name") or doc.metadata.get("source") or test_kb
+                            pg = doc.metadata.get("page_number", "?")
+                            citations.append(f"[Standard KB Evidence] {nm} (p.{pg}) - \"{doc.page_content[:150]}...\"")
+            except Exception as e:
+                self._log(f"[v9] Failed to pull supplementary citations: {e}")
+
         clinician_answer = "ABSTAIN"
         mode = "unknown"
 
