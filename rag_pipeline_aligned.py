@@ -932,7 +932,7 @@ Task: Answer the QUESTION using the EVIDENCE provided.
 
 Rules:
 1) ANSWER FIRST: Start with a direct answer to the question using bullet points.
-2) NO BOILERPLATE: Do not say "Based on the evidence..." or "According to the guidelines...".
+2) BOILERPLATE: Minimal boilerplate (e.g., "Based on the evidence...") is allowed if it makes reading easier.
 3) BULLET FORMAT: Each bullet must start with "- ".
 4) GROUNDING: Only include information that is explicitly stated in the EVIDENCE.
 5) COMPLETE SENTENCES: Write in complete, cohesive, and grammatical English sentences.
@@ -1028,13 +1028,12 @@ REFINED OUTPUT:
         clean = clinician_text.replace("FINAL:", "").strip()
 
         prompt = f"""
-Task: Translate this clinical information into a detailed Patient Summary meant for a 10-year-old child to understand (5th-grade reading level).
+Task: Translate this clinical information into a detailed Patient Summary meant for a 20-year-old to understand.
 
 Rules (strict):
 1) Write in clear, detailed paragraphs or bullet points.
-2) NEVER USE ACRONYMS or abbreviations (e.g., replace 'ALT' or 'AST' with 'liver tests', replace 'DOT' with 'supervised medicine taking').
-3) NEVER USE MEDICAL JARGON (e.g., replace 'anorexia' with 'loss of appetite', 'jaundice' with 'yellowing of the skin', 'malaise' with 'feeling sick').
-4) Provide a fully detailed explanation so the patient completely understands what to expect.
+2) JARGON: Use medical jargon minimally—only enough to convey meaning without forcing the patient to Google terms. If you use a complex medical term, provide a brief, simple explanation inline.
+3) EXPLANATIONS: Provide a fully detailed explanation so the patient completely understands what to expect.
 
 SOURCE TEXT:
 {clean}
