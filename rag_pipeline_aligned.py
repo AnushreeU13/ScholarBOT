@@ -954,7 +954,9 @@ CLINICIAN OUTPUT:
         raw = _generate_with_prompt(prompt, max_new_tokens=240)
 
         # NEW: fail fast if generator returned an error sentinel
-        if raw.startswith("OPENAI_") or raw in ["OPENAI_API_KEY_MISSING", "OPENAI_EMPTY_OUTPUT"]:
+        if raw == "OPENAI_API_KEY_MISSING":
+            return "OPENAI_API_KEY_MISSING"
+        if raw.startswith("OPENAI_") or raw in ["OPENAI_EMPTY_OUTPUT"]:
             return "ABSTAIN"
 
         clean = _clean_generated_text(raw, marker="CLINICIAN OUTPUT:")

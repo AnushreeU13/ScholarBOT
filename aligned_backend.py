@@ -367,7 +367,11 @@ class AlignedScholarBotEngine:
 
         # Main product-friendly response (paragraphs)
         parts: List[str] = []
-        if status == "abstain" or clinician_bullets.strip().upper() == "ABSTAIN":
+        
+        if clinician_bullets == "OPENAI_API_KEY_MISSING":
+            parts.append("🚨 **SYSTEM ERROR: OpenAI API Key Not Found or Invalid.** Please provide a valid OPENAI_API_KEY in your `.env` or set it locally before launching the application.")
+            status = "error"
+        elif status == "abstain" or clinician_bullets.strip().upper() == "ABSTAIN":
             parts.append("**Final Answer:** No confidence in answering based on the available evidence.")
         else:
             parts.append("### Clinician Summary\n" + (clinician_paragraph or clinician_bullets.replace("FINAL:", "").strip()))
