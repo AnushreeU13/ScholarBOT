@@ -1,21 +1,34 @@
-# ScholarBOT: A Fail-Closed Clinical RAG System
+# ScholarBOT: A Novel Fail-Closed Clinical RAG System
 
-ScholarBOT is an advanced **Retrieval-Augmented Generation (RAG)** system built specifically for high-stakes medical and clinical environments. It is engineered with a "Fail-Closed" philosophy: the system prioritizes factual precision and safety over simple answer generation. If the system cannot find explicit, grounded evidence to answer a clinical question, it will safely "Abstain" rather than risk hallucination.
+ScholarBOT is an advanced **Retrieval-Augmented Generation (RAG)** system originally built for high-stakes medical and clinical environments. It is specifically tuned for Tuberculosis and Pneumonia treatment guidelines, as well as pharmaceutical drug labels.
 
-The system is particularly tuned for domains such as Tuberculosis and Pneumonia treatment guidelines, as well as pharmaceutical drug labels.
+Unlike standard conversational AI, ScholarBOT is engineered with a strict **"Fail-Closed" philosophy**: the system prioritizes factual precision, verifiability, and safety over simple answer generation. If the system cannot find explicit, grounded evidence to answer a clinical question, it will safely "Abstain" rather than risk hallucinating a dangerous medical response.
 
 ---
 
-## 🌟 Key Features
+## 🌟 The Novelty: What makes ScholarBOT Special?
 
-*   **Fail-Closed Architecture**: Utilizes strict similarity and entailment gates. If retrieved context confidence falls below a set threshold (e.g., 0.35) or generated claims lack 100% evidence support, ScholarBOT triggers a safe exit (Abstain).
-*   **Hybrid Search Engine**: Combines Dense (Semantic vector embeddings via `all-MiniLM-L6-v2`) and Sparse (BM25 Keyword matching) retrieval to perform deep, highly accurate document searches.
-*   **Dual-Audience Summaries**: Automatically generates two versions of its findings:
-    *   **Clinician Summary**: A precise, grounded abstract with bullet points for medical professionals.
-    *   **Patient Summary**: A translated, cohesive summary written at a 6th-grade reading level.
-*   **Strict Context Locking**: When a user uploads a private clinical document, the system automatically "mutes" the broader medical knowledge bases, ensuring answers are derived *exclusively* from the user's uploaded context.
-*   **Self-Critique Verification Loop**: Includes a built-in algorithmic "peer-review". After an initial answer is drafted, the system critiques its own work against the source evidence and prunes any ungrounded claims before output.
-*   **Source Citations & Observability**: Every generated claim is mapped back to the specific retrieved chunk and source document.
+ScholarBOT introduces several specialized, novel mechanisms that distinguish it from standard document-Q&A bots:
+
+### 1. The "Fail-Closed" Architecture
+Most LLMs are programmed to be "helpful," often leading to confident hallucinations when data is missing. ScholarBOT reverses this. It utilizes strict similarity thresholds and entailment gates. If the retrieved context confidence falls too low, or if the generated claims lack 100% evidence support during self-check, ScholarBOT actively terminates the response and returns **Abstain**.
+
+### 2. Dual-Audience Output Pipelines
+Translating complex clinical guidelines for patient consumption is notoriously difficult. ScholarBOT automatically generates two distinct, perfectly cohesive versions of every grounded answer:
+*   **Clinician Summary**: A precise, grounded abstract for medical professionals containing minimal boilerplate and direct clinical evidence.
+*   **Patient Summary**: A fully translated, jargon-free paragraph specifically calibrated for a 20-year-old reading level. It uses active Prompt-Engineering constraints to **ban all medical acronyms (e.g., ALT, AST, DOT)** and forces the LLM to define complex diseases in plain English seamlessly.
+
+### 3. Self-Critique Verification Loop
+ScholarBOT includes a built-in algorithmic "peer-review". After an initial Clinician Summary is drafted by the LLM, the system essentially critiques its own work against the source evidence. It strictly prunes any ungrounded claims or hallucinated assumptions *before* outputting the text to the user.
+
+### 4. Strict Context Locking for Private Uploads
+When a user uploads a private clinical document (e.g., a patient record or custom protocol), the system automatically "mutes" the broader medical knowledge bases. It forces the RAG pipeline to route its search exclusively to an isolated, ephemeral Vector Store, ensuring zero data contamination.
+
+### 5. Algorithmic Fixes for PDF OCR Artifacts
+Medical PDFs are often notoriously poorly formatted. ScholarBOT employs novel, active regex-cleaning algorithms within its RAG pipeline to stitch together broken text wrapping and carriage returns. This completely eliminates UI fragmentation and delivers professionally cohesive paragraphs.
+
+### 6. Hybrid Search Engine
+Combines **Dense Semantic Search** (via vector embeddings using `all-MiniLM-L6-v2`) and **Sparse Keyword Search** (BM25 matching) to perform deep, highly accurate document retrieval that catches both conceptual meaning and exact drug names.
 
 ---
 
@@ -29,18 +42,14 @@ Ensure you have your OpenAI API key set in your environment variables, as this p
 export OPENAI_API_KEY="your-api-key-here"
 ```
 
-### 2. Live Demo Link (Temporary API Endpoint)
-If you want to test the product live without installing it locally, use the temporary testing URL (via Serveo tunnel):
-*   **🔗 Public Test Link**: 
-
-### 3. Launch the Web Application
+### 2. Launch the Web Application
 Navigate to the project directory and run the start script. This will orchestrate the Streamlit server and automatically open your default browser.
 ```bash
 python start_app.py
 ```
 *The app connects to `http://localhost:8501`.*
 
-### 4. Exposing via REST API
+### 3. Exposing via REST API
 For developer integration, ScholarBOT includes a fully headless REST API layer via FastAPI (`api.py`).
 1. Install FastAPI and Uvicorn: `pip install fastapi uvicorn pydantic`
 2. Start the API server:
@@ -54,12 +63,6 @@ curl -X POST "http://localhost:8000/api/query" \
      -d '{"query": "What are the adverse hepatic reactions for Isoniazid?", "user_uploaded_available": false}'
 ```
 
-### 5. Usage Flow
-1. **Scope Selection**: Use the left sidebar to select your search scope (e.g., *Main KB Only*, *User Document Only*).
-2. **Document Upload**: You can drag-and-drop clinical PDFs (like patient records or unique guidelines) directly into the UI.
-3. **Query**: Ask your specific clinical question in the chat box (e.g., *"What are the hepatic adverse reactions for Isoniazid?"*).
-4. **Review**: The system will display the Clinician Summary, Patient Summary, and the exact Evidence Context it retrieved.
-
 ---
 
 ## 📂 System Architecture Breakdown
@@ -69,12 +72,12 @@ curl -X POST "http://localhost:8000/api/query" \
 *   **`app.py`**: The Streamlit frontend housing the UI, chat interface, and upload handlers.
 
 ### 🧠 Core RAG Engine
-*   **`rag_pipeline_aligned.py`**: The "Brain" of ScholarBOT. This file orchestrates the Hybrid Search, Reranking, Self-Critique loops, and prompt execution.
+*   **`rag_pipeline_aligned.py`**: The "Brain" of ScholarBOT. This file orchestrates the Hybrid Search, Reranking, OCR text-stitching, Self-Critique loops, and patient translation execution.
 *   **`router.py`**: A specialized intent classifier that routes queries optimally between general guidelines, drug-label data, and user uploads.
 *   **`aligned_backend.py`**: The API service layer connecting the Streamlit frontend to the complex RAG operations.
 
 ### ⚙️ Utilities & Configuration
-*   **`config.py`**: The central control file for thresholds, feature toggles (like Strict Mode or Zero Hallucination Mode), and file paths.
+*   **`config.py`**: The central control file for thresholds, feature toggles, and file paths.
 *   **`embedding_utils.py` & `chunking_utils.py`**: Tools for processing raw text into embeddable chunks.
 *   **`user_ingest_aligned.py`**: The script responsible for rapidly ingesting, chunking, and indexing user-uploaded PDFs into temporary, isolated Vector Stores.
 
@@ -88,10 +91,3 @@ ScholarBOT is rigorously evaluated using standard LLM metrics (RAGAS framework) 
 *   **Faithfulness Score (Grounding)**: ~0.86+ (indicating extremely low hallucination rates).
 *   **Answer Relevancy**: ~0.75+ (indicating direct, helpful responses).
 *   *Note: Detailed comprehensive evaluations can be generated by running `python ragas_eval_v9.py` against the test set.*
-
----
-
-## 🏛️ Project Design Principles
-1.  **Grounding over Creativity**: In medical settings, an incorrect answer is dangerous. "I don't know" (Abstain) is the preferred safe state.
-2.  **Transparent Verifiability**: Users must be able to click through to the source chunk that generated the claim.
-3.  **Readability**: Outputs must avoid fragmented, broken text, ensuring cohesive sentences for both clinicians and patients.
