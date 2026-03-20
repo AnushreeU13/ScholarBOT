@@ -78,10 +78,10 @@ KB_SIM_THRESHOLD = {
 # =============================
 # True  => extractive-only (no clinician LLM generation), more ABSTAIN, safest.
 # False => allow clinician LLM (still evidence-gated), more helpful but higher risk.
-ZERO_HALLUCINATION_MODE = os.getenv("SCHOLARBOT_ZERO_HALLUCINATION", "1") == "1"
+ZERO_HALLUCINATION_MODE = os.getenv("SCHOLARBOT_ZERO_HALLUCINATION", "0") == "1"
 
 # If you want finer control:
-USE_CLINICIAN_LLM = (not ZERO_HALLUCINATION_MODE) and (os.getenv("SCHOLARBOT_USE_CLINICIAN_LLM", "0") == "1")
+USE_CLINICIAN_LLM = True
 
 # NEW: Strict system prompt for better grammar
 LOCAL_QA_PROMPT = """You are a meticulous clinical assistant.
