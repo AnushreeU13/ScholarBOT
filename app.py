@@ -64,6 +64,7 @@ with st.sidebar:
                         st.error("⚠️ Zero chunks extracted! Is this a scanned PDF (image-only)? Try a text-based PDF.")
 
                     st.session_state.uploaded_file_name = uploaded_file.name
+                    st.session_state.needs_reload = True
                 except Exception as e:
                     import traceback
                     st.error(f"Ingestion failed: {e}")
@@ -98,6 +99,9 @@ def load_engine():
 
 try:
     engine = load_engine()
+    if st.session_state.get("needs_reload", False):
+        engine.reload_user_kb()
+        st.session_state.needs_reload = False
 except Exception as e:
     st.error(f"Failed to load ScholarBOT engine: {e}")
     st.stop()
