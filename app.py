@@ -13,6 +13,21 @@ st.set_page_config(page_title="ScholarBOT v9", page_icon="🩺", layout="wide")
 # Initialize Session State
 if "messages" not in st.session_state:
     st.session_state.messages = []
+    
+    # Security Feature: Purge user files on new session / browser restart
+    try:
+        from config import PROJECT_ROOT, FAISS_INDICES_DIR, KB_PROCESSED_DIR
+        temp_dir = PROJECT_ROOT / "temp_uploads"
+        user_faiss = FAISS_INDICES_DIR / "user_kb"
+        user_chunks = KB_PROCESSED_DIR / "user_fact"
+        
+        if temp_dir.exists(): shutil.rmtree(temp_dir, ignore_errors=True)
+        if user_faiss.exists(): shutil.rmtree(user_faiss, ignore_errors=True)
+        if user_chunks.exists(): shutil.rmtree(user_chunks, ignore_errors=True)
+        print("[ScholarBOT] Local security purge completed. Cleared previous user documents.")
+    except Exception as e:
+        print(f"[ScholarBOT] Purge error: {e}")
+
 if "uploaded_file_name" not in st.session_state:
     st.session_state.uploaded_file_name = None
 
