@@ -836,22 +836,6 @@ class RAGPipeline:
         citations = _collect_citations(final_chunks)
         primary_kb = final_chunks[0]["store"]
 
-        if KB_USER_FACT in decision.target_kbs and getattr(self, "user_kb", None) is not None:
-            self._log("[v9] Adding supplementary citations from Standard KB to User Context...")
-            try:
-                base_vec = self.query_embedder.embed_query(query)
-                for test_kb in [KB_GUIDELINES, KB_DRUGLABELS]:
-                    store = self._get_store_by_name(test_kb)
-                    if store:
-                        hits = store.similarity_search_with_score_by_vector(base_vec, k=2)
-                        for doc, score in hits:
-                            nm = doc.metadata.get("document_name") or doc.metadata.get("source") or test_kb
-                            new_cit = f"[Existing KB] {nm}"
-                            if new_cit not in citations:
-                                citations.append(new_cit)
-            except Exception as e:
-                self._log(f"[v9] Failed to pull supplementary citations: {e}")
-
         clinician_answer = "ABSTAIN"
         mode = "unknown"
 
@@ -879,7 +863,8 @@ class RAGPipeline:
         # --- Guideline logic ---
         else:
             if USE_CLINICIAN_LLM:
-                clinician_answer = self._generate_clinician_answer(query, evidence_text, intent="guideline")
+                is_strict = bool(STRICT_USER_CONTEXT and KB_USER_FACT in decision.target_kbs)
+                clinician_answer = self._generate_clinician_answer(query, evidence_text, intent="guideline", is_strict_user=is_strict)
                 mode = "guideline_synthesis"
             else:
                 clinician_answer = "FINAL:\n" + evidence_text[:1400] + "..."
@@ -925,7 +910,7 @@ class RAGPipeline:
     # ---------------------------------------------------------
     # Generation
     # ---------------------------------------------------------
-    def _generate_clinician_answer(self, query: str, context: str, intent: str = "general") -> str:
+    def _generate_clinician_answer(self, query: str, context: str, intent: str = "general", is_strict_user: bool = False) -> str:
         # strong negatives to reduce drift
         negative = ""
         if intent.startswith("drug"):
@@ -944,6 +929,10 @@ Rules additions (guideline):
 - Prefer short complete sentences (not fragments).
 """.strip()
 
+        evidence_rule = "4) EVIDENCE PRIORITIZATION: Prioritize the provided EVIDENCE to build your answer. You may use standard clinical knowledge to define fundamental concepts if they are missing from the evidence, but NEVER contradict the evidence."
+        if is_strict_user:
+            evidence_rule = "4) EVIDENCE PRIORITIZATION: You are strictly locked into a custom user document. You must ONLY use the provided evidence. Do NOT supplement with outside clinical knowledge. Do NOT include foundational definitions unless they are explicitly written in the text."
+
         prompt = f"""
 Task: Answer the QUESTION using the EVIDENCE provided.
 
@@ -951,7 +940,7 @@ Rules:
 1) ANSWER FIRST: Start with a direct answer to the question using bullet points.
 2) BOILERPLATE: Minimal boilerplate (e.g., "Based on the evidence...") is allowed if it makes reading easier.
 3) BULLET FORMAT: Each bullet must start with "- ".
-4) EVIDENCE PRIORITIZATION: Prioritize the provided EVIDENCE to build your answer. You may use standard clinical knowledge to define fundamental concepts if they are missing from the evidence, but NEVER contradict the evidence.
+{evidence_rule}
 5) COMPLETE SENTENCES: Write in complete, cohesive, and grammatical English sentences.
 6) COHESIVE STRUCTURE: Avoid line-breaks or fragments mid-sentence. Each point must be meaningful on its own.
 
@@ -985,7 +974,7 @@ CLINICIAN OUTPUT:
         # --- v9: Self-Critique Loop ---
         if USE_SELF_CRITIQUE and len(lines) > 0:
             self._log(f"[v9] Running Self-Critique on {len(lines)} claims...")
-            refined_lines = self._refine_answer(query, lines, context)
+            refined_lines = self._refine_answer(query, lines, context, is_strict_user)
             lines = refined_lines if refined_lines else lines
 
         # Bypass verification if strict mode is disabled (Generative Mode)
@@ -1013,9 +1002,14 @@ CLINICIAN OUTPUT:
 
         return "FINAL:\n" + "\n".join(final)
 
-    def _refine_answer(self, query: str, draft_bullets: List[str], context: str) -> List[str]:
+    def _refine_answer(self, query: str, draft_bullets: List[str], context: str, is_strict_user: bool = False) -> List[str]:
         """v9 Self-Critique: Prunes claims that the LLM realizes are not 100% grounded."""
         draft_text = "\n".join([f"- {b}" for b in draft_bullets])
+        
+        refine_rule = "3. Eliminate or correct any claim that explicitly CONTRADICTS the EVIDENCE. General foundational definitions (like what a disease is) are allowed to remain even if not explicitly supported, so long as they aren't contradicted."
+        if is_strict_user:
+            refine_rule = "3. Eliminate any claim that is NOT EXPLICITLY supported by exactly what is written in the EVIDENCE. Do not allow outside knowledge to remain."
+
         prompt = f"""
 You are a peer-reviewer for a clinical medical bot.
 Your task is to REDUCE HALLUCINATION.
@@ -1029,7 +1023,7 @@ EVIDENCE:
 INSTRUCTION:
 1. Examine each bullet point in the DRAFT ANSWER.
 2. Cross-reference it with the EVIDENCE.
-3. Eliminate or correct any claim that explicitly CONTRADICTS the EVIDENCE. General foundational definitions (like what a disease is) are allowed to remain even if not explicitly supported, so long as they aren't contradicted.
+{refine_rule}
 4. Output only the surviving bullet points. 
 5. If the draft answer has been entirely rejected, output ABSTAIN.
 
