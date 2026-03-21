@@ -9,7 +9,7 @@ Goals:
 
 import os
 from pathlib import Path
-# Set API Key from environment if available
+# Set API Key from environment if available, or fall back to the hardcoded string provided by the user.
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY", "YOUR_OPENAI_API_KEY_HERE")
 
 # =============================
