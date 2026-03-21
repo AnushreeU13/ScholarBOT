@@ -5,12 +5,13 @@ from langchain_community.docstore.in_memory import InMemoryDocstore
 import faiss
 from embedding_utils import MedCPTDualEmbedder
 
-def create_faiss_store(store_name: str, dimension: int, base_dir: str):
+def create_faiss_store(store_name: str, dimension: int, base_dir: str, embedder=None):
     """
-    Creates or loads a FAISS index.
+    Creates or loads a FAISS index using a shared embedder to prevent PyTorch tensor memory leaks.
     """
     path = Path(base_dir) / store_name
-    embedder = MedCPTDualEmbedder()
+    if embedder is None:
+        embedder = MedCPTDualEmbedder()
     
     if path.exists() and (path / "index.faiss").exists():
         print(f"[storage_utils] Loading existing FAISS index from: {path}")

@@ -237,6 +237,7 @@ def ingest_user_file(pdf_path: Path) -> None:
         store_name=KB_USER_FACT,
         dimension=vectors.shape[1],
         base_dir=str(FAISS_INDICES_DIR),
+        embedder=embedder,
     )
     store.add_vectors(vectors, metas)
     store.save()
@@ -251,13 +252,13 @@ class AlignedScholarBotEngine:
         self.embedder = MedCPTDualEmbedder()
 
         self.guidelines_store = create_faiss_store(
-            store_name=KB_GUIDELINES, dimension=768, base_dir=str(FAISS_INDICES_DIR)
+            store_name=KB_GUIDELINES, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
         )
         self.druglabels_store = create_faiss_store(
-            store_name=KB_DRUGLABELS, dimension=768, base_dir=str(FAISS_INDICES_DIR)
+            store_name=KB_DRUGLABELS, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
         )
         self.user_store = create_faiss_store(
-            store_name=KB_USER_FACT, dimension=768, base_dir=str(FAISS_INDICES_DIR)
+            store_name=KB_USER_FACT, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
         )
 
         self.kb_guidelines = self.guidelines_store
@@ -282,6 +283,16 @@ class AlignedScholarBotEngine:
             verbose=self.verbose,
             logger=None,
         )
+
+    def reload_user_kb(self) -> None:
+        """Dynamically refresh the user FAISS index from disk without rebooting the server cache."""
+        self.user_store = create_faiss_store(
+            store_name=KB_USER_FACT, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
+        )
+        self.user_kb = self.user_store
+        self.pipeline.user_kb = self.user_store
+        if self.verbose:
+            print(f"[KB] Reloaded user_fact into memory (ntotal = {_ntotal(self.user_kb)})")
 
     def generate_response(
         self,

@@ -47,7 +47,7 @@ def ingest_user_pdf(
 
     embedder = MedCPTDualEmbedder()
     dim = embedder.dim
-    store = create_faiss_store(store_name, dim, base_dir=FAISS_INDICES_DIR)
+    store = create_faiss_store(store_name, dim, base_dir=FAISS_INDICES_DIR, embedder=embedder)
 
     # Ingest
     pages = extract_text_by_page(str(pdf_path))
