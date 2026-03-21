@@ -1046,7 +1046,7 @@ REFINED OUTPUT:
         clean = clinician_text.replace("FINAL:", "").strip()
 
         prompt = f"""
-Task: Translate this clinical information into a detailed Patient Summary meant for a 20-year-old to understand.
+Task: Translate this clinical information into a detailed Patient Summary meant for an average educated person to understand.
 
 Rules (strict):
 1) Write in clear, detailed paragraphs or bullet points.
