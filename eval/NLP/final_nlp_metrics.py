@@ -46,11 +46,11 @@ def clean_answer(text: str) -> str:
     return res.strip()
 
 def main():
-    with open("v8_eval_full_results.json", 'r', encoding='utf-8') as f:
+    with open("../eval results/v8_eval_full_results.json", 'r', encoding='utf-8') as f:
         data = json.load(f)
     generated_answers = data["generated_answers"]
     
-    _, ground_truths = load_dataset("../../eval_dataset_200.json")
+    _, ground_truths = load_dataset("../eval results/eval_dataset_200.json")
 
     f1_list = []
     rec_list = []

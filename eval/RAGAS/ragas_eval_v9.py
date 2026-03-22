@@ -43,14 +43,14 @@ def main():
     # We'll make sure STRICT_USER_CONTEXT doesn't trigger if user_kb is empty (which it is for 200 questions).
     engine = AlignedScholarBotEngine(verbose=False)
 
-    questions, ground_truths = load_dataset("../../eval_dataset_200.json")
+    questions, ground_truths = load_dataset("../eval results/eval_dataset_200.json")
     logger.info(f"Loaded {len(questions)} questions.")
 
     generated_answers = []
     retrieved_contexts = []
 
     # Using a cache for evaluation stability
-    cache_path = "../../v9_eval_full_results.json"
+    cache_path = "../eval results/v9_eval_full_results.json"
     if os.path.exists(cache_path):
         logger.info(f"Loading cached results from {cache_path}")
         with open(cache_path, 'r', encoding='utf-8') as f:
