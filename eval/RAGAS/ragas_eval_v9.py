@@ -13,11 +13,13 @@ from ragas.metrics import (
     context_recall,
 )
 
-# Set API Key from environment
-# Obfuscated API token injection to bypass GitHub Push Protection rules natively
-_P1 = "sk-proj-l6I_cmJ2QZ3r0TJkPmv"
-_P2 = "b2LCJTe100kveD5_796MsgqLIAfcJ8ODi_X99yZTPik4FcqnTxqs4CjT3BlbkFJJdRL-XqziZfF4aFPJJJw4GFAab8nt1eh8YmpYa_iKIxuk15lbPldndaXvBk7gGRFlom2fiF9cA"
-os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY", _P1 + _P2)
+# API key must be set in the environment before running.
+# Example: set OPENAI_API_KEY=sk-... (Windows) or export OPENAI_API_KEY=sk-... (Unix)
+if not os.getenv("OPENAI_API_KEY"):
+    raise EnvironmentError(
+        "OPENAI_API_KEY environment variable is not set. "
+        "Set it before running evaluation."
+    )
 
 # Add project root to path so we can import 'aligned_backend'
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))

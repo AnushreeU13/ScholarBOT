@@ -252,13 +252,13 @@ class AlignedScholarBotEngine:
         self.embedder = MedCPTDualEmbedder()
 
         self.guidelines_store = create_faiss_store(
-            store_name=KB_GUIDELINES, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
+            store_name=KB_GUIDELINES, dimension=384, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
         )
         self.druglabels_store = create_faiss_store(
-            store_name=KB_DRUGLABELS, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
+            store_name=KB_DRUGLABELS, dimension=384, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
         )
         self.user_store = create_faiss_store(
-            store_name=KB_USER_FACT, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
+            store_name=KB_USER_FACT, dimension=384, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
         )
 
         self.kb_guidelines = self.guidelines_store
@@ -287,7 +287,7 @@ class AlignedScholarBotEngine:
     def reload_user_kb(self) -> None:
         """Dynamically refresh the user FAISS index from disk without rebooting the server cache."""
         self.user_store = create_faiss_store(
-            store_name=KB_USER_FACT, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
+            store_name=KB_USER_FACT, dimension=384, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
         )
         self.user_kb = self.user_store
         self.pipeline.user_kb = self.user_store
@@ -380,7 +380,7 @@ class AlignedScholarBotEngine:
         parts: List[str] = []
         
         if clinician_bullets == "OPENAI_API_KEY_MISSING":
-            parts.append("🚨 **SYSTEM ERROR: OpenAI API Key Not Found or Invalid.** Please provide a valid OPENAI_API_KEY in your `.env` or set it locally before launching the application.")
+            parts.append("**SYSTEM ERROR: OpenAI API Key Not Found or Invalid.** Please provide a valid OPENAI_API_KEY in your `.env` or set it locally before launching the application.")
             status = "error"
         elif status == "abstain" or clinician_bullets.strip().upper() == "ABSTAIN":
             parts.append("**Final Answer:** No confidence in answering based on the available evidence.")

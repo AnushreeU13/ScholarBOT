@@ -45,7 +45,7 @@
   },
   {
     "question": "What are common adverse reactions of isoniazid?",
-    "ground_truth": "First-line anti-TB antibiotic\nBactericidal activity\nShortens treatment duration"
+    "ground_truth": "Peripheral neuropathy (pyridoxine deficiency)\nHepatotoxicity and elevated liver enzymes\nDrug-induced lupus erythematosus\nCNS effects including seizures in overdose"
   },
   {
     "question": "What adverse effects are associated with rifampin?",
@@ -53,7 +53,7 @@
   },
   {
     "question": "What precautions are listed for ethambutol use?",
-    "ground_truth": "Hepatotoxicity\nGastrointestinal upset\nDrug interactions via enzyme induction"
+    "ground_truth": "Optic neuritis risk requiring baseline and monthly visual acuity testing\nNot recommended in children too young for reliable visual monitoring\nDose adjustment required for renal impairment\nDiscontinue immediately if visual changes occur"
   },
   {
     "question": "Why is combination therapy used in tuberculosis treatment?",
@@ -61,7 +61,7 @@
   },
   {
     "question": "How is community-acquired pneumonia diagnosed?",
-    "ground_truth": "Prevent drug resistance\nImprove treatment efficacy\nTarget different bacterial populations"
+    "ground_truth": "Clinical assessment of symptoms and physical examination\nChest X-ray recommended for all suspected CAP cases\nSputum Gram stain and culture for pathogen identification\nSeverity scoring using PSI or CURB-65 to guide site-of-care decisions"
   },
   {
     "question": "What clinical criteria are used to assess pneumonia severity?",
@@ -620,7 +620,7 @@
     "ground_truth": "Regular assessment\nEarly detection"
   },
   {
-    "question": "Why is pharmacovigilance important in TB programs?",
+    "question": "Why is pharmacovigilance important in TB programs? [DUPLICATE OF Q80 - REPLACE WITH UNIQUE QUESTION]",
     "ground_truth": "Safety surveillance\nProgram improvement"
   },
   {

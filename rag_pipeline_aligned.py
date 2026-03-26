@@ -655,6 +655,56 @@ class RAGPipeline:
             })
         return results
 
+    def _rrf_merge(
+        self,
+        dense_results: List[Dict],
+        sparse_results: List[Dict],
+        k: int = 60,
+    ) -> List[Dict]:
+        """
+        Reciprocal Rank Fusion of dense and sparse result lists.
+
+        RRF score for a document d:
+            score(d) = sum_over_rankers[ 1 / (k + rank(d)) ]
+
+        where rank is 1-based. Documents appearing in only one ranker still
+        get their RRF contribution from that ranker alone.
+
+        k=60 is the standard default from the original RRF paper
+        (Cormack, Clarke & Buettcher, SIGIR 2009).
+
+        Returns a merged list sorted by descending RRF score. Each dict
+        retains its original 'raw_sim' and gains a new 'score' (RRF).
+        """
+        rrf_scores: Dict[str, float] = {}
+        chunk_by_key: Dict[str, Dict] = {}
+
+        def _key(chunk: Dict) -> str:
+            return re.sub(r"\W+", "", (chunk.get("text") or "")[:120].lower())
+
+        for rank, chunk in enumerate(dense_results, start=1):
+            key = _key(chunk)
+            if not key:
+                continue
+            rrf_scores[key] = rrf_scores.get(key, 0.0) + 1.0 / (k + rank)
+            chunk_by_key.setdefault(key, chunk)
+
+        for rank, chunk in enumerate(sparse_results, start=1):
+            key = _key(chunk)
+            if not key:
+                continue
+            rrf_scores[key] = rrf_scores.get(key, 0.0) + 1.0 / (k + rank)
+            chunk_by_key.setdefault(key, chunk)
+
+        merged = []
+        for key, score in rrf_scores.items():
+            entry = chunk_by_key[key].copy()
+            entry["score"] = score
+            merged.append(entry)
+
+        merged.sort(key=lambda x: x["score"], reverse=True)
+        return merged
+
     def _log(self, msg: str):
         if self.verbose:
             (self.logger if self.logger else print)(msg)
@@ -693,6 +743,11 @@ class RAGPipeline:
 
         decision = route_query(query, user_uploaded_available=(self.user_kb is not None))
 
+        # Router-level out-of-scope abstain (topic not TB/Pneumonia/drug)
+        if getattr(decision, "intent", "") == "abstain":
+            self._log("[RAG] Router abstain: out-of-scope topic.")
+            return self._build_abstain_result(query, decision, reason="out_of_scope")
+
         # v9: Strict Context Locking
         if STRICT_USER_CONTEXT and self.user_kb:
             # Check if user KB has content
@@ -712,40 +767,52 @@ class RAGPipeline:
         for q_sub in search_queries:
             self._log(f"[RAG] Searching for: {q_sub}")
             q_vec = self.query_embedder.embed_query(q_sub)
-            
+
             for kb_name in decision.target_kbs:
                 store = self._get_store_by_name(kb_name)
-                if not store: continue
+                if not store:
+                    continue
 
-                # v9: Hybrid Retrieval (Dense Part)
+                # Dense retrieval
                 try:
                     results = store.similarity_search_with_score_by_vector(q_vec, k=TOP_K_DENSE)
                 except Exception:
-                    print(f"[ERROR] Engine retrieval failed for {kb_name}")
+                    print(f"[ERROR] Dense retrieval failed for {kb_name}")
                     continue
 
                 is_l2 = False
-                if hasattr(store, 'index') and hasattr(store.index, 'metric_type'):
-                    if store.index.metric_type == 1: is_l2 = True
+                if hasattr(store, "index") and hasattr(store.index, "metric_type"):
+                    if store.index.metric_type == 1:
+                        is_l2 = True
 
+                dense_hits: List[Dict] = []
                 for doc, score in results:
                     sim = (1.0 - (score / 2.0)) if is_l2 else score
-                    candidates.append({
+                    dense_hits.append({
                         "score": float(sim),
                         "raw_sim": float(sim),
                         "text": doc.page_content,
                         "metadata": doc.metadata,
                         "store": kb_name,
-                        "type": "dense"
+                        "type": "dense",
                     })
-                
-                # v9: Hybrid Retrieval (Sparse Part)
+                # Dense list is already sorted by descending similarity
+
+                # Sparse retrieval (BM25)
+                sparse_hits: List[Dict] = []
                 if USE_HYBRID_SEARCH:
                     sparse_hits = self._bm25_search(q_sub, kb_name, k=TOP_K_SPARSE)
-                    # We slightly weight sparse lower unless it's a very exact match
-                    for h in sparse_hits:
-                        h["score"] = h["score"] * 0.7  # Initial keyword weight
-                        candidates.append(h)
+                    # sparse_hits are sorted by descending BM25 score from _bm25_search
+
+                # Merge via Reciprocal Rank Fusion instead of manual score scaling
+                if USE_HYBRID_SEARCH and sparse_hits:
+                    merged = self._rrf_merge(dense_hits, sparse_hits, k=60)
+                    self._log(
+                        f"[RRF] {kb_name}: dense={len(dense_hits)} sparse={len(sparse_hits)} -> merged={len(merged)}"
+                    )
+                    candidates.extend(merged)
+                else:
+                    candidates.extend(dense_hits)
 
         # v9: Apply Section Bias to ALL candidates (Hybrid)
         if candidates:
@@ -821,12 +888,13 @@ class RAGPipeline:
 
         if not final_chunks:
             self._log("[RAG] No chunks retrieved (final_chunks empty).")
-        
-        best_score = final_chunks[0]["score"] if final_chunks else 0.0    
+            return self._build_abstain_result(query, decision, reason="no_chunks")
+
+        best_score = final_chunks[0]["score"] if final_chunks else 0.0
         required = KB_SIM_THRESHOLD.get(final_chunks[0]["store"], 0.65) if final_chunks else 0.7
-        if not final_chunks or best_score < required:
+        if best_score < required:
             self._log(f"[RAG] Low confidence ({best_score:.3f} < {required}) -> ABSTAIN.")
-            return self._build_abstain_result(query, decision)
+            return self._build_abstain_result(query, decision, reason="insufficient_evidence")
 
         evidence_text = "\n\n".join([f"[{i+1}] {c['text']}" for i, c in enumerate(final_chunks)])
         # Clean broken PDF wrap lines globally
@@ -871,7 +939,7 @@ class RAGPipeline:
                 mode = "legacy_extract"
 
         if "ABSTAIN" in clinician_answer:
-            return self._build_abstain_result(query, decision)
+            return self._build_abstain_result(query, decision, reason="insufficient_evidence")
 
         # Patient rewrite
         self._log("[RAG] Generating Patient Answer...")
@@ -1058,16 +1126,39 @@ PATIENT OUTPUT:
 
         return patient
 
-    def _build_abstain_result(self, query: str, decision: Any) -> RAGResult:
+    def _build_abstain_result(self, query: str, decision: Any, reason: str = "insufficient_evidence") -> RAGResult:
+        """
+        reason options:
+          "out_of_scope"          - query topic is outside TB/Pneumonia/drug domain
+          "insufficient_evidence" - in-scope query but retrieved context below threshold
+          "no_chunks"             - retrieval returned nothing at all
+        """
+        _messages = {
+            "out_of_scope": (
+                "This question is outside the scope of ScholarBOT. "
+                "ScholarBOT answers only questions related to Tuberculosis, "
+                "Pneumonia/CAP, and their associated drug labels."
+            ),
+            "insufficient_evidence": (
+                "ScholarBOT could not find sufficiently reliable evidence in its "
+                "knowledge base to answer this question. No answer has been generated "
+                "to avoid providing unverified clinical information."
+            ),
+            "no_chunks": (
+                "No relevant content was retrieved from the knowledge base for this query. "
+                "ScholarBOT cannot generate an answer without retrieved evidence."
+            ),
+        }
+        patient_msg = _messages.get(reason, _messages["insufficient_evidence"])
         return RAGResult(
             answer="ABSTAIN",
             clinician_answer="ABSTAIN",
-            patient_answer="I could not find an explicit answer in the retrieved documents.",
+            patient_answer=patient_msg,
             citations=[],
             confidence=0.0,
             status="abstain",
             source_kbs=[],
             route={"intent": getattr(decision, "intent", "unknown"), "task_hints": getattr(decision, "task_hints", [])},
-            debug_info={},
+            debug_info={"abstain_reason": reason},
             consistency={"mode": "abstain"},
         )

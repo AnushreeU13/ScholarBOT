@@ -8,7 +8,7 @@ from aligned_backend import AlignedScholarBotEngine
 from user_ingest_aligned import ingest_user_pdf
 
 # Page Config
-st.set_page_config(page_title="ScholarBOT v9", page_icon="🩺", layout="wide")
+st.set_page_config(page_title="ScholarBOT v9", page_icon="None", layout="wide")
 
 # Initialize Session State
 if "messages" not in st.session_state:
@@ -33,10 +33,23 @@ if "uploaded_file_name" not in st.session_state:
 
 # Sidebar - Configuration
 with st.sidebar:
-    st.header("⚙️ Configuration")
+    st.header("Configuration")
+    
+    # 0. API KEY (REQUIRED)
+    st.subheader("Access Control")
+    api_key_input = st.text_input("Enter OpenAI API Key", type="password", help="ScholarBOT requires a valid OpenAI API key to process clinicians' queries.")
+    
+    if api_key_input:
+        os.environ["OPENAI_API_KEY"] = api_key_input
+        st.session_state.openai_api_key = api_key_input
+    elif "openai_api_key" in st.session_state:
+         os.environ["OPENAI_API_KEY"] = st.session_state.openai_api_key
+    
+    if not st.session_state.get("openai_api_key"):
+        st.warning("**OpenAI API Key Required**: Please provide your key above to enable clinical reasoning.")
     
     # 1. File Upload
-    st.subheader("📂 Upload User Document")
+    st.subheader("Upload User Document")
     uploaded_file = st.file_uploader("Upload a PDF to query against", type=["pdf"])
     
     if uploaded_file:
@@ -79,7 +92,7 @@ with st.sidebar:
     )
     
     # 3. Actions
-    if st.button("🗑️ Clear Chat History"):
+    if st.button("Clear Chat History"):
         st.session_state.messages = []
         st.rerun()
 
@@ -107,7 +120,7 @@ except Exception as e:
     st.stop()
 
 # Main Chat Interface
-st.title("🩺 ScholarBOT v9: Clinical Assistant")
+st.title("ScholarBOT v9: Clinical Assistant")
 st.markdown(f"**Current Scope:** `{search_mode}`")
 
 # Display Chat
@@ -116,7 +129,10 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 # User Input
-if prompt := st.chat_input("Ask a clinical question..."):
+if not st.session_state.get("openai_api_key"):
+    st.info("Once you provide a valid API key in the sidebar, you can start asking clinical questions.")
+    prompt = None
+elif prompt := st.chat_input("Ask a clinical question..."):
     # Add User Message
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
@@ -150,14 +166,14 @@ if prompt := st.chat_input("Ask a clinical question..."):
                 is_abstain = "No confidence" in response_text
                 
                 if is_abstain:
-                    full_response = "🛡️ **Fail-Closed Triggered**\n\n" + response_text
+                    full_response = "**Fail-Closed Triggered**\n\n" + response_text
                 else:
                     full_response = response_text
 
                 message_placeholder.markdown(full_response)
                 
                 # Show Metadata (Sources)
-                with st.expander("🔍 View Retrieved Evidence & Metadata"):
+                with st.expander("View Retrieved Evidence & Metadata"):
                     st.json({
                         "Confidence Score": confidence,
                         "Routing": meta.get("route", {}),
@@ -165,7 +181,7 @@ if prompt := st.chat_input("Ask a clinical question..."):
                     })
                     
                     if "evidence_chunks" in meta:
-                        st.subheader("📚 Source Chunks")
+                        st.subheader("Source Chunks")
                         for i, chunk in enumerate(meta["evidence_chunks"]):
                             st.markdown(f"**Chunk {i+1}** (Source: `{chunk.get('source', 'Unknown')}`)")
                             st.caption(chunk.get('text', '')[:400] + "...")
