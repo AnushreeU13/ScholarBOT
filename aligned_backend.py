@@ -252,13 +252,13 @@ class AlignedScholarBotEngine:
         self.embedder = MedCPTDualEmbedder()
 
         self.guidelines_store = create_faiss_store(
-            store_name=KB_GUIDELINES, dimension=384, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
+            store_name=KB_GUIDELINES, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
         )
         self.druglabels_store = create_faiss_store(
-            store_name=KB_DRUGLABELS, dimension=384, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
+            store_name=KB_DRUGLABELS, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
         )
         self.user_store = create_faiss_store(
-            store_name=KB_USER_FACT, dimension=384, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
+            store_name=KB_USER_FACT, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
         )
 
         self.kb_guidelines = self.guidelines_store
@@ -287,7 +287,7 @@ class AlignedScholarBotEngine:
     def reload_user_kb(self) -> None:
         """Dynamically refresh the user FAISS index from disk without rebooting the server cache."""
         self.user_store = create_faiss_store(
-            store_name=KB_USER_FACT, dimension=384, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
+            store_name=KB_USER_FACT, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
         )
         self.user_kb = self.user_store
         self.pipeline.user_kb = self.user_store

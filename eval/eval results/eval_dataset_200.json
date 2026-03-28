@@ -1,802 +1,726 @@
 [
   {
     "question": "How is tuberculosis diagnosed according to WHO guidelines?",
-    "ground_truth": "Bacteriological confirmation using sputum samples\nMicrobiological tests (smear microscopy, culture, molecular tests)\nClinical and radiological assessment as supportive evidence"
+    "ground_truth": "According to WHO guidelines, tuberculosis diagnosis relies on bacteriological confirmation using sputum samples whenever possible, including smear microscopy, mycobacterial culture, and WHO-endorsed rapid molecular tests such as Xpert MTB/RIF. Clinical and radiological assessment, including chest X-ray, serve as supportive evidence particularly in smear-negative cases. A diagnosis may be made clinically when bacteriological confirmation is not available and the clinician judges that the patient has active TB based on symptoms, risk factors, and radiographic findings."
   },
   {
     "question": "What tests are recommended for diagnosing active tuberculosis?",
-    "ground_truth": "Sputum smear microscopy\nMycobacterial culture\nWHO-endorsed rapid molecular tests (e.g. Xpert)"
+    "ground_truth": "For diagnosing active tuberculosis, WHO recommends sputum smear microscopy as the initial test in resource-limited settings, as it is rapid and inexpensive for detecting acid-fast bacilli. Mycobacterial culture on solid or liquid media is the gold standard for confirmation and allows drug susceptibility testing. WHO-endorsed rapid molecular tests, particularly Xpert MTB/RIF, are recommended as the initial diagnostic test in many settings due to their high sensitivity and ability to simultaneously detect rifampicin resistance."
   },
   {
     "question": "What is sputum culture conversion and why is it important in TB management?",
-    "ground_truth": "Change from culture-positive to culture-negative\nIndicator of treatment response\nUsed for monitoring treatment effectiveness"
+    "ground_truth": "Sputum culture conversion refers to the change from culture-positive to culture-negative status during the course of TB treatment, indicating that viable Mycobacterium tuberculosis is no longer detectable in respiratory specimens. It is a critical bacteriological indicator of treatment response and is used to monitor treatment effectiveness during the intensive phase. Delayed culture conversion is associated with increased risk of treatment failure and relapse, and may prompt evaluation for drug resistance or poor adherence."
   },
   {
     "question": "What does bacteriological confirmation mean in tuberculosis?",
-    "ground_truth": "Laboratory evidence of Mycobacterium tuberculosis\nPositive smear, culture, or molecular test"
+    "ground_truth": "Bacteriological confirmation of tuberculosis means that laboratory evidence of Mycobacterium tuberculosis has been obtained from clinical specimens through a positive smear microscopy, culture, or WHO-endorsed molecular test such as Xpert MTB/RIF. This level of confirmation is preferred over clinical diagnosis because it provides definitive evidence of active disease and enables drug susceptibility testing to guide treatment. Bacteriologically confirmed cases allow for more accurate surveillance, treatment planning, and monitoring of outcomes."
   },
   {
     "question": "What follow-up indicators are used to monitor TB treatment response?",
-    "ground_truth": "Sputum smear or culture results\nBacteriological failure or relapse\nTreatment outcomes at follow-up time points"
+    "ground_truth": "TB treatment response is monitored using sputum smear microscopy and culture results at defined time points during treatment, typically at 2, 5, and 6 months. Bacteriological failure is defined as persistent or recurrent positive sputum culture after the intensive phase or at the end of treatment. Treatment outcomes including cure, treatment completion, failure, and relapse are documented at follow-up time points to assess the effectiveness of the treatment regimen."
   },
   {
     "question": "What is the role of sputum smear microscopy in TB diagnosis?",
-    "ground_truth": "Initial diagnostic test\nDetects acid-fast bacilli\nUsed in many resource-limited settings"
+    "ground_truth": "Sputum smear microscopy is the initial and most widely used diagnostic test for pulmonary tuberculosis, particularly in resource-limited settings, as it is rapid, low-cost, and can detect acid-fast bacilli within hours. The technique identifies mycobacteria in sputum by staining but cannot distinguish M. tuberculosis from other mycobacterial species, limiting its specificity. While smear microscopy has relatively low sensitivity, especially in HIV-positive patients and pauci-bacillary disease, it remains essential for monitoring treatment response."
   },
   {
     "question": "How is bacteriological failure defined in tuberculosis follow-up?",
-    "ground_truth": "Persistent or recurrent positive bacteriology\nOccurs during or after treatment\nIndicates ineffective therapy"
+    "ground_truth": "Bacteriological failure in tuberculosis is defined as persistent or recurrent positive sputum bacteriology at month five or later during treatment, indicating that the treatment regimen is not effectively eliminating the infection. It occurs during or after the treatment course and is a signal of ineffective therapy, which may result from drug resistance, poor adherence, malabsorption, or drug interactions. When bacteriological failure is identified, drug susceptibility testing should be performed and the treatment regimen reviewed."
   },
   {
     "question": "What outcomes are used to assess TB treatment success?",
-    "ground_truth": "Cure\nTreatment completion\nAbsence of bacteriological failure or relapse"
+    "ground_truth": "TB treatment outcomes are standardized by WHO and include cure, defined as completion of treatment with negative bacteriology at the end, and treatment completion, defined as finishing the prescribed regimen without evidence of failure but without bacteriological confirmation. Absence of bacteriological failure and relapse during follow-up are essential components of treatment success assessment. These standardized outcome categories enable consistent reporting across TB programs and facilitate global surveillance and program evaluation."
   },
   {
     "question": "What are the first-line drugs used to treat tuberculosis?",
-    "ground_truth": "Isoniazid\nRifampin\nEthambutol\nPyrazinamide"
+    "ground_truth": "The standard first-line treatment for drug-susceptible tuberculosis consists of four drugs: isoniazid, rifampin (rifampicin), pyrazinamide, and ethambutol, given during the 2-month intensive phase. The continuation phase typically consists of isoniazid and rifampin for an additional 4 months, for a total treatment duration of 6 months. Each drug targets different aspects of M. tuberculosis to prevent resistance and ensure effective bactericidal activity."
   },
   {
     "question": "What is isoniazid used for in tuberculosis treatment?",
-    "ground_truth": "Core first-line anti-TB drug\nUsed in combination regimens\nActive against Mycobacterium tuberculosis"
+    "ground_truth": "Isoniazid is a core first-line anti-tuberculosis drug that has been used for decades due to its potent bactericidal activity against actively replicating M. tuberculosis. It is used in combination regimens throughout both the intensive and continuation phases of standard TB treatment, and is also the primary agent used for treatment of latent TB infection. Isoniazid inhibits mycolic acid synthesis in the mycobacterial cell wall, and its effectiveness depends on the presence of the enzyme katG for activation within the bacterium."
   },
   {
     "question": "What is rifampin and what role does it play in TB therapy?",
-    "ground_truth": "First-line anti-TB antibiotic\nBactericidal activity\nShortens treatment duration"
+    "ground_truth": "Rifampin (rifampicin) is a bactericidal first-line anti-tuberculosis antibiotic that inhibits bacterial RNA synthesis by binding to the beta subunit of DNA-dependent RNA polymerase. It plays a critical sterilizing role in TB therapy by eliminating semi-dormant bacilli, which is essential for preventing relapse and allowing the overall treatment duration to be shortened to 6 months. Rifampin is also a potent inducer of hepatic cytochrome P450 enzymes, which leads to clinically significant drug interactions with many co-administered medications."
   },
   {
     "question": "What are common adverse reactions of isoniazid?",
-    "ground_truth": "Peripheral neuropathy (pyridoxine deficiency)\nHepatotoxicity and elevated liver enzymes\nDrug-induced lupus erythematosus\nCNS effects including seizures in overdose"
+    "ground_truth": "Isoniazid commonly causes peripheral neuropathy due to pyridoxine (vitamin B6) deficiency, which can be prevented by routine co-administration of pyridoxine supplementation, particularly in high-risk patients. Hepatotoxicity is a serious adverse effect, characterized by elevated liver enzymes and, in severe cases, clinical hepatitis, which requires baseline and periodic liver function monitoring. Additional adverse effects include drug-induced lupus erythematosus, hypersensitivity reactions, and central nervous system effects such as seizures, psychosis, and memory impairment, particularly in overdose or in patients with underlying neurological conditions."
   },
   {
     "question": "What adverse effects are associated with rifampin?",
-    "ground_truth": "Hepatotoxicity\nGastrointestinal upset\nDrug interactions via enzyme induction"
+    "ground_truth": "Rifampin is associated with hepatotoxicity, which can range from asymptomatic transaminase elevation to fulminant hepatic failure, requiring baseline liver function assessment and monitoring during therapy. Gastrointestinal upset, including nausea, vomiting, and abdominal discomfort, is common, particularly when taken on an empty stomach. As a potent CYP450 inducer, rifampin causes clinically significant drug interactions, reducing plasma concentrations of many medications including antiretrovirals, oral contraceptives, warfarin, and azole antifungals."
   },
   {
     "question": "What precautions are listed for ethambutol use?",
-    "ground_truth": "Optic neuritis risk requiring baseline and monthly visual acuity testing\nNot recommended in children too young for reliable visual monitoring\nDose adjustment required for renal impairment\nDiscontinue immediately if visual changes occur"
+    "ground_truth": "Ethambutol carries a significant risk of optic neuritis, which may manifest as decreased visual acuity, color vision changes, or visual field defects, requiring baseline ophthalmologic assessment and monthly visual monitoring during treatment. It is generally not recommended in young children who cannot reliably communicate visual symptoms, as early detection of toxicity depends on patient reporting. Dose adjustment is required in patients with renal impairment since ethambutol is primarily excreted by the kidneys, and the drug should be discontinued immediately if any visual changes occur."
   },
   {
     "question": "Why is combination therapy used in tuberculosis treatment?",
-    "ground_truth": "Prevent drug resistance\nImprove treatment efficacy\nTarget different bacterial populations"
+    "ground_truth": "Combination therapy with multiple anti-TB drugs is essential to prevent the emergence of drug resistance, which occurs when any single drug is used alone due to the natural presence of spontaneously resistant mutants within large mycobacterial populations. Using drugs with different mechanisms of action simultaneously ensures that organisms resistant to one drug are killed by the others in the regimen. Multi-drug regimens also target different physiological states of M. tuberculosis, including actively replicating bacteria and semi-dormant bacilli, improving overall treatment efficacy and reducing relapse rates."
   },
   {
     "question": "How is community-acquired pneumonia diagnosed?",
-    "ground_truth": "Clinical assessment of symptoms and physical examination\nChest X-ray recommended for all suspected CAP cases\nSputum Gram stain and culture for pathogen identification\nSeverity scoring using PSI or CURB-65 to guide site-of-care decisions"
+    "ground_truth": "Community-acquired pneumonia is diagnosed through a combination of clinical assessment of symptoms such as cough, fever, dyspnea, and pleuritic chest pain, along with physical examination findings including crackles and decreased breath sounds. Chest X-ray is recommended for all patients with suspected CAP to confirm the presence of a pulmonary infiltrate and assess disease extent. Microbiological investigations including sputum Gram stain and culture, blood cultures, and urinary antigen tests for Streptococcus pneumoniae and Legionella are recommended, particularly in hospitalized patients, to guide targeted therapy. Severity assessment using validated scoring systems such as PSI or CURB-65 guides decisions on site of care and treatment intensity."
   },
   {
     "question": "What clinical criteria are used to assess pneumonia severity?",
-    "ground_truth": "Vital signs\nLaboratory findings\nSeverity scoring systems (general mention)"
+    "ground_truth": "Pneumonia severity is assessed using validated clinical criteria that incorporate vital signs, laboratory findings, and clinical status to stratify patients and guide management decisions. The CURB-65 score assesses confusion, urea level, respiratory rate, blood pressure, and age over 65, while the Pneumonia Severity Index (PSI) incorporates a broader set of demographic and clinical variables. Patients with high severity scores, signs of organ dysfunction, or need for vasopressors or mechanical ventilation are classified as severe CAP and typically require ICU-level care."
   },
   {
     "question": "What are common symptoms of community-acquired pneumonia?",
-    "ground_truth": "Cough\nFever\nShortness of breath\nChest pain"
+    "ground_truth": "The hallmark symptoms of community-acquired pneumonia include productive or non-productive cough, fever with chills, and shortness of breath that may range from mild exertional dyspnea to severe respiratory distress at rest. Pleuritic chest pain, fatigue, and myalgia are frequently reported, particularly in bacterial pneumonia. Atypical presentations are common in elderly patients and immunocompromised individuals, who may present with confusion, functional decline, or absence of fever rather than the classic respiratory symptoms."
   },
   {
     "question": "What diagnostic tests are recommended for suspected pneumonia?",
-    "ground_truth": "Chest radiography\nBlood tests\nMicrobiological testing when appropriate"
+    "ground_truth": "Chest radiography is the cornerstone diagnostic test for pneumonia, used to confirm the presence of an infiltrate and assess disease extent and complications such as pleural effusion. Blood tests including complete blood count, C-reactive protein, procalcitonin, and metabolic panel help assess severity and guide decisions on hospitalization and treatment intensity. Microbiological testing including sputum culture, blood cultures, and urinary antigen testing for Streptococcus pneumoniae and Legionella pneumophila is recommended for hospitalized patients and severe cases to enable pathogen-directed therapy."
   },
   {
     "question": "What factors influence initial antibiotic selection for CAP?",
-    "ground_truth": "Disease severity\nPatient comorbidities\nLikely pathogens"
+    "ground_truth": "Initial antibiotic selection for community-acquired pneumonia is primarily guided by disease severity, as determined by validated scoring tools such as CURB-65 or PSI, which determines whether outpatient or inpatient treatment is appropriate. Patient-specific factors including comorbidities such as chronic lung disease, diabetes, or immunosuppression, as well as prior antibiotic use and local resistance patterns, influence the choice of empirical antibiotic regimen. The most likely causative pathogens based on clinical presentation and epidemiological context also guide initial drug selection, with coverage for Streptococcus pneumoniae required in all cases."
   },
   {
     "question": "What are common adverse reactions of azithromycin?",
-    "ground_truth": "Gastrointestinal upset\nQT prolongation\nLiver enzyme abnormalities"
+    "ground_truth": "Azithromycin most commonly causes gastrointestinal adverse effects including nausea, vomiting, diarrhea, and abdominal pain, which are dose-dependent and typically mild to moderate in severity. QT interval prolongation is a clinically important cardiac adverse effect that increases the risk of ventricular arrhythmias, particularly in patients with pre-existing cardiac conditions or electrolyte abnormalities, requiring caution in susceptible populations. Liver enzyme abnormalities and, rarely, cholestatic jaundice have been reported, and azithromycin may cause hypersensitivity reactions including rash and, rarely, severe anaphylaxis."
   },
   {
     "question": "What warnings are listed for levofloxacin?",
-    "ground_truth": "Tendon rupture\nQT prolongation\nCNS effects"
+    "ground_truth": "Levofloxacin carries a black box warning for the risk of tendon rupture and tendinitis, particularly affecting the Achilles tendon, which can occur during or after treatment and is more common in patients over 60 years, those taking corticosteroids, and organ transplant recipients. QT interval prolongation is a serious cardiac risk associated with levofloxacin, and the drug should be avoided in patients with known QT prolongation, hypokalemia, or those taking other QT-prolonging medications. Central nervous system adverse effects including seizures, confusion, hallucinations, and peripheral neuropathy are also documented, and levofloxacin should be used with caution in patients with known CNS disorders or those taking NSAIDs."
   },
   {
     "question": "What is doxycycline commonly prescribed for?",
-    "ground_truth": "Bacterial infections\nRespiratory tract infections\nBroad-spectrum antibiotic use"
+    "ground_truth": "Doxycycline is a broad-spectrum tetracycline antibiotic commonly prescribed for bacterial respiratory tract infections including community-acquired pneumonia, particularly as an alternative for penicillin-allergic patients or when atypical pathogens such as Mycoplasma pneumoniae or Chlamydophila pneumoniae are suspected. It is also used for a wide range of other bacterial infections including sexually transmitted infections, skin and soft tissue infections, and vector-borne diseases such as Lyme disease and Rocky Mountain spotted fever. Its activity against both typical and atypical respiratory pathogens makes it a useful option in outpatient CAP management."
   },
   {
     "question": "What drug interactions are associated with rifampin?",
-    "ground_truth": "Enzyme induction\nReduced effectiveness of co-administered drugs\nMultiple clinically significant interactions"
+    "ground_truth": "Rifampin is one of the most potent inducers of hepatic cytochrome P450 enzymes (particularly CYP3A4, CYP2C9, and CYP2C19) and significantly reduces plasma concentrations of many co-administered drugs through accelerated metabolism. Clinically critical interactions include markedly reduced efficacy of antiretroviral drugs, oral contraceptives, warfarin, azole antifungals, methadone, and calcineurin inhibitors, often requiring dose adjustments or alternative agents. Clinicians must comprehensively review all concurrent medications before initiating rifampin-containing regimens and monitor for treatment failure of co-administered drugs throughout therapy."
   },
   {
     "question": "What precautions should be considered when prescribing fluoroquinolones?",
-    "ground_truth": "Risk of tendon injury\nQT prolongation\nCNS and neurological effects"
+    "ground_truth": "Fluoroquinolones carry significant risks that require careful patient evaluation before prescribing, including the risk of tendon injury and rupture, which is elevated in patients over 60, those on corticosteroids, and organ transplant recipients. QT interval prolongation is a serious cardiac concern that necessitates caution in patients with pre-existing cardiac conditions, electrolyte abnormalities, or concurrent use of other QT-prolonging medications. Central nervous system and neurological adverse effects, including peripheral neuropathy, seizures, and psychiatric symptoms, have been reported, and fluoroquinolones should be reserved for situations where no safer alternatives exist."
   },
   {
     "question": "Why is adherence important in tuberculosis treatment?",
-    "ground_truth": "Prevent resistance\nEnsure treatment success\nReduce relapse risk"
+    "ground_truth": "Adherence to the full course of TB treatment is essential to prevent the development of drug resistance, which occurs when treatment is interrupted and allows partially drug-resistant mycobacterial subpopulations to proliferate. Consistent drug intake throughout the prescribed treatment duration is necessary to ensure complete eradication of viable bacteria, including semi-dormant persister organisms that require prolonged treatment to eliminate. Poor adherence is associated with treatment failure, disease relapse, and the transmission of potentially drug-resistant strains to contacts, with serious public health consequences."
   },
   {
     "question": "What risks are associated with incomplete TB treatment?",
-    "ground_truth": "Drug resistance\nTreatment failure\nDisease relapse"
+    "ground_truth": "Incomplete TB treatment creates conditions that favor the selection and amplification of drug-resistant Mycobacterium tuberculosis strains, as partially sensitive organisms survive and replicate during treatment interruptions. Treatment failure, characterized by persistent positive bacteriology at the end of the treatment course, is a direct consequence of inadequate drug exposure due to poor adherence or premature discontinuation. Disease relapse following apparent clinical improvement is another major risk, requiring retreatment and potentially exposing close contacts to active tuberculosis."
   },
   {
     "question": "What is the purpose of standardized TB treatment regimens?",
-    "ground_truth": "Consistent care\nImproved outcomes\nSimplified programmatic management"
+    "ground_truth": "Standardized TB treatment regimens ensure consistent, evidence-based care for all patients regardless of the clinical setting, minimizing variability in treatment quality and outcomes across different healthcare systems. These regimens have been developed through rigorous clinical trials to optimize bactericidal and sterilizing activity while minimizing toxicity and treatment duration. Standardization also facilitates programmatic management, drug procurement, and monitoring, enabling national TB programs to track outcomes and evaluate the effectiveness of their treatment strategies."
   },
   {
     "question": "What is the purpose of bacteriological testing in suspected TB cases?",
-    "ground_truth": "Confirm active TB disease\nDistinguish TB from other conditions"
+    "ground_truth": "Bacteriological testing in suspected TB cases is performed to confirm active TB disease through direct detection of Mycobacterium tuberculosis, providing definitive diagnosis rather than relying solely on clinical or radiological findings. It allows differentiation of TB from other conditions that may present similarly, such as other mycobacterial infections, fungal diseases, and malignancies, enabling appropriate and targeted treatment. Drug susceptibility testing performed on positive cultures or molecular samples also identifies resistance patterns critical for selecting effective treatment regimens."
   },
   {
     "question": "Why is microbiological confirmation prioritized in TB diagnosis?",
-    "ground_truth": "Diagnostic accuracy\nTreatment justification"
+    "ground_truth": "Microbiological confirmation is prioritized in TB diagnosis because it provides objective evidence of active disease and eliminates the uncertainty inherent in clinical diagnosis alone, which may misclassify other respiratory conditions as tuberculosis. Confirmed diagnosis enables drug susceptibility testing, which is essential for detecting resistance and optimizing treatment, particularly in settings with high rates of drug-resistant TB. Bacteriological confirmation also improves treatment outcome assessment, as documented positive cultures provide a baseline against which response can be measured using culture conversion as a key monitoring tool."
   },
   {
     "question": "What does a negative sputum smear imply clinically?",
-    "ground_truth": "TB not excluded\nFurther testing required"
+    "ground_truth": "A negative sputum smear result does not exclude tuberculosis, as smear microscopy has limited sensitivity, particularly in patients with pauci-bacillary disease, HIV co-infection, or early-stage disease where bacterial loads may be below the detection threshold. Further testing with culture, molecular methods such as Xpert MTB/RIF, or additional sputum specimens is required when clinical suspicion remains high despite a negative smear. In smear-negative cases, clinical assessment, radiographic findings, and response to empirical treatment must be integrated to guide diagnostic decision-making."
   },
   {
     "question": "How are diagnostic algorithms structured in WHO TB guidelines?",
-    "ground_truth": "Stepwise testing\nLaboratory confirmation emphasis"
+    "ground_truth": "WHO TB diagnostic algorithms are structured as stepwise testing pathways that prioritize rapid molecular testing as the initial diagnostic step where resources allow, followed by smear microscopy, culture, and drug susceptibility testing as indicated. The algorithms are designed to accommodate different resource settings, with alternative pathways for low-resource environments where advanced testing may not be available. Clinical and radiological findings are integrated at each step to guide decisions when laboratory results are inconclusive or unavailable."
   },
   {
     "question": "What is the role of clinical assessment when laboratory tests are negative?",
-    "ground_truth": "Supportive diagnosis\nDecision-making in smear-negative cases"
+    "ground_truth": "When laboratory tests for tuberculosis are negative, clinical assessment plays a critical supporting role in diagnosis, particularly in smear-negative cases where disease may still be present but bacterial load is low. Clinicians integrate symptom history, epidemiological risk factors, radiographic findings, and response to empirical treatment to make diagnostic decisions in the absence of bacteriological confirmation. WHO guidelines recognize clinically diagnosed TB as a valid diagnostic category when laboratory confirmation is not achievable and the clinical evidence strongly supports active disease."
   },
   {
     "question": "Why are multiple sputum samples sometimes collected?",
-    "ground_truth": "Improve diagnostic yield\nReduce false negatives"
+    "ground_truth": "Multiple sputum samples are collected to improve diagnostic yield, as a single specimen may miss infection due to the intermittent nature of mycobacterial shedding in sputum and variability in specimen quality. Collecting at least two to three sputum samples, including an early morning specimen, increases the cumulative sensitivity of smear microscopy and culture significantly compared to a single sample. Repeated sampling also reduces the risk of false-negative results caused by poor specimen quality, inadequate volume, or technical errors in specimen processing."
   },
   {
     "question": "What diagnostic evidence is required before declaring active TB?",
-    "ground_truth": "Bacteriological confirmation\nClinical-radiological correlation"
+    "ground_truth": "Before declaring active tuberculosis, WHO guidelines require either bacteriological confirmation through positive smear microscopy, culture, or molecular testing, or a clinical-radiological correlation strong enough to justify a clinical diagnosis in the absence of laboratory confirmation. The combination of characteristic symptoms, compatible chest radiographic findings, epidemiological risk factors, and exclusion of alternative diagnoses forms the basis for a clinical TB diagnosis. Drug susceptibility testing results are also required before finalizing the treatment regimen to ensure appropriate drug selection."
   },
   {
     "question": "How does diagnostic certainty affect TB treatment initiation?",
-    "ground_truth": "Avoid overtreatment\nEnsure appropriate therapy"
+    "ground_truth": "Diagnostic certainty directly influences TB treatment initiation decisions, as bacteriologically confirmed cases justify immediate standardized treatment with a high degree of confidence, while clinical diagnoses require careful weighing of diagnostic evidence against the risks of empirical treatment. Treating without adequate diagnostic evidence risks unnecessary exposure to toxic anti-TB drugs for patients with alternative diagnoses, while delaying treatment in high-probability cases increases transmission risk and disease progression. Guidelines recommend initiating treatment when clinical probability is high, particularly in vulnerable populations, while continuing diagnostic workup to achieve confirmation."
   },
   {
     "question": "What limitations exist in TB diagnostic testing?",
-    "ground_truth": "Sensitivity constraints\nResource limitations"
+    "ground_truth": "TB diagnostic testing has important sensitivity limitations; sputum smear microscopy detects only approximately 50-80% of culture-confirmed pulmonary TB cases, with even lower sensitivity in HIV-positive patients and pauci-bacillary disease. Mycobacterial culture, while more sensitive and specific, requires 2-8 weeks for results, delaying treatment initiation in critical cases. Resource limitations in high-burden settings restrict access to molecular testing and culture, forcing reliance on less sensitive clinical and smear-based diagnoses, which can result in both missed cases and overdiagnosis."
   },
   {
     "question": "How is diagnostic follow-up used in TB care?",
-    "ground_truth": "Confirm initial results\nMonitor progression"
+    "ground_truth": "Diagnostic follow-up in TB care involves repeated bacteriological testing at defined intervals during treatment to confirm initial results, monitor treatment response through culture conversion, and detect treatment failure or emerging drug resistance early. Post-treatment follow-up testing is also performed to detect relapse, which may occur months to years after completing treatment and requires re-evaluation and retreatment. Consistent diagnostic follow-up is essential for individual patient management and contributes to programmatic surveillance data used to evaluate treatment effectiveness at the population level."
   },
   {
     "question": "What distinguishes diagnostic testing from monitoring tests in TB?",
-    "ground_truth": "Timing\nPurpose"
+    "ground_truth": "Diagnostic testing in tuberculosis is performed at the time of initial presentation to confirm or exclude active disease, characterize the infecting organism, and determine drug susceptibility to guide treatment selection. Monitoring tests are performed at scheduled intervals after treatment initiation to assess bacteriological response, detect treatment failure through lack of culture conversion, and identify emerging drug resistance. The timing and clinical purpose of each test type differ fundamentally, though the same laboratory methods such as smear and culture are used for both diagnostic confirmation and treatment monitoring."
   },
   {
     "question": "Why is early diagnosis critical in TB management?",
-    "ground_truth": "Reduce transmission\nImprove outcomes"
+    "ground_truth": "Early diagnosis of tuberculosis is critical to interrupt transmission, as untreated or undiagnosed individuals with active pulmonary TB can infect an average of 10 to 15 contacts per year in high-burden settings. Prompt diagnosis enables timely initiation of effective treatment, which rapidly reduces infectiousness and prevents disease progression to severe or disseminated forms with higher morbidity and mortality. Early case detection also improves treatment outcomes by initiating therapy before extensive lung damage or drug resistance develops."
   },
   {
     "question": "How are diagnostic results documented in TB programs?",
-    "ground_truth": "Standardized reporting\nProgrammatic tracking"
+    "ground_truth": "TB diagnostic results are documented using standardized reporting formats aligned with WHO and national program requirements, capturing specimen type, laboratory method, result, and date for each test performed. Systematic documentation in patient records and program databases enables longitudinal tracking of diagnostic and treatment outcomes, facilitating cohort analysis and program performance evaluation. Standardized data collection also supports national tuberculosis surveillance systems and contributes to global TB burden estimation and reporting."
   },
   {
     "question": "What role do symptoms play in TB diagnostic decision-making?",
-    "ground_truth": "Screening\nTrigger for testing"
+    "ground_truth": "Symptoms serve as the primary trigger for TB diagnostic evaluation, with cough lasting two weeks or more being the cardinal symptom that initiates targeted screening in high-burden settings. Additional symptoms including fever, night sweats, weight loss, and hemoptysis contribute to the clinical probability assessment that guides the extent and urgency of diagnostic workup. In populations with high TB prevalence, symptomatic screening combined with targeted testing algorithms improves case detection rates while efficiently allocating diagnostic resources."
   },
   {
     "question": "Why is laboratory quality important for TB diagnosis?",
-    "ground_truth": "Result reliability\nProgram effectiveness"
+    "ground_truth": "Laboratory quality is fundamental to TB diagnosis because inaccurate test results due to poor specimen handling, inadequate staining techniques, or equipment failures can lead to missed diagnoses, inappropriate treatment, or false-positive results that subject patients to unnecessary toxic therapy. Standardized quality assurance programs, including external quality assessment for smear microscopy and culture, are essential components of national TB programs to ensure reliable and consistent diagnostic results. Laboratory quality directly impacts the accuracy of surveillance data, treatment monitoring, and drug resistance reporting that inform public health responses to the TB epidemic."
   },
   {
     "question": "How do WHO guidelines address diagnostic uncertainty?",
-    "ground_truth": "Clinical judgment\nRepeat testing"
+    "ground_truth": "WHO TB guidelines address diagnostic uncertainty by recommending clinical judgment integrated with all available evidence when laboratory confirmation is not achievable, permitting a clinical diagnosis category for cases where active TB is strongly suspected but bacteriology remains negative or unavailable. Repeat testing with additional sputum specimens, alternative diagnostic methods such as bronchoscopy or chest CT, and empirical treatment with close follow-up are recommended strategies for managing diagnostically uncertain cases. Guidelines also emphasize the importance of reassessing the diagnosis if a patient fails to respond to empirical treatment, which should prompt reconsideration of alternative diagnoses."
   },
   {
     "question": "What diagnostic information supports TB case classification?",
-    "ground_truth": "Test results\nClinical findings"
+    "ground_truth": "TB case classification requires integration of laboratory test results, including smear, culture, and molecular testing outcomes, with clinical findings such as symptoms, physical examination, and radiographic evidence. Bacteriologically confirmed cases are classified based on the specific test that yielded a positive result, while clinically diagnosed cases are classified based on physician judgment in the absence of laboratory confirmation. Additional information including anatomical site of disease, HIV status, drug susceptibility profile, and prior TB history are incorporated into comprehensive case classification for treatment planning and surveillance reporting."
   },
   {
     "question": "What laboratory indicators are used to assess TB treatment response?",
-    "ground_truth": "Sputum smear\nCulture results"
+    "ground_truth": "Sputum smear microscopy and mycobacterial culture are the primary laboratory indicators used to assess TB treatment response, performed at defined intervals during the treatment course including at 2, 5, and 6 months. Culture conversion from positive to negative is the key bacteriological endpoint indicating treatment effectiveness, and delayed or absent conversion is an early indicator of treatment failure requiring investigation. Drug susceptibility testing of positive cultures obtained during treatment is used to detect acquired resistance and guide regimen modification when treatment failure is suspected."
   },
   {
     "question": "How is bacteriological response evaluated during TB treatment?",
-    "ground_truth": "Conversion to negative\nTime-based assessment"
+    "ground_truth": "Bacteriological response during TB treatment is evaluated by converting from culture-positive to culture-negative status, assessed through sequential sputum cultures collected at standardized time points during the treatment course. The time to culture conversion, typically expected within the first 2 months of effective therapy, is an important predictor of treatment outcome and relapse risk. Failure to achieve culture conversion by the end of the intensive phase or reversion to culture positivity during the continuation phase signals treatment failure and triggers evaluation for drug resistance and adherence issues."
   },
   {
     "question": "Why is culture monitoring important after treatment initiation?",
-    "ground_truth": "Detect failure\nConfirm response"
+    "ground_truth": "Culture monitoring after TB treatment initiation is essential to detect bacteriological failure early, allowing timely intervention before significant clinical deterioration or transmission of drug-resistant strains occurs. Mycobacterial culture provides definitive confirmation of treatment response beyond what symptoms alone can indicate, as clinical improvement may precede or lag behind bacteriological clearance. Serial culture monitoring also provides specimens for drug susceptibility testing in cases where treatment failure is suspected, enabling rapid identification of acquired resistance and appropriate regimen modification."
   },
   {
     "question": "What constitutes an unfavorable TB treatment outcome?",
-    "ground_truth": "Failure\nRelapse\nDeath"
+    "ground_truth": "Unfavorable TB treatment outcomes according to WHO definitions include treatment failure, defined as persistent positive bacteriology at five months or later during treatment, and relapse, defined as recurrence of active TB following successful completion of a previous treatment course. Death during the treatment course, loss to follow-up before treatment completion, and treatment not evaluated due to transfer or unknown status are also classified as unfavorable outcomes. These outcomes collectively indicate that the treatment objective of complete cure was not achieved and represent both individual patient harm and a public health challenge."
   },
   {
     "question": "How are TB treatment outcomes categorized programmatically?",
-    "ground_truth": "Cure\nCompletion\nFailure"
+    "ground_truth": "WHO standardizes TB treatment outcome categorization into six mutually exclusive categories: cure, treatment completion, treatment failure, death, loss to follow-up, and not evaluated. Cure is reserved for bacteriologically confirmed patients with documented negative bacteriology at treatment end, while treatment completion applies when the course is finished without evidence of failure but without sufficient bacteriology for cure classification. These standardized categories enable consistent cohort analysis across treatment facilities and countries, forming the basis for global TB treatment success rate reporting."
   },
   {
     "question": "What role does follow-up testing play in TB relapse detection?",
-    "ground_truth": "Post-treatment monitoring\nBacteriological confirmation"
+    "ground_truth": "Post-treatment follow-up testing through sputum culture and smear microscopy is essential for detecting TB relapse, which may occur within months to years after completing a successful treatment course and requires prompt retreatment. Patients considered cured or treatment-completed should be monitored for symptoms and undergo bacteriological testing at any sign of recurrent disease to confirm relapse and obtain updated drug susceptibility results. Early detection of relapse through systematic follow-up reduces the period of infectious disease transmission and prevents progression to more severe forms of TB."
   },
   {
     "question": "Why is relapse considered separately from treatment failure?",
-    "ground_truth": "Timing\nClinical implications"
+    "ground_truth": "Relapse is classified separately from treatment failure because it occurs after successful completion of a full treatment course with documented negative bacteriology, indicating that treatment achieved apparent cure before the disease recurred, whereas treatment failure indicates that bacteriology never became negative during treatment. The timing of disease recurrence carries important clinical and programmatic implications, as relapse may result from reinfection or reactivation of residual organisms, while treatment failure more commonly indicates drug resistance or inadequate drug exposure. Distinguishing these outcomes guides appropriate retreatment strategy selection and drug susceptibility testing priorities."
   },
   {
     "question": "How does adherence influence bacteriological outcomes?",
-    "ground_truth": "Sustained drug exposure\nResistance prevention"
+    "ground_truth": "Consistent adherence to anti-TB treatment maintains sustained drug exposure that ensures adequate bactericidal and sterilizing activity against all subpopulations of M. tuberculosis, including semi-dormant persister organisms that require prolonged treatment. Poor adherence creates periods of subtherapeutic drug levels that allow mycobacterial regrowth and can select for drug-resistant mutants, leading to acquired resistance and treatment failure. Directly observed therapy (DOT) and patient support interventions are recommended strategies to optimize adherence and improve bacteriological outcomes, particularly in high-risk patient populations."
   },
   {
     "question": "What factors can delay sputum culture conversion?",
-    "ground_truth": "Disease severity\nAdherence issues"
+    "ground_truth": "Sputum culture conversion may be delayed by severe cavitary disease with high bacterial burden at the start of treatment, which requires a longer period for adequate drug exposure to reduce the bacterial load to undetectable levels. Poor treatment adherence resulting in inconsistent drug levels and subtherapeutic exposure is a major modifiable factor that significantly delays culture conversion. Drug resistance, malabsorption of anti-TB medications due to gastrointestinal conditions, and drug-drug interactions that reduce effective drug concentrations can also impair bactericidal activity and prolong the time to culture conversion."
   },
   {
     "question": "How is TB treatment success documented in guidelines?",
-    "ground_truth": "Negative tests\nCompleted regimen"
+    "ground_truth": "TB treatment success is documented according to WHO standardized outcome definitions, requiring negative sputum bacteriology at the end of the treatment course for cure classification, or completion of the full prescribed regimen without evidence of failure for treatment completion designation. Documentation includes recording bacteriological test results at specified time points throughout the treatment course, noting the final outcome classification at treatment completion, and entering this data into the national tuberculosis information system. Cohort treatment success rates are then calculated and reported annually to WHO as part of global TB monitoring and evaluation."
   },
   {
     "question": "What clinical signs may suggest poor TB treatment response?",
-    "ground_truth": "Persistent symptoms\nPositive tests"
+    "ground_truth": "Clinical signs suggesting poor TB treatment response include persistent or worsening respiratory symptoms such as ongoing cough, fever, and weight loss beyond the first few weeks of treatment when improvement is typically expected. Radiographic worsening on follow-up chest imaging, including enlarging infiltrates, new cavitation, or development of complications such as pleural effusion, may indicate inadequate treatment response. Positive sputum smear or culture results beyond the second month of treatment are the key bacteriological indicators of poor response requiring urgent investigation for drug resistance and adherence."
   },
   {
     "question": "Why is standardized outcome reporting important in TB programs?",
-    "ground_truth": "Comparability\nSurveillance"
+    "ground_truth": "Standardized outcome reporting enables meaningful comparisons of treatment success rates across different facilities, regions, and countries over time, which is essential for monitoring global TB control progress. Consistent use of WHO-defined outcome categories ensures that data contributed to national surveillance systems and global databases such as WHO's annual TB report are comparable and reliable. Standardized reporting also enables identification of underperforming programs that require additional support, facilitating targeted allocation of resources and interventions."
   },
   {
     "question": "How are treatment failures investigated?",
-    "ground_truth": "Repeat testing\nRegimen review"
+    "ground_truth": "Treatment failures are investigated by first confirming bacteriological failure through repeat sputum culture and drug susceptibility testing to identify resistance patterns that may explain the lack of treatment response. Adherence assessment through patient interview, pill counts, or directly observed therapy records is essential to determine whether non-adherence rather than drug resistance is the primary cause of failure. Additional evaluation includes reviewing medication dosing, potential drug-drug interactions, malabsorption, and comorbidities such as HIV that may compromise treatment efficacy."
   },
   {
     "question": "What monitoring strategies reduce risk of relapse?",
-    "ground_truth": "Follow-up testing\nAdherence monitoring"
+    "ground_truth": "Ensuring complete adherence to the full prescribed treatment course through directly observed therapy or patient support programs is the most important strategy for reducing TB relapse risk. Post-treatment follow-up with clinical assessment and bacteriological testing at defined intervals allows early detection of relapse before significant disease progression or transmission occurs. Screening and treatment of household contacts, addressing risk factors such as HIV co-infection and malnutrition, and ensuring patients complete continuation phase treatment are additional evidence-based strategies to minimize relapse."
   },
   {
     "question": "How do guidelines define treatment completion?",
-    "ground_truth": "Finished regimen\nNo evidence of failure"
+    "ground_truth": "Treatment completion in TB is defined as finishing the full prescribed antibiotic regimen without evidence of treatment failure, but without sufficient bacteriological testing to classify the patient as cured according to WHO definitions. This outcome applies when the patient has taken all medications for the required duration but does not have two or more consecutive negative cultures documented at the end of treatment. Treatment completion is considered a favorable outcome, though cure is the preferred classification when bacteriological confirmation is available."
   },
   {
     "question": "What is the role of time in assessing TB treatment outcomes?",
-    "ground_truth": "Fixed evaluation points\nLongitudinal assessment"
+    "ground_truth": "Time plays a critical role in TB treatment outcome assessment, with specific evaluation points defined by guidelines at 2 months, 5 months, and at the end of treatment to capture bacteriological status and identify failure early. The 2-month culture result is a particularly important prognostic indicator, as failure to convert from positive to negative at this point significantly increases the risk of overall treatment failure and relapse. Longitudinal assessment over the full treatment course and post-treatment follow-up period is necessary to comprehensively evaluate treatment effectiveness and detect late relapse."
   },
   {
     "question": "Why are bacteriological endpoints preferred over symptoms alone?",
-    "ground_truth": "Objectivity\nReliability"
+    "ground_truth": "Bacteriological endpoints such as culture conversion and negative bacteriology at treatment end are preferred over symptoms alone because they provide objective, measurable confirmation of treatment response that is not subject to the variability and subjectivity of symptom reporting. Symptoms may improve or worsen independently of actual bacterial clearance, and asymptomatic patients may still harbor viable organisms capable of causing relapse or transmission. Standardized bacteriological endpoints enable consistent outcome classification across patients, facilities, and countries, supporting reliable surveillance and program evaluation."
   },
   {
     "question": "How does treatment monitoring support public health goals?",
-    "ground_truth": "Transmission control\nProgram evaluation"
+    "ground_truth": "Treatment monitoring supports public health goals by ensuring that patients with active TB achieve bacteriological cure, thereby reducing the period of infectiousness and preventing ongoing transmission to contacts in the community. Early detection of treatment failure and drug resistance through systematic monitoring allows prompt regimen adjustment, preventing amplification of resistance and limiting the spread of drug-resistant strains. Aggregated monitoring data at the program level informs national TB control strategies, enabling evidence-based resource allocation and identification of geographic or demographic areas requiring intensified interventions."
   },
   {
     "question": "What programmatic challenges exist in TB outcome monitoring?",
-    "ground_truth": "Loss to follow-up\nResource constraints"
+    "ground_truth": "Loss to follow-up is a major programmatic challenge in TB outcome monitoring, as patients who discontinue treatment or fail to return for follow-up visits cannot be assigned a definitive treatment outcome, compromising the accuracy of program performance metrics. Resource constraints in high-burden settings limit access to culture facilities required for cure classification, resulting in many patients being classified as treatment complete rather than cured despite apparent success. Incomplete data capture due to patient mobility, healthcare system fragmentation, and inadequate laboratory infrastructure further hampers comprehensive and accurate outcome monitoring."
   },
   {
     "question": "Why is outcome classification essential for TB control programs?",
-    "ground_truth": "Policy planning\nPerformance assessment"
+    "ground_truth": "Outcome classification provides the foundation for measuring TB program performance, enabling national programs and international organizations to assess whether treatment services are achieving the bacteriological cure rates necessary to reduce TB incidence. Standardized outcome data identify gaps in the care cascade, such as high rates of loss to follow-up or treatment failure, that require targeted interventions to improve program effectiveness. Outcome classification also supports policy decisions on resource allocation, regimen selection, and the adoption of new diagnostic and treatment tools to optimize TB control strategies."
   },
   {
     "question": "What safety concerns are associated with isoniazid therapy?",
-    "ground_truth": "Hepatotoxicity\nNeuropathy risk"
+    "ground_truth": "Hepatotoxicity is the most serious safety concern with isoniazid therapy, ranging from asymptomatic transaminase elevation to fulminant hepatic failure, with risk factors including older age, pre-existing liver disease, alcoholism, and concomitant use of other hepatotoxic drugs. Peripheral neuropathy due to pyridoxine deficiency is a common and preventable adverse effect, typically managed by co-administering vitamin B6 supplementation throughout treatment. Additional safety concerns include drug-induced lupus erythematosus, hypersensitivity reactions, and CNS effects such as psychosis and seizures, particularly in overdose or slow acetylators."
   },
   {
     "question": "Why is liver monitoring recommended during TB treatment?",
-    "ground_truth": "Drug-induced injury\nEarly detection"
-  },
-  {
-    "question": "What drug interactions are commonly associated with rifampin?",
-    "ground_truth": "Enzyme induction\nReduced drug efficacy"
-  },
-  {
-    "question": "What patient populations require caution with rifampin?",
-    "ground_truth": "Liver disease\nConcomitant medications"
-  },
-  {
-    "question": "Why is ethambutol-associated optic toxicity monitored?",
-    "ground_truth": "Vision impairment\nReversibility with early detection"
-  },
-  {
-    "question": "What precautions are recommended when prescribing pyrazinamide?",
-    "ground_truth": "Hepatic effects\nUric acid elevation"
-  },
-  {
-    "question": "How are adverse drug reactions identified during TB therapy?",
-    "ground_truth": "Clinical monitoring\nPatient reporting"
-  },
-  {
-    "question": "Why are drug warnings emphasized in TB guidelines?",
-    "ground_truth": "Patient safety\nRisk mitigation"
-  },
-  {
-    "question": "How do drug labels inform TB treatment decisions?",
-    "ground_truth": "Contraindications\nAdverse effects"
-  },
-  {
-    "question": "What is the role of baseline testing before TB drug initiation?",
-    "ground_truth": "Risk assessment\nSafety monitoring"
-  },
-  {
-    "question": "How do adverse effects impact treatment adherence?",
-    "ground_truth": "Discontinuation risk\nDose adjustments"
-  },
-  {
-    "question": "Why is patient education important for TB drug safety?",
-    "ground_truth": "Early symptom recognition\nReporting adverse events"
-  },
-  {
-    "question": "What monitoring is recommended for long-term TB drug use?",
-    "ground_truth": "Periodic testing\nClinical evaluation"
-  },
-  {
-    "question": "How are serious adverse reactions managed in TB treatment?",
-    "ground_truth": "Drug interruption\nRegimen modification"
-  },
-  {
-    "question": "Why is pharmacovigilance important in TB programs?",
-    "ground_truth": "Safety surveillance\nProgram improvement"
-  },
-  {
-    "question": "What warnings are common across first-line TB drugs?",
-    "ground_truth": "Hepatic risk\nHypersensitivity"
-  },
-  {
-    "question": "How do drug labels complement clinical guidelines?",
-    "ground_truth": "Regulatory detail\nSafety specificity"
-  },
-  {
-    "question": "Why must drug contraindications be reviewed before prescribing?",
-    "ground_truth": "Prevent harm\nPatient-specific risk"
-  },
-  {
-    "question": "How does drug safety monitoring support treatment success?",
-    "ground_truth": "Sustained adherence\nReduced complications"
-  },
-  {
-    "question": "What documentation is required for TB drug adverse events?",
-    "ground_truth": "Clinical records\nProgram reporting"
-  },
-  {
-    "question": "What clinical findings suggest community-acquired pneumonia?",
-    "ground_truth": "Respiratory symptoms\nSystemic signs"
-  },
-  {
-    "question": "How is chest imaging used in pneumonia diagnosis?",
-    "ground_truth": "Confirm infection\nAssess severity"
-  },
-  {
-    "question": "What factors guide antibiotic selection in CAP?",
-    "ground_truth": "Severity\nPatient risk factors"
-  },
-  {
-    "question": "Why is empirical therapy used in CAP?",
-    "ground_truth": "Immediate treatment\nUnknown pathogen"
-  },
-  {
-    "question": "What safety concerns are associated with fluoroquinolones?",
-    "ground_truth": "Tendon injury\nCNS effects"
-  },
-  {
-    "question": "How do macrolides function in respiratory infections?",
-    "ground_truth": "Antibacterial activity\nAnti-inflammatory effects"
-  },
-  {
-    "question": "What adverse effects are monitored with azithromycin use?",
-    "ground_truth": "QT prolongation\nGI symptoms"
-  },
-  {
-    "question": "Why are antibiotic warnings important in pneumonia treatment?",
-    "ground_truth": "Prevent adverse events\nAppropriate use"
-  },
-  {
-    "question": "How do guidelines define severe CAP?",
-    "ground_truth": "Clinical criteria\nNeed for hospitalization"
-  },
-  {
-    "question": "What role does patient age play in CAP management?",
-    "ground_truth": "Risk stratification\nDrug selection"
-  },
-  {
-    "question": "How is treatment response assessed in pneumonia?",
-    "ground_truth": "Symptom improvement\nClinical stability"
-  },
-  {
-    "question": "Why is antibiotic duration important in CAP?",
-    "ground_truth": "Prevent resistance\nEnsure cure"
-  },
-  {
-    "question": "What monitoring is recommended during antibiotic therapy?",
-    "ground_truth": "Adverse effects\nClinical response"
-  },
-  {
-    "question": "How do drug labels support pneumonia treatment decisions?",
-    "ground_truth": "Dosing\nContraindications"
-  },
-  {
-    "question": "Why is guideline-based therapy recommended for CAP?",
-    "ground_truth": "Evidence-based care\nOutcome improvement"
-  },
-  {
-    "question": "How do WHO guidelines define a bacteriologically confirmed TB case?",
-    "ground_truth": "Laboratory evidence\nPositive smear, culture, or molecular test"
-  },
-  {
-    "question": "What constitutes a clinically diagnosed TB case?",
-    "ground_truth": "Clinical judgment\nLack of bacteriological confirmation"
-  },
-  {
-    "question": "Why are standardized case definitions important in TB programs?",
-    "ground_truth": "Surveillance consistency\nComparability across settings"
-  },
-  {
-    "question": "How do TB case definitions affect reporting and monitoring?",
-    "ground_truth": "Program statistics\nOutcome evaluation"
-  },
-  {
-    "question": "What information is required to classify TB cases programmatically?",
-    "ground_truth": "Diagnostic results\nClinical findings"
-  },
-  {
-    "question": "How do diagnostic criteria differ between pulmonary and extrapulmonary TB?",
-    "ground_truth": "Specimen source\nDiagnostic methods"
-  },
-  {
-    "question": "Why is bacteriological confirmation prioritized in national TB programs?",
-    "ground_truth": "Accuracy\nTreatment justification"
-  },
-  {
-    "question": "What challenges exist in applying TB case definitions in practice?",
-    "ground_truth": "Limited diagnostics\nSmear-negative cases"
-  },
-  {
-    "question": "How do guidelines address uncertainty in TB case classification?",
-    "ground_truth": "Clinical assessment\nRepeat testing"
-  },
-  {
-    "question": "What role do diagnostic algorithms play in TB case identification?",
-    "ground_truth": "Structured decision-making\nStandardization"
-  },
-  {
-    "question": "How is TB diagnosis integrated into surveillance systems?",
-    "ground_truth": "Case notification\nProgram tracking"
-  },
-  {
-    "question": "Why are suspected TB cases monitored before confirmation?",
-    "ground_truth": "Early detection\nFollow-up testing"
-  },
-  {
-    "question": "What distinguishes a presumptive TB case from a confirmed case?",
-    "ground_truth": "Level of evidence\nDiagnostic certainty"
-  },
-  {
-    "question": "How do diagnostic delays impact TB case management?",
-    "ground_truth": "Transmission risk\nDisease progression"
-  },
-  {
-    "question": "Why is early case detection emphasized in TB control?",
-    "ground_truth": "Reduce spread\nImprove outcomes"
-  },
-  {
-    "question": "How do TB programs handle smear-negative cases?",
-    "ground_truth": "Additional testing\nClinical judgment"
-  },
-  {
-    "question": "What documentation supports TB case verification?",
-    "ground_truth": "Laboratory reports\nClinical records"
-  },
-  {
-    "question": "How does diagnostic classification influence treatment decisions?",
-    "ground_truth": "Regimen choice\nMonitoring intensity"
-  },
-  {
-    "question": "What role does quality assurance play in TB diagnosis?",
-    "ground_truth": "Reliable results\nProgram integrity"
-  },
-  {
-    "question": "Why is consistency important in TB diagnostic reporting?",
-    "ground_truth": "Epidemiological accuracy\nProgram evaluation"
-  },
-  {
-    "question": "What outcomes are considered favorable in TB treatment?",
-    "ground_truth": "Cure\nTreatment completion"
-  },
-  {
-    "question": "What outcomes are classified as unfavorable in TB programs?",
-    "ground_truth": "Failure\nRelapse\nDeath"
-  },
-  {
-    "question": "How is treatment failure identified bacteriologically?",
-    "ground_truth": "Persistent positive tests\nLack of conversion"
-  },
-  {
-    "question": "Why is outcome classification essential for TB program assessment?",
-    "ground_truth": "Performance monitoring\nPolicy decisions"
-  },
-  {
-    "question": "How do guidelines define TB treatment success?",
-    "ground_truth": "Negative bacteriology\nCompleted regimen"
-  },
-  {
-    "question": "What factors contribute to poor TB treatment outcomes?",
-    "ground_truth": "Non-adherence\nDrug toxicity"
-  },
-  {
-    "question": "How is loss to follow-up handled in TB outcome reporting?",
-    "ground_truth": "Program classification\nSurveillance impact"
-  },
-  {
-    "question": "Why is relapse monitored separately from initial treatment failure?",
-    "ground_truth": "Timing\nDifferent clinical implications"
-  },
-  {
-    "question": "How do bacteriological endpoints improve outcome assessment?",
-    "ground_truth": "Objectivity\nReduced bias"
-  },
-  {
-    "question": "What is the role of follow-up after TB treatment completion?",
-    "ground_truth": "Relapse detection\nLong-term monitoring"
-  },
-  {
-    "question": "How are treatment outcomes aggregated at the program level?",
-    "ground_truth": "Cohort analysis\nReporting frames"
-  },
-  {
-    "question": "Why is standardized outcome reporting required internationally?",
-    "ground_truth": "Comparability\nGlobal monitoring"
-  },
-  {
-    "question": "How do treatment interruptions affect outcome classification?",
-    "ground_truth": "Failure risk\nReclassification"
-  },
-  {
-    "question": "What challenges exist in measuring TB treatment outcomes?",
-    "ground_truth": "Incomplete data\nResource constraints"
-  },
-  {
-    "question": "How do clinical and bacteriological outcomes complement each other?",
-    "ground_truth": "Symptom resolution\nLaboratory confirmation"
-  },
-  {
-    "question": "Why is bacteriological monitoring preferred over symptoms alone?",
-    "ground_truth": "Reliability\nSpecificity"
-  },
-  {
-    "question": "How do outcome metrics inform TB policy decisions?",
-    "ground_truth": "Program improvement\nResource allocation"
-  },
-  {
-    "question": "What role does patient follow-up play in outcome accuracy?",
-    "ground_truth": "Data completeness\nRelapse detection"
-  },
-  {
-    "question": "How are adverse events incorporated into outcome evaluation?",
-    "ground_truth": "Treatment modification\nProgram reporting"
-  },
-  {
-    "question": "Why is outcome evaluation central to TB control strategies?",
-    "ground_truth": "Effectiveness assessment\nPublic health impact"
-  },
-  {
-    "question": "Why is hepatotoxicity a major concern in TB treatment?",
-    "ground_truth": "First-line drug effects\nLiver injury risk"
-  },
-  {
-    "question": "How are liver function tests used during TB therapy?",
-    "ground_truth": "Baseline assessment\nOngoing monitoring"
+    "ground_truth": "Liver monitoring is recommended during TB treatment because several first-line anti-TB drugs, particularly isoniazid, rifampin, and pyrazinamide, are associated with hepatotoxicity that can range from mild transaminase elevation to life-threatening hepatic failure. Baseline liver function testing before initiating therapy identifies patients with pre-existing hepatic disease who require more intensive monitoring or modified regimens. Periodic monitoring during treatment enables early detection of drug-induced liver injury, allowing timely drug interruption before irreversible damage occurs."
   },
   {
     "question": "What contraindications are associated with isoniazid use?",
-    "ground_truth": "Liver disease\nHypersensitivity"
+    "ground_truth": "Isoniazid is contraindicated in patients with known hypersensitivity to the drug or any of its components, as severe allergic reactions including anaphylaxis have been reported. Severe pre-existing liver disease and a history of isoniazid-associated hepatic injury are contraindications to its use, given the significant risk of drug-induced hepatotoxicity. Caution is also required in patients with alcohol use disorder, seizure disorders, and peripheral neuropathy, though these are relative rather than absolute contraindications that require risk-benefit assessment and enhanced monitoring."
   },
   {
     "question": "Why does rifampin require careful review of concomitant medications?",
-    "ground_truth": "Enzyme induction\nDrug interactions"
+    "ground_truth": "Rifampin is one of the most potent inducers of the hepatic cytochrome P450 enzyme system, dramatically increasing the metabolism and reducing plasma concentrations of a vast number of co-administered drugs, which can lead to therapeutic failure of essential medications. Clinically critical examples include highly reduced efficacy of antiretrovirals in HIV-positive patients, hormonal contraceptives, warfarin, and immunosuppressants such as cyclosporine, requiring dose adjustments or alternative agents to maintain therapeutic effect. A comprehensive review of all concurrent medications is mandatory before initiating rifampin therapy and must be repeated whenever new drugs are added to the regimen."
   },
   {
     "question": "How is ethambutol-associated optic toxicity detected?",
-    "ground_truth": "Vision testing\nEarly symptom reporting"
+    "ground_truth": "Ethambutol-associated optic toxicity is detected through regular vision testing, beginning with a baseline ophthalmologic assessment before treatment initiation to document normal visual acuity and color vision. Monthly monitoring with standard visual acuity charts and Ishihara color vision tests is recommended throughout the treatment course to identify early changes that may indicate developing optic neuritis. Patients must also be instructed to immediately report any subjective visual changes such as blurring, reduced color discrimination, or visual field defects, as early discontinuation of ethambutol typically results in partial or complete recovery of vision."
   },
   {
     "question": "What patient factors increase risk of TB drug toxicity?",
-    "ground_truth": "Age\nComorbidities"
+    "ground_truth": "Advancing age is a significant risk factor for TB drug toxicity, as older patients have reduced hepatic and renal drug clearance, increasing plasma drug levels and the risk of dose-dependent adverse effects including hepatotoxicity and neuropathy. Pre-existing comorbidities such as chronic liver disease, renal impairment, peripheral neuropathy, and HIV infection substantially increase the risk of toxicity from specific anti-TB drugs and require modified dosing or enhanced monitoring. Nutritional deficiencies, particularly pyridoxine deficiency that predisposes to isoniazid-induced neuropathy, and concurrent use of other hepatotoxic or nephrotoxic medications are additional risk factors requiring clinical attention."
   },
   {
     "question": "How are adverse drug reactions managed during TB treatment?",
-    "ground_truth": "Drug interruption\nRegimen adjustment"
+    "ground_truth": "Management of adverse drug reactions during TB treatment depends on the severity and the specific drug implicated, with minor reactions typically managed through symptomatic treatment without interrupting the anti-TB regimen. Serious reactions such as hepatotoxicity, severe skin reactions, or optic neuritis require prompt interruption of the offending drug or the entire regimen pending identification of the causative agent through sequential drug rechallenge. Regimen modification using alternative drugs with different toxicity profiles may be necessary when a patient cannot tolerate a standard first-line drug, requiring specialist consultation to ensure that effective treatment continues with an adequate drug combination."
   },
   {
-    "question": "Why are warnings emphasized in TB drug labels?",
-    "ground_truth": "Risk communication\nPatient safety"
+    "question": "Why are drug warnings emphasized in TB guidelines?",
+    "ground_truth": "Drug warnings are emphasized in TB guidelines because anti-TB medications carry significant toxicity risks that can cause serious harm if not recognized and managed promptly, including potentially fatal hepatotoxicity from isoniazid, rifampin, and pyrazinamide. Highlighting these risks in clinical guidelines ensures that prescribers implement appropriate baseline assessments, patient education, and monitoring protocols that enable early detection and management of adverse effects. Emphasizing drug safety is also essential for maintaining patient trust and adherence, as poorly managed adverse effects are a common reason for treatment interruption that can lead to drug resistance and treatment failure."
   },
   {
-    "question": "What role do drug labels play alongside clinical guidelines?",
-    "ground_truth": "Regulatory details\nSafety specifics"
+    "question": "How do drug labels inform TB treatment decisions?",
+    "ground_truth": "Drug labels provide essential prescribing information including approved indications, contraindications, dosing recommendations, and drug interaction data that complement clinical guidelines by offering drug-specific regulatory guidance. Safety information on drug labels, including black box warnings and risk mitigation strategies such as required monitoring tests, is based on regulatory review of clinical trial and post-marketing safety data and guides safe prescribing decisions. Drug label information on specific adverse effect profiles and contraindications helps clinicians select the most appropriate agents for individual patients, particularly those with comorbidities or concomitant medications that increase toxicity risk."
   },
   {
-    "question": "How does toxicity monitoring support treatment adherence?",
-    "ground_truth": "Early intervention\nReduced discontinuation"
+    "question": "What is the role of baseline testing before TB drug initiation?",
+    "ground_truth": "Baseline testing before initiating TB treatment identifies pre-existing conditions that increase the risk of drug toxicity, enabling individualized monitoring plans and, when necessary, modified regimens that reduce harm to vulnerable patients. Liver function tests, visual acuity assessment, complete blood count, and renal function testing are typically performed before treatment to document normal values against which subsequent changes can be compared during monitoring. Baseline HIV testing, assessment of nutritional status, and review of concomitant medications are additional evaluations that inform treatment selection and safety monitoring strategies for individual patients."
   },
   {
-    "question": "What documentation is required for serious TB drug adverse events?",
-    "ground_truth": "Clinical records\nProgram notification"
+    "question": "How do adverse effects impact treatment adherence?",
+    "ground_truth": "Adverse effects are a major driver of treatment interruption and non-adherence in TB therapy, as patients experiencing nausea, hepatotoxicity, peripheral neuropathy, or other side effects may self-discontinue medications without informing their healthcare provider. Poor management of adverse effects leads to inconsistent drug exposure that both compromises treatment efficacy and creates conditions that favor the selection of drug-resistant mutants. Proactive patient education about expected side effects, prompt management of symptoms through supportive measures or regimen adjustments, and regular follow-up visits to address tolerability concerns are essential strategies to maintain adherence through the full treatment course."
   },
   {
-    "question": "How do safety considerations influence regimen selection?",
-    "ground_truth": "Risk-benefit balance\nPatient-specific factors"
+    "question": "Why is patient education important for TB drug safety?",
+    "ground_truth": "Patient education about TB drug safety enables early recognition and reporting of adverse effects such as jaundice, visual changes, or skin reactions that require prompt medical evaluation and potential treatment modification. Informed patients who understand the purpose of their medications, the importance of completing the full course, and the specific warning signs to report are more likely to adhere to treatment and seek timely care when problems arise. Education also addresses misconceptions about TB treatment that may contribute to non-adherence, and empowers patients to participate actively in their own care as partners in achieving treatment success."
   },
   {
-    "question": "Why is patient education critical for TB drug safety?",
-    "ground_truth": "Symptom awareness\nTimely reporting"
+    "question": "What monitoring is recommended for long-term TB drug use?",
+    "ground_truth": "Long-term TB drug use requires periodic clinical and laboratory monitoring to detect cumulative toxicity that may develop progressively over the treatment course, including repeat liver function tests, visual acuity assessment for patients on ethambutol, and uric acid levels for patients receiving pyrazinamide. Clinical evaluation at regular intervals throughout treatment allows assessment of symptom development, weight changes, and functional status that may signal emerging toxicity or treatment failure. The frequency and type of monitoring tests should be tailored to individual patient risk factors, with more intensive monitoring for patients with pre-existing conditions or those receiving regimens with heightened toxicity profiles."
   },
   {
-    "question": "How do guidelines address management of drug-induced liver injury?",
-    "ground_truth": "Treatment interruption\nRechallenge decisions"
+    "question": "How are serious adverse reactions managed in TB treatment?",
+    "ground_truth": "Serious adverse reactions in TB treatment, such as drug-induced hepatitis, severe skin reactions including Stevens-Johnson syndrome, and optic neuritis, require immediate interruption of all anti-TB medications until the patient is stabilized and the causative drug is identified. Following recovery, sequential drug rechallenge under close medical supervision is performed to identify the responsible agent and allow reintroduction of tolerated drugs to reconstruct an effective regimen. If a critical first-line drug cannot be safely reintroduced due to recurrent serious toxicity, specialist consultation is required to design an alternative regimen using second-line agents that maintains adequate bactericidal and sterilizing coverage."
   },
   {
-    "question": "What monitoring strategies reduce severe adverse events?",
-    "ground_truth": "Regular assessment\nEarly detection"
+    "question": "Why is pharmacovigilance important in TB programs?",
+    "ground_truth": "Pharmacovigilance in TB programs enables systematic collection and analysis of adverse drug reaction data from routine clinical practice, providing real-world safety signals that complement pre-marketing clinical trial data and may identify previously unrecognized risks. Active safety surveillance of anti-TB drug regimens, particularly novel drugs and new combinations being introduced through expanded access programs, is essential to ensure that safety profiles observed in trials are maintained in diverse real-world patient populations. Pharmacovigilance data also informs regulatory decisions on drug labeling updates, prescribing restrictions, and risk mitigation requirements that protect patients receiving TB treatment."
   },
   {
-    "question": "Why is pharmacovigilance important in TB programs? [DUPLICATE OF Q80 - REPLACE WITH UNIQUE QUESTION]",
-    "ground_truth": "Safety surveillance\nProgram improvement"
+    "question": "What warnings are common across first-line TB drugs?",
+    "ground_truth": "Hepatic toxicity risk is a warning common to multiple first-line TB drugs including isoniazid, rifampin, and pyrazinamide, all of which can cause drug-induced liver injury ranging from asymptomatic enzyme elevation to fulminant hepatic failure. Hypersensitivity reactions including rash, fever, and anaphylaxis are potential adverse effects of all first-line agents and require immediate evaluation and drug discontinuation if severe. Additional warnings specific to individual drugs, such as optic neuritis for ethambutol and peripheral neuropathy for isoniazid, highlight the importance of systematic organ-specific monitoring tailored to the full drug regimen."
   },
   {
-    "question": "How do adverse effects affect TB treatment outcomes?",
-    "ground_truth": "Adherence issues\nRegimen changes"
+    "question": "How do drug labels complement clinical guidelines?",
+    "ground_truth": "Drug labels provide detailed, drug-specific regulatory information on approved uses, contraindications, dosing for specific populations including pediatric and renally impaired patients, and safety data derived from rigorous pre-marketing evaluation that complements the broader therapeutic recommendations in clinical guidelines. While clinical guidelines synthesize evidence across multiple drugs and patient populations to guide treatment strategy, drug labels offer granular prescribing information for individual agents including specific drug interaction alerts and required risk management protocols. Clinicians using both sources together can make fully informed prescribing decisions that integrate evidence-based treatment strategy with drug-specific safety requirements."
   },
   {
-    "question": "What role does baseline screening play before TB treatment?",
-    "ground_truth": "Risk identification\nSafety planning"
+    "question": "Why must drug contraindications be reviewed before prescribing?",
+    "ground_truth": "Reviewing drug contraindications before prescribing is essential to identify patient-specific conditions or concurrent medications that place the patient at unacceptable risk of serious harm from the proposed treatment. Absolute contraindications, such as previous severe hypersensitivity to an agent or active decompensated liver disease for hepatotoxic drugs, indicate that the drug must not be used, necessitating alternative regimen design. Identifying relative contraindications enables clinicians to implement enhanced monitoring, prophylactic measures such as pyridoxine co-administration with isoniazid, or dose modifications that mitigate risk while allowing necessary treatment."
   },
   {
-    "question": "How are contraindications incorporated into prescribing decisions?",
-    "ground_truth": "Patient evaluation\nLabel guidance"
+    "question": "How does drug safety monitoring support treatment success?",
+    "ground_truth": "Proactive drug safety monitoring enables early detection and management of adverse effects before they become severe enough to cause treatment interruption, thereby supporting sustained adherence and preventing the gaps in drug exposure that lead to treatment failure or resistance. Timely identification of toxicity through scheduled monitoring allows regimen adjustment or supportive management while maintaining therapeutic coverage, ensuring patients can complete the full treatment course. Patients who experience well-managed adverse effects with clear communication from their healthcare team are more likely to maintain trust in their treatment and continue therapy, which is essential for achieving the bacteriological cure that constitutes treatment success."
   },
   {
-    "question": "Why must TB drug safety be monitored throughout treatment?",
-    "ground_truth": "Cumulative toxicity\nSustained adherence"
+    "question": "What documentation is required for TB drug adverse events?",
+    "ground_truth": "Documentation of TB drug adverse events requires systematic recording of the specific adverse effect, onset date, severity grade, implicated drug, clinical management, and outcome in the patient's medical record to enable comprehensive monitoring and future prescribing decisions. Serious adverse events, including those requiring hospitalization, life-threatening reactions, and deaths potentially related to anti-TB medications, must be reported to national pharmacovigilance systems and, where applicable, to the drug manufacturer and regulatory authority. Program-level adverse event documentation in TB databases enables aggregate safety analysis that identifies signals for emerging toxicity patterns requiring broader public health or regulatory response."
   },
   {
-    "question": "How is community-acquired pneumonia clinically distinguished from TB?",
-    "ground_truth": "Acute presentation\nDifferent diagnostic focus"
+    "question": "What clinical findings suggest community-acquired pneumonia?",
+    "ground_truth": "Classic clinical findings suggesting community-acquired pneumonia include new-onset productive cough with purulent sputum, fever above 38°C, rigors, and pleuritic chest pain that worsens with deep breathing or coughing. Physical examination may reveal tachypnea, tachycardia, decreased oxygen saturation, dullness to percussion, and auscultatory findings such as bronchial breathing and crackles over the affected lung area. In elderly patients and those with significant comorbidities, atypical presentations including confusion, functional decline, and absence of fever are common and may necessitate a lower threshold for diagnostic evaluation."
   },
   {
-    "question": "What diagnostic tools are recommended for suspected CAP?",
-    "ground_truth": "Chest imaging\nClinical evaluation"
+    "question": "How is chest imaging used in pneumonia diagnosis?",
+    "ground_truth": "Chest X-ray is the standard imaging modality used in pneumonia diagnosis to confirm the presence of a pulmonary infiltrate consistent with acute infection and to assess disease extent, bilateral involvement, and complications such as pleural effusion or lung abscess. Radiographic findings help differentiate bacterial pneumonia from other causes of respiratory symptoms and contribute to severity assessment by identifying multilobar involvement, which is associated with higher mortality and may indicate the need for more intensive care. CT scanning of the chest is reserved for cases where the clinical diagnosis is uncertain, initial X-ray is inconclusive, or complications are suspected that require more detailed anatomical evaluation."
   },
   {
     "question": "Why is early antibiotic treatment important in CAP?",
-    "ground_truth": "Reduce mortality\nPrevent complications"
+    "ground_truth": "Early antibiotic treatment in community-acquired pneumonia is associated with reduced mortality, faster clinical improvement, and shorter hospital length of stay, with studies demonstrating that delays in antibiotic administration beyond 4-8 hours from presentation are associated with worse outcomes in hospitalized patients. Prompt treatment reduces the bacterial burden and systemic inflammatory response before severe organ dysfunction develops, which is particularly critical in elderly patients and those with significant comorbidities. Guidelines recommend initiating empirical antibiotic therapy as soon as CAP diagnosis is established and appropriate specimens have been collected for microbiological testing, without waiting for culture results."
   },
   {
     "question": "How do severity assessments guide CAP management?",
-    "ground_truth": "Hospitalization decisions\nTreatment intensity"
+    "ground_truth": "Validated severity assessment tools such as CURB-65 and the Pneumonia Severity Index stratify CAP patients by their risk of adverse outcomes, directly guiding decisions on site of care including outpatient treatment, general ward hospitalization, or ICU admission. Low-severity patients can typically be managed safely with oral antibiotics in the outpatient setting, while moderate-severity patients require hospitalization for intravenous antibiotics, monitoring, and supportive care. High-severity CAP with organ dysfunction, need for mechanical ventilation, or vasopressor therapy requires ICU-level care with broad-spectrum antibiotic coverage and intensive monitoring."
   },
   {
     "question": "What factors influence empirical antibiotic choice in CAP?",
-    "ground_truth": "Severity\nComorbidities"
+    "ground_truth": "Empirical antibiotic selection in CAP is primarily determined by disease severity, with outpatient mild CAP typically treated with a macrolide or doxycycline, while hospitalized non-ICU patients usually receive a beta-lactam plus macrolide combination or a respiratory fluoroquinolone. Patient comorbidities such as chronic obstructive pulmonary disease, diabetes, and immunosuppression influence both likely pathogens and drug tolerability, affecting antibiotic choice. Local antimicrobial resistance patterns, prior antibiotic exposure in the past three months, and risk factors for specific pathogens such as Pseudomonas aeruginosa or drug-resistant pneumococcus also guide empirical drug selection."
   },
   {
     "question": "Why are fluoroquinolone warnings emphasized in pneumonia treatment?",
-    "ground_truth": "Serious adverse effects\nRisk-benefit consideration"
+    "ground_truth": "Fluoroquinolone warnings are emphasized in pneumonia treatment because these agents carry serious risks including tendon rupture, peripheral neuropathy, QT prolongation with potentially fatal arrhythmias, and CNS effects that may cause significant harm, particularly in elderly patients and those with comorbidities. Regulatory agencies including the FDA have issued black box warnings restricting fluoroquinolone use to situations where no safer alternatives exist, due to the risk of disabling and potentially irreversible adverse effects. In clinical practice, fluoroquinolones should be reserved for patients with beta-lactam allergy, specific risk factors for resistant pathogens, or treatment failures where their broad-spectrum activity justifies the safety risks."
   },
   {
     "question": "What adverse reactions are associated with macrolide antibiotics?",
-    "ground_truth": "QT prolongation\nGastrointestinal effects"
+    "ground_truth": "Macrolide antibiotics including azithromycin and clarithromycin commonly cause gastrointestinal adverse effects such as nausea, vomiting, diarrhea, and abdominal cramping, which are dose-dependent and can often be minimized by taking the medication with food. QT interval prolongation is a clinically important cardiac effect of macrolides that increases the risk of potentially fatal ventricular arrhythmias, particularly in patients with pre-existing cardiac conditions, electrolyte abnormalities, or concurrent use of other QT-prolonging medications. Hepatotoxicity, including cholestatic jaundice and hepatic enzyme elevation, and hypersensitivity reactions are less common but recognized adverse effects requiring monitoring."
   },
   {
     "question": "How do drug labels guide safe antibiotic prescribing?",
-    "ground_truth": "Contraindications\nDosing information"
+    "ground_truth": "Drug labels provide essential prescribing information including approved indications, contraindications, dosing recommendations for different patient populations, and detailed safety warnings that enable clinicians to make informed prescribing decisions that maximize efficacy while minimizing harm. Specific drug interaction information on labels alerts prescribers to combinations that may cause toxicity or treatment failure, supporting safe medication management in patients with polypharmacy. Drug label warnings on special populations such as pregnant women, pediatric patients, and those with renal or hepatic impairment guide appropriate dose adjustments and monitoring to prevent harm in vulnerable groups."
   },
   {
     "question": "Why is antibiotic duration specified in CAP guidelines?",
-    "ground_truth": "Prevent resistance\nEnsure efficacy"
+    "ground_truth": "Antibiotic duration specifications in CAP guidelines are based on clinical trial evidence demonstrating that shorter courses of 5-7 days provide equivalent clinical outcomes to longer courses for most patients, while reducing the risk of adverse drug effects, Clostridioides difficile infection, and promotion of antimicrobial resistance. Defined treatment durations prevent unnecessary antibiotic continuation beyond the point at which the patient is clinically stable and the infection has been adequately treated. Guideline-specified durations also support antibiotic stewardship goals by establishing evidence-based stopping rules that help clinicians avoid excessive or prolonged antibiotic use."
   },
   {
     "question": "How is clinical stability assessed in pneumonia treatment?",
-    "ground_truth": "Symptom improvement\nVital signs"
+    "ground_truth": "Clinical stability in pneumonia treatment is assessed using standardized criteria that include temperature normalization below 37.8°C, heart rate below 100 beats per minute, respiratory rate below 24 breaths per minute, systolic blood pressure above 90 mmHg, and oxygen saturation above 90% on room air. Achievement of clinical stability, typically expected within 3-5 days of appropriate antibiotic therapy for most patients with CAP, marks the transition point at which patients may be safely switched from intravenous to oral antibiotics and considered for hospital discharge. Failure to achieve clinical stability within the expected timeframe should prompt evaluation for treatment-resistant pathogens, complications, or non-infectious alternative diagnoses."
   },
   {
     "question": "What monitoring is recommended during CAP antibiotic therapy?",
-    "ground_truth": "Adverse effects\nTreatment response"
+    "ground_truth": "Clinical monitoring during CAP antibiotic therapy includes daily assessment of vital signs, oxygen saturation, and symptom trajectory to evaluate treatment response and detect early signs of deterioration requiring escalation of care. Laboratory monitoring including white blood cell count, C-reactive protein, and procalcitonin trends can support assessment of clinical response, though decisions should be primarily based on clinical findings rather than isolated laboratory values. Monitoring for antibiotic-specific adverse effects, including renal function for aminoglycosides, liver function for macrolides and fluoroquinolones, and QT interval for QT-prolonging agents, should be implemented according to the specific drugs used and patient risk factors."
   },
   {
     "question": "How do patient characteristics affect CAP treatment decisions?",
-    "ground_truth": "Age\nUnderlying conditions"
+    "ground_truth": "Patient age significantly affects CAP treatment decisions, as elderly patients have higher rates of atypical presentations, increased mortality risk requiring more aggressive initial treatment, and greater vulnerability to antibiotic adverse effects requiring careful drug selection and dose adjustments. Underlying conditions such as chronic lung disease, heart failure, diabetes, and immunosuppression influence both the likely causative pathogens and the patient's ability to mount an adequate immune response, affecting antibiotic choice and required treatment intensity. Prior antibiotic use, recent healthcare exposure, and local residence in care facilities are additional patient-specific factors that may shift the pathogen spectrum toward resistant organisms requiring broader empirical coverage."
   },
   {
     "question": "Why is guideline adherence important in pneumonia care?",
-    "ground_truth": "Evidence-based outcomes\nReduced variability"
+    "ground_truth": "Adherence to evidence-based CAP guidelines is associated with improved patient outcomes including reduced mortality, shorter hospital stays, and lower complication rates, as guidelines synthesize the best available evidence to establish optimal treatment standards. Guideline-concordant care ensures that patients receive appropriate initial empirical antibiotic coverage based on their severity and risk factors, reducing the risk of treatment failure due to inadequate initial therapy. Consistent application of guidelines also promotes equitable care quality across different clinical settings and patient populations, reduces unnecessary antibiotic use, and supports antimicrobial stewardship by aligning prescribing with evidence-based recommendations."
   },
   {
     "question": "How do antibiotic side effects influence treatment modification?",
-    "ground_truth": "Dose adjustment\nDrug substitution"
+    "ground_truth": "Antibiotic side effects may necessitate dose adjustment, switching to an alternative agent within the same drug class, or substituting a different drug class entirely if the side effect is drug-class specific and there is no acceptable alternative formulation. The severity of the adverse effect determines urgency of modification, with life-threatening reactions such as anaphylaxis or severe hepatotoxicity requiring immediate discontinuation, while mild tolerable effects may be managed with supportive measures without changing the antibiotic. Treatment modifications must maintain adequate coverage for the causative pathogen based on clinical and microbiological data, balancing the need to address tolerability while ensuring treatment efficacy."
   },
   {
     "question": "What role does follow-up play after CAP treatment?",
-    "ground_truth": "Recovery assessment\nComplication detection"
+    "ground_truth": "Post-treatment follow-up after CAP serves to confirm clinical and radiographic resolution of infection, identify complications such as lung abscess or empyema that may require additional treatment, and investigate for underlying predisposing conditions such as malignancy in cases of recurrent or slowly resolving pneumonia. Repeat chest imaging 4-6 weeks after treatment is recommended in patients over 50 and those with significant risk factors to confirm radiographic resolution and exclude an underlying mass lesion. Follow-up also provides an opportunity to assess functional recovery, identify patients who may benefit from pulmonary rehabilitation, and reinforce preventive measures such as smoking cessation and influenza and pneumococcal vaccination."
   },
   {
     "question": "How do drug interactions affect pneumonia antibiotic choice?",
-    "ground_truth": "Safety concerns\nEfficacy"
+    "ground_truth": "Drug interactions significantly influence antibiotic selection for CAP, particularly in patients with polypharmacy, as some commonly used antibiotics have clinically important interactions that can reduce efficacy or cause harm. Macrolides and fluoroquinolones both prolong the QT interval and should be used with caution or avoided in patients already receiving other QT-prolonging medications such as antiarrhythmics, certain antipsychotics, and antimalarials. Fluoroquinolones have interactions with antacids, calcium supplements, and sucralfate that reduce antibiotic absorption, requiring appropriate separation of administration times, while azithromycin interactions with warfarin require enhanced INR monitoring."
   },
   {
     "question": "Why are warnings included in antibiotic drug labels?",
-    "ground_truth": "Risk awareness\nSafe use"
+    "ground_truth": "Warnings in antibiotic drug labels are included to communicate serious risks identified through clinical trials, post-marketing surveillance, and regulatory review that require prescriber awareness to ensure safe use of the medication. Black box warnings, the most severe category, alert prescribers to life-threatening risks such as the risk of tendon rupture with fluoroquinolones or Clostridioides difficile-associated diarrhea with broad-spectrum antibiotics, and are accompanied by risk mitigation guidance. Drug label warnings also include information on vulnerable populations such as pregnant women, pediatric patients, and those with renal or hepatic impairment who require special precautions, monitoring, or dose modifications."
   },
   {
     "question": "How do guidelines define treatment success in CAP?",
-    "ground_truth": "Clinical improvement\nResolution of infection"
+    "ground_truth": "Treatment success in community-acquired pneumonia is defined by resolution of the acute infection, typically characterized by normalization of vital signs, defervescence, improvement in respiratory symptoms, and return to baseline functional status. Radiographic clearing of the pneumonic infiltrate, though often lagging behind clinical improvement by weeks to months, provides objective confirmation of infection resolution and is used to rule out complications or underlying pathology. From a microbiological perspective, eradication of the causative pathogen, where identified, constitutes bacteriological cure and complements clinical assessment of treatment success."
   },
   {
     "question": "What challenges exist in CAP diagnosis?",
-    "ground_truth": "Symptom overlap\nDiagnostic uncertainty"
+    "ground_truth": "A major challenge in CAP diagnosis is symptom overlap with other respiratory and non-respiratory conditions including viral respiratory infections, pulmonary embolism, heart failure, and malignancy, which may present with similar clinical features and require systematic diagnostic evaluation to differentiate. Chest radiography, while essential, has variable sensitivity and may miss early or subtle infiltrates, and the quality of imaging and interpretation varies across clinical settings. Identifying the causative pathogen is achieved in only a minority of cases even with comprehensive microbiological testing, leaving most CAP patients managed empirically based on clinical probability rather than confirmed etiology."
   },
   {
     "question": "How is antibiotic resistance considered in CAP management?",
-    "ground_truth": "Empirical choice\nStewardship"
+    "ground_truth": "Antibiotic resistance is a growing concern in CAP management, particularly drug-resistant Streptococcus pneumoniae, which has reduced susceptibility to penicillin and macrolides in many regions, requiring awareness of local resistance patterns when selecting empirical therapy. Risk factors for infection with resistant organisms, including recent antibiotic use, healthcare exposure, and chronic lung disease, should be assessed to identify patients who may require broader empirical coverage beyond standard regimens. Antibiotic stewardship principles guide clinicians to use the narrowest spectrum antibiotic appropriate for the clinical situation, rotating agents when possible, to preserve the efficacy of available antibiotics for future patients."
   },
   {
     "question": "What role does patient education play in CAP treatment?",
-    "ground_truth": "Adherence\nSymptom monitoring"
+    "ground_truth": "Patient education in CAP treatment focuses on promoting adherence to the complete antibiotic course, emphasizing that symptoms may improve before the infection is fully treated and that stopping antibiotics early increases the risk of relapse and resistance. Patients should be informed about warning signs of treatment failure or complications including worsening dyspnea, persistent high fever, or new symptoms that require immediate medical reassessment. Education about preventive measures including annual influenza vaccination, pneumococcal vaccination for eligible patients, and smoking cessation for smokers is an essential component of CAP management to reduce the risk of future episodes."
   },
   {
     "question": "Why is adverse event reporting important in antibiotic use?",
-    "ground_truth": "Safety surveillance\nRegulatory oversight"
+    "ground_truth": "Adverse event reporting for antibiotic use contributes to post-marketing safety surveillance that identifies new or previously underrecognized adverse effects not fully characterized during pre-approval clinical trials, which have limited size and duration relative to real-world use. Systematic reporting of serious adverse events including severe allergic reactions, organ toxicity, and Clostridioides difficile infections provides regulators with data to update drug labeling, implement risk management strategies, or withdraw dangerous products from the market. Reporting also generates epidemiological data on adverse event frequencies and risk factors that enable prescribers to make more informed risk-benefit assessments for individual patients."
   },
   {
     "question": "How do guidelines balance efficacy and safety in CAP therapy?",
-    "ground_truth": "Drug selection\nRisk mitigation"
+    "ground_truth": "CAP guidelines balance efficacy and safety by stratifying treatment intensity according to severity, reserving broader-spectrum or more toxic antibiotic options such as fluoroquinolones and carbapenems for patients with severe disease where their superior coverage justifies the additional safety risks. Standard regimens for mild-to-moderate CAP emphasize agents with well-established safety profiles and sufficient pathogen coverage rather than maximally broad-spectrum therapy, following antibiotic stewardship principles. Safety-relevant recommendations such as avoiding fluoroquinolones in patients with risk factors for tendon injury, QT prolongation precautions for macrolides, and renal dose adjustments for various agents are integrated into treatment algorithms to ensure safe prescribing across diverse patient populations."
   },
   {
     "question": "What monitoring strategies reduce antibiotic-related harm?",
-    "ground_truth": "Clinical assessment\nLaboratory tests"
+    "ground_truth": "Pre-prescription assessment of drug allergies, organ function, and concomitant medications identifies patients at heightened risk of specific antibiotic adverse effects, enabling proactive selection of safer alternatives or implementation of enhanced monitoring protocols. Regular clinical and laboratory monitoring during antibiotic therapy, including vital signs, organ function tests, and assessment of symptoms that may indicate emerging toxicity, allows timely detection of adverse effects before they progress to serious harm. Prompt response to early warning signs of toxicity, including dose reduction, drug substitution, or discontinuation as clinically indicated, combined with patient education on self-monitoring, substantially reduces the morbidity associated with antibiotic adverse effects."
   },
   {
     "question": "How do antibiotic contraindications affect prescribing decisions?",
-    "ground_truth": "Patient evaluation\nLabel guidance"
+    "ground_truth": "Antibiotic contraindications require prescribers to evaluate patient-specific factors systematically before drug selection, as conditions such as confirmed drug allergy, severe renal or hepatic impairment, pregnancy, and concurrent medications may preclude the use of otherwise preferred first-line agents. When a standard first-line antibiotic is contraindicated, prescribers must select alternative agents from different drug classes that provide adequate coverage for the suspected pathogens while avoiding the identified risk. Documentation of contraindications in patient records and medication allergy profiles is essential to prevent inadvertent re-exposure to harmful agents by different providers across care settings."
   },
   {
     "question": "Why is empirical therapy adjusted once diagnosis is clarified?",
-    "ground_truth": "Targeted treatment\nReduced toxicity"
+    "ground_truth": "Empirical antibiotic therapy is adjusted once a diagnosis is clarified through microbiological results to narrow coverage to the identified pathogen, reducing unnecessary broad-spectrum antibiotic exposure and its associated risks of adverse effects, Clostridioides difficile infection, and selection of resistant organisms. De-escalation from empirical broad-spectrum regimens to pathogen-directed narrow-spectrum therapy once culture and susceptibility results are available is a core principle of antibiotic stewardship that preserves antibiotic efficacy for the broader patient population. Adjusting therapy based on diagnostic clarification also ensures that patients receiving inadequate initial coverage for resistant or unusual pathogens are promptly escalated to appropriate treatment."
   },
   {
     "question": "How do drug labels support antibiotic stewardship?",
-    "ground_truth": "Appropriate use\nRisk awareness"
+    "ground_truth": "Drug labels support antibiotic stewardship by specifying approved indications that define evidence-based clinical situations where the antibiotic is appropriate, providing a regulatory foundation for clinical stewardship interventions that restrict use to proven indications and avoid off-label overuse. Dosing information on labels guides appropriate prescribing of effective doses that achieve therapeutic drug concentrations while minimizing toxicity, as both under-dosing and over-dosing have negative clinical and resistance consequences. Label information on spectrum of activity, duration recommendations, and restriction of use to serious infections where no safer alternatives exist aligns with stewardship principles of using the right drug, at the right dose, for the right duration."
   },
   {
     "question": "What role does severity scoring play in CAP treatment planning?",
-    "ground_truth": "Care level decisions\nAntibiotic choice"
+    "ground_truth": "Severity scoring in CAP treatment planning provides an objective, standardized basis for site-of-care decisions that ensures appropriate treatment intensity is matched to disease severity and patient risk, preventing both under-treatment of high-risk patients and over-hospitalization of low-risk patients. CURB-65 scores of 0-1 support outpatient management, scores of 2 recommend hospitalization, and scores of 3 or higher indicate the need for intensive care evaluation, providing a clinically actionable decision framework. Severity scores also guide antibiotic regimen selection, with higher-severity patients typically requiring broader coverage including agents active against atypical pathogens and potentially resistant organisms."
   },
   {
     "question": "How is pneumonia treatment failure identified?",
-    "ground_truth": "Lack of improvement\nWorsening symptoms"
+    "ground_truth": "Pneumonia treatment failure is identified by lack of clinical improvement or worsening of symptoms including persistent fever, ongoing or increasing respiratory distress, and failure to normalize vital signs within the expected timeframe of 48-72 hours after initiating appropriate antibiotic therapy. Radiographic progression with new or expanding infiltrates, new pleural effusion, or cavitation on follow-up imaging provides objective evidence of treatment failure requiring urgent reassessment. Bacteriological persistence or isolation of a resistant pathogen not covered by the initial regimen confirms microbiological treatment failure and guides necessary antibiotic escalation or modification."
   },
   {
     "question": "Why is follow-up imaging sometimes recommended in CAP?",
-    "ground_truth": "Confirm resolution\nExclude complications"
+    "ground_truth": "Follow-up chest imaging is recommended in selected CAP patients to confirm radiographic resolution of the pneumonic infiltrate and rule out underlying conditions that may have precipitated or mimicked pneumonia, particularly pulmonary malignancy in patients over 50 with persistent or recurrent infiltrates. Repeat imaging 4-6 weeks after treatment is standard practice for high-risk patients as incomplete radiographic resolution may indicate complications such as lung abscess, empyema, or an obstructing lesion requiring further investigation and management. Patients who fail to achieve expected clinical improvement within 3-5 days of treatment should also undergo repeat imaging to assess for progression, complications, or alternative diagnoses."
   },
   {
     "question": "How do comorbidities affect pneumonia outcomes?",
-    "ground_truth": "Increased risk\nTreatment complexity"
+    "ground_truth": "Comorbid conditions significantly increase the risk of severe pneumonia, prolonged hospitalization, complications, and death, with conditions such as heart failure, chronic kidney disease, liver disease, diabetes, and immunosuppression all independently associated with worse CAP outcomes. Comorbidities may impair immune defense against infection, reduce physiological reserve for tolerating the systemic stress of acute infection, and complicate antibiotic selection due to drug interactions, organ dysfunction requiring dose adjustments, or allergy profiles. Patients with multiple comorbidities have higher PSI severity scores and more frequently require intensive care, reflecting the cumulative impact of underlying conditions on the body's capacity to respond to and recover from pneumonia."
   },
   {
     "question": "What safety concerns exist with prolonged antibiotic use?",
-    "ground_truth": "Toxicity\nResistance"
+    "ground_truth": "Prolonged antibiotic use increases the risk of Clostridioides difficile-associated diarrhea, a potentially life-threatening infection that develops due to disruption of normal gut microbiota and overgrowth of C. difficile, with risk proportional to antibiotic duration and spectrum. Extended antibiotic exposure increases the probability of selecting for resistant organisms both within the treated patient and in the broader healthcare environment through the dissemination of resistance genes. Prolonged use also increases cumulative exposure to drug-specific toxicities such as nephrotoxicity, hepatotoxicity, and QT prolongation, heightening the importance of guideline-recommended treatment duration limits based on clinical response criteria."
   },
   {
     "question": "How do guidelines address treatment escalation in severe CAP?",
-    "ground_truth": "Broader coverage\nIntensive care"
+    "ground_truth": "For severe community-acquired pneumonia requiring ICU admission, guidelines recommend broader-spectrum empirical antibiotic coverage combining a beta-lactam antibiotic such as ceftriaxone or a carbapenem with a macrolide or respiratory fluoroquinolone, providing coverage for both typical and atypical pathogens as well as consideration for Pseudomonas aeruginosa in appropriate risk groups. Anti-MRSA coverage with vancomycin or linezolid should be added when risk factors for Staphylococcus aureus infection are present, including recent influenza, skin and soft tissue infections, or ICU admission. De-escalation to narrower-spectrum therapy should be implemented as soon as microbiological results are available and the patient achieves clinical stability, consistent with antibiotic stewardship principles."
   },
   {
     "question": "Why is early recognition of adverse effects critical in CAP therapy?",
-    "ground_truth": "Prevent serious harm\nMaintain adherence"
+    "ground_truth": "Early recognition of antibiotic adverse effects in CAP therapy is critical because delayed identification allows progressive organ damage to occur, converting a manageable adverse reaction into a serious or life-threatening complication that may require hospitalization, organ-specific treatment, or prolonged recovery. Prompt recognition enables timely drug discontinuation or substitution before irreversible damage develops, maintaining the patient's ability to complete adequate antibiotic treatment with an alternative agent. Early adverse effect identification also prevents rechallenge with the offending drug by future prescribers, reducing the risk of more severe reactions upon re-exposure."
   },
   {
     "question": "How do antibiotic warnings inform shared decision-making?",
-    "ground_truth": "Patient awareness\nRisk discussion"
+    "ground_truth": "Antibiotic warning information supports shared decision-making by enabling clinicians to provide patients with accurate information about the specific risks associated with a recommended antibiotic, allowing patients to weigh these risks against the expected benefits of treatment in the context of their personal health situation and preferences. For high-risk patients with contraindications or elevated toxicity risk, discussing warning information may support shared decisions to use alternative agents despite potential tradeoffs in spectrum or convenience. Transparent communication about drug risks based on label warnings also establishes realistic expectations for possible adverse effects that patients should monitor and report, enhancing safety through patient engagement in their own care."
   },
   {
     "question": "What documentation supports CAP treatment evaluation?",
-    "ground_truth": "Clinical notes\nTreatment records"
+    "ground_truth": "Comprehensive documentation for CAP treatment evaluation includes the initial clinical assessment with vital signs, oxygen saturation, and examination findings, the chest radiograph interpretation, severity score calculation, and microbiological results that form the diagnostic basis for treatment decisions. Treatment documentation should record the specific antibiotics prescribed with doses and duration, along with the clinical rationale for regimen selection and any modifications made in response to microbiological results or adverse effects. Follow-up documentation of clinical response, vital sign trends, laboratory results, and discharge or treatment completion criteria provides the evidence base for outcome classification and quality improvement evaluation."
   },
   {
     "question": "How is treatment duration evaluated in pneumonia management?",
-    "ground_truth": "Clinical response\nGuideline recommendations"
+    "ground_truth": "Treatment duration in pneumonia management is evaluated based on clinical response criteria rather than a fixed predetermined course, with current evidence supporting 5-7 days of appropriate antibiotic therapy for most patients who achieve clinical stability within 72 hours. Procalcitonin-guided algorithms can support antibiotic de-escalation and treatment duration decisions, with serial procalcitonin measurements guiding discontinuation when values have declined substantially from peak levels, often enabling shorter courses than traditional practice. Patients who fail to achieve clinical stability within the expected timeframe or who have complications such as lung abscess, empyema, or bacteremia typically require longer treatment courses determined by clinical and microbiological response."
   },
   {
     "question": "Why is antibiotic stewardship emphasized in respiratory infections?",
-    "ground_truth": "Resistance prevention\nOptimal care"
+    "ground_truth": "Antibiotic stewardship is particularly emphasized in respiratory infections because they account for the largest proportion of antibiotic prescribing in both outpatient and inpatient settings, much of which is inappropriate or unnecessary since many respiratory infections are viral and do not benefit from antibiotic therapy. Respiratory pathogens including Streptococcus pneumoniae, Haemophilus influenzae, and gram-negative organisms causing pneumonia demonstrate progressive resistance to multiple antibiotic classes, driven in part by overuse in this clinical context, threatening the availability of effective treatments. Evidence-based stewardship interventions including diagnostic testing to distinguish bacterial from viral infection, guideline adherence for regimen selection and duration, and de-escalation protocols have demonstrated significant reductions in antibiotic consumption and resistance rates in respiratory infection management."
   },
   {
     "question": "How do guidelines integrate safety monitoring into CAP care?",
-    "ground_truth": "Ongoing assessment\nRisk management"
+    "ground_truth": "CAP guidelines integrate safety monitoring by recommending specific clinical and laboratory assessments at defined timepoints during treatment, including vital sign monitoring at least daily in hospitalized patients to detect clinical deterioration, and relevant organ function tests based on the antibiotic regimen and patient risk factors. Guidelines specify criteria for safe hospital discharge including achievement of clinical stability thresholds, ensuring that patients are sufficiently recovered before transitioning to oral outpatient therapy, and recommend appropriate follow-up intervals after discharge to detect complications or relapse. Antibiotic safety information including contraindications, drug interaction alerts, and dose adjustment requirements for renal and hepatic impairment is incorporated into treatment recommendations to guide safe prescribing across diverse patient populations."
   },
   {
     "question": "Why is evidence-based guidance essential for pneumonia treatment?",
-    "ground_truth": "Improved outcomes\nStandardized care"
+    "ground_truth": "Evidence-based guidance for pneumonia treatment is essential because clinical trial data identifies which antibiotic regimens provide optimal efficacy for specific patient populations and severity categories, preventing both undertreatment that leads to clinical failure and overtreatment with unnecessarily broad-spectrum or long-duration therapy. Standardized evidence-based approaches reduce variability in care quality across different clinical settings and practitioners, improving overall population-level outcomes by ensuring that all patients have access to current best practices. Evidence-based guidelines also provide the foundation for antibiotic stewardship programs, quality improvement initiatives, and audit standards that measure and drive improvements in pneumonia care delivery."
+  },
+  {
+    "question": "How do WHO guidelines define a bacteriologically confirmed TB case?",
+    "ground_truth": "According to WHO guidelines, a bacteriologically confirmed tuberculosis case is one in which a biological specimen has tested positive by smear microscopy, culture, or a WHO-endorsed rapid diagnostic test such as Xpert MTB/RIF. Bacteriological confirmation provides definitive laboratory evidence of active M. tuberculosis disease and is preferred over clinical diagnosis whenever feasible. This classification is used in national surveillance reporting and enables drug susceptibility testing that informs treatment selection."
+  },
+  {
+    "question": "What constitutes a clinically diagnosed TB case?",
+    "ground_truth": "A clinically diagnosed TB case is one in which active tuberculosis has been diagnosed by a physician based on symptoms, signs, and radiographic findings consistent with TB disease, but without bacteriological confirmation through smear, culture, or molecular testing. Clinical diagnosis is made when laboratory confirmation is unavailable, specimen collection is not feasible, or repeated bacteriological tests are negative despite strong clinical suspicion. Clinically diagnosed cases are recorded separately from bacteriologically confirmed cases in surveillance systems, and every effort should be made to obtain bacteriological confirmation before or during treatment."
+  },
+  {
+    "question": "Why are standardized case definitions important in TB programs?",
+    "ground_truth": "Standardized case definitions for tuberculosis ensure consistent identification and classification of TB cases across different healthcare facilities, regions, and countries, enabling valid comparison of surveillance data and program performance over time. Common definitions for bacteriologically confirmed, clinically diagnosed, pulmonary, and extrapulmonary TB cases facilitate accurate reporting to national TB programs and to WHO for global burden estimation. Without standardized definitions, heterogeneity in case classification would undermine the reliability of epidemiological surveillance and the evaluation of intervention effectiveness."
+  },
+  {
+    "question": "How do TB case definitions affect reporting and monitoring?",
+    "ground_truth": "TB case definitions directly shape the statistics generated by national TB programs, including case notification rates, treatment success rates, and drug resistance prevalence, making their consistent application essential for meaningful trend analysis and cross-setting comparison. Accurate case classification according to standardized definitions ensures that reported metrics such as bacteriological confirmation rates and treatment outcomes reflect true program performance rather than variation in diagnostic or classification practices. Monitoring of case definition application through routine data quality assessments is a standard component of TB program management to identify and correct systematic classification errors."
+  },
+  {
+    "question": "What information is required to classify TB cases programmatically?",
+    "ground_truth": "Programmatic TB case classification requires documentation of diagnostic results including bacteriological test outcomes, clinical findings supporting or excluding active disease, and the anatomical site of disease such as pulmonary or extrapulmonary location. Additional required information includes HIV status, prior TB treatment history indicating whether the patient is a new or previously treated case, and drug susceptibility testing results where available. This comprehensive information set enables complete WHO-aligned case classification that supports appropriate treatment selection, outcome tracking, and epidemiological surveillance."
+  },
+  {
+    "question": "How do diagnostic criteria differ between pulmonary and extrapulmonary TB?",
+    "ground_truth": "Pulmonary tuberculosis is diagnosed primarily through respiratory specimen testing including sputum smear, culture, and molecular testing, while extrapulmonary TB requires collection and testing of specimens from the affected anatomical site such as lymph node, pleural fluid, cerebrospinal fluid, or tissue biopsy. Bacteriological confirmation is often more challenging in extrapulmonary TB due to lower bacterial loads in non-respiratory specimens and the invasive nature of specimen collection from affected sites. Clinical and radiological findings play a proportionally larger role in extrapulmonary TB diagnosis, and histopathological evidence of caseating granulomas may support diagnosis when bacteriological confirmation is not achievable."
+  },
+  {
+    "question": "Why is bacteriological confirmation prioritized in national TB programs?",
+    "ground_truth": "National TB programs prioritize bacteriological confirmation because it provides objective, reproducible evidence of active M. tuberculosis infection that supports accurate case counting, eliminates misclassification of non-TB respiratory diseases as tuberculosis, and enables drug susceptibility testing critical for selecting effective treatment. Confirmed bacteriological status enables monitoring of treatment response through serial culture results, allowing early detection of failure and resistance that would otherwise require clinical judgment alone. High rates of bacteriological confirmation are also an indicator of diagnostic service quality and laboratory capacity within national programs."
+  },
+  {
+    "question": "What challenges exist in applying TB case definitions in practice?",
+    "ground_truth": "A major practical challenge in applying TB case definitions is the limited availability of culture and molecular diagnostic services in high-burden, resource-constrained settings, forcing reliance on smear microscopy alone, which misses a significant proportion of true TB cases due to lower sensitivity. Smear-negative TB, which accounts for a substantial portion of cases particularly in HIV-positive populations and children, is difficult to classify accurately and often results in clinical diagnoses that may include non-TB cases or miss true TB cases. Documentation gaps, incomplete patient records, and loss to follow-up before diagnostic work-up is complete further complicate accurate case classification in resource-limited program settings."
+  },
+  {
+    "question": "How do guidelines address uncertainty in TB case classification?",
+    "ground_truth": "Guidelines address uncertainty in TB case classification by providing the clinically diagnosed TB category as a recognized classification for cases where clinical evidence is sufficient to justify treatment but bacteriological confirmation cannot be achieved, rather than leaving such cases unclassified. Repeat testing with alternative specimen collection methods, additional diagnostic modalities such as CT scanning or bronchoscopy, and structured follow-up of clinical response are recommended strategies for resolving diagnostic uncertainty. Guidelines emphasize that clinically diagnosed cases should be revisited for reclassification if bacteriological results become available or if the patient fails to respond to empirical TB treatment, prompting reassessment of alternative diagnoses."
+  },
+  {
+    "question": "What role do diagnostic algorithms play in TB case identification?",
+    "ground_truth": "Diagnostic algorithms provide standardized, step-by-step decision frameworks that guide clinicians through the appropriate sequence of tests based on clinical presentation, resource availability, and prior test results, ensuring systematic and consistent application of diagnostic criteria for TB case identification. WHO-recommended algorithms prioritize rapid molecular testing as the initial step where available, with defined pathways for patients with negative initial tests who remain symptomatic, including culture and alternative diagnostic approaches. Algorithm-based diagnosis reduces reliance on individual clinical judgment by encoding evidence-based decision rules that improve consistency and accuracy of TB case identification across different clinical settings and provider experience levels."
+  },
+  {
+    "question": "How is TB diagnosis integrated into surveillance systems?",
+    "ground_truth": "TB diagnosis is integrated into national surveillance systems through mandatory case notification requirements that obligate healthcare providers to report newly diagnosed TB cases with standardized demographic, clinical, and laboratory data to health authorities. Electronic TB information management systems in many countries enable real-time capture of diagnostic and treatment data that feeds directly into national surveillance databases, supporting timely outbreak detection and program monitoring. WHO compiles national surveillance data annually to produce global TB burden estimates and monitor progress toward End TB strategy targets, making the quality and completeness of case notification data critical for international epidemiological assessment."
+  },
+  {
+    "question": "Why are suspected TB cases monitored before confirmation?",
+    "ground_truth": "Suspected TB cases are monitored before bacteriological confirmation to prevent disease progression during the diagnostic evaluation period and to maintain clinical oversight of patients at high risk who require prompt treatment if confirmation is achieved. Early monitoring enables collection of additional specimens for repeat testing, assessment of clinical response to empirical treatment when initiated, and identification of deterioration that may necessitate urgent treatment decisions before confirmation is available. Public health monitoring of suspected cases, including contact tracing initiation and infection control precautions in healthcare settings, reduces transmission risk during the period between clinical suspicion and confirmed diagnosis."
+  },
+  {
+    "question": "What distinguishes a presumptive TB case from a confirmed case?",
+    "ground_truth": "A presumptive TB case is one in which a patient has symptoms or signs suggestive of active tuberculosis that meet the criteria to initiate diagnostic evaluation, but laboratory confirmation has not yet been obtained through smear, culture, or molecular testing. A confirmed TB case has documented positive bacteriological results that provide definitive evidence of active M. tuberculosis disease. The distinction is clinically important because presumptive classification initiates the diagnostic pathway and may justify empirical treatment when clinical probability is high, while confirmed classification provides certainty that enables treatment planning, drug susceptibility guidance, and accurate surveillance reporting."
+  },
+  {
+    "question": "How do diagnostic delays impact TB case management?",
+    "ground_truth": "Diagnostic delays in tuberculosis allow continued transmission of infection to household contacts and community members during the period between symptom onset and treatment initiation, with each undiagnosed infectious case estimated to infect multiple additional individuals per year. Delayed diagnosis is associated with more advanced disease at the time of treatment initiation, including greater radiographic involvement, higher bacterial burden, and lower rates of culture conversion, all of which predict worse treatment outcomes. Prolonged diagnostic uncertainty also causes significant patient harm through delayed relief of symptoms, anxiety, continued occupational and social impairment, and the psychological impact of undiagnosed serious illness."
+  },
+  {
+    "question": "Why is early case detection emphasized in TB control?",
+    "ground_truth": "Early case detection is emphasized in TB control because prompt identification and treatment of infectious cases is the most effective intervention for interrupting transmission chains and reducing TB incidence at the population level. Finding and treating TB cases before extensive lung damage and high bacterial burden develops improves individual treatment outcomes, including higher cure rates and lower risk of relapse and complications. Early detection strategies including active case finding in high-risk populations, enhanced diagnostic access, and systematic screening of contacts are core components of national and global TB elimination strategies."
+  },
+  {
+    "question": "How do TB programs handle smear-negative cases?",
+    "ground_truth": "Smear-negative TB cases, defined as those with negative sputum smear results but positive culture or molecular test results, or clinical diagnoses in the absence of bacteriological confirmation, require additional diagnostic workup including culture testing, molecular diagnostics, and chest imaging to substantiate the diagnosis before treatment initiation where feasible. In high-burden settings where culture capacity is limited, clinical TB programs may initiate empirical treatment for smear-negative patients with strong clinical probability of active TB based on symptoms, contact history, and radiographic findings. Smear-negative cases are documented separately in surveillance systems as they represent diagnostic and programmatic challenges requiring targeted quality improvement and capacity building."
+  },
+  {
+    "question": "What documentation supports TB case verification?",
+    "ground_truth": "TB case verification requires documentation of laboratory reports including smear, culture, and molecular test results with specimen collection dates, laboratory identifiers, and result interpretation, providing the primary evidence for bacteriological confirmation of the case. Clinical records including physician assessment notes, radiological reports, and symptom documentation support case verification for clinically diagnosed cases and provide the contextual information necessary for comprehensive case classification. Chain of custody documentation for clinical specimens, quality assurance records for laboratory testing, and cross-referencing of clinical and laboratory data in TB information systems together support the integrity and accuracy of case verification processes."
+  },
+  {
+    "question": "How does diagnostic classification influence treatment decisions?",
+    "ground_truth": "Diagnostic classification as bacteriologically confirmed versus clinically diagnosed TB influences initial treatment decisions by determining the confidence level underlying regimen selection, with confirmed cases providing a definitive basis for standard treatment while clinical diagnoses in ambiguous presentations may prompt more conservative or closely monitored treatment approaches. Drug susceptibility testing results available for bacteriologically confirmed cases directly guide regimen selection to include active agents and exclude those with documented resistance, while clinically diagnosed cases must be treated empirically based on local drug resistance prevalence. The anatomical classification as pulmonary or extrapulmonary TB influences treatment duration, with some forms of extrapulmonary TB such as meningitis requiring extended treatment courses beyond the standard six months."
+  },
+  {
+    "question": "What role does quality assurance play in TB diagnosis?",
+    "ground_truth": "Quality assurance in TB diagnosis ensures that laboratory testing procedures adhere to standardized protocols that produce reliable, reproducible results, minimizing the risk of false-positive or false-negative diagnoses that lead to inappropriate treatment or missed cases. External quality assessment programs, in which reference laboratories review panels of slides or cultures from testing facilities, identify systematic errors in smear interpretation or culture technique that require corrective action and training. Quality assurance data at the national level identifies laboratory facilities with unacceptably high error rates that require targeted capacity building, ensuring consistent diagnostic accuracy across all points of service in the TB care cascade."
+  },
+  {
+    "question": "Why is consistency important in TB diagnostic reporting?",
+    "ground_truth": "Consistency in TB diagnostic reporting, through standardized data collection forms, case definitions, and coding systems, ensures that data generated across thousands of healthcare facilities can be aggregated into meaningful national and global surveillance statistics without distortion by variation in reporting practices. Epidemiological trend analysis comparing TB incidence, case types, and drug resistance rates across time periods and geographic areas depends on consistent application of diagnostic categories and reporting requirements. Inconsistent reporting undermines the validity of program performance metrics and global burden estimates, potentially misguiding policy decisions and resource allocation."
+  },
+  {
+    "question": "What outcomes are considered favorable in TB treatment?",
+    "ground_truth": "Favorable TB treatment outcomes according to WHO definitions include cure, defined as bacteriological confirmation of treatment success through two or more consecutive negative cultures from samples collected at least 30 days apart at the end of treatment, and treatment completion, defined as finishing the full prescribed regimen without evidence of failure but without the requisite bacteriological testing for cure classification. Both outcomes indicate that the treatment objective of eliminating active infection has been achieved, and they are combined to calculate the overall treatment success rate reported by national programs. Achieving high rates of favorable outcomes is the primary goal of TB treatment programs and a key indicator of program effectiveness."
+  },
+  {
+    "question": "What outcomes are classified as unfavorable in TB programs?",
+    "ground_truth": "Unfavorable TB treatment outcomes include treatment failure, defined as a positive smear or culture at month five or later during treatment, and relapse, defined as recurrence of active TB in a previously treated patient who was declared cured or treatment-completed. Death from any cause during the treatment course and loss to follow-up, defined as interruption of treatment for two or more consecutive months, are additional unfavorable outcomes that indicate the treatment objective was not achieved. Not evaluated, applied when no treatment outcome is assigned at the end of therapy, is also classified as an unfavorable outcome for program reporting purposes."
+  },
+  {
+    "question": "How is treatment failure identified bacteriologically?",
+    "ground_truth": "Bacteriological treatment failure in TB is identified by persistent positive sputum smear or culture results at month five or later during the prescribed treatment course, indicating that the regimen has not achieved the level of bacterial suppression expected with effective therapy. Lack of culture conversion from positive to negative within the first two months of treatment, while not definitively defining failure at that early stage, is an important warning sign that warrants investigation for drug resistance and poor adherence. Reversion of previously negative cultures to positive during the continuation phase of treatment also meets the definition of treatment failure and requires urgent investigation."
+  },
+  {
+    "question": "Why is outcome classification essential for TB program assessment?",
+    "ground_truth": "Outcome classification provides the quantitative data necessary to calculate treatment success rates that serve as the primary indicator of TB program performance, enabling national programs to assess whether their case management achieves the WHO target of at least 85% treatment success. Systematic outcome data identifies categories of patients with particularly poor outcomes such as those lost to follow-up or failing treatment, enabling targeted programmatic interventions to address the specific gaps driving suboptimal results. Accurate outcome classification also underpins the global End TB strategy monitoring framework, linking national program performance to international commitments and progress benchmarks."
+  },
+  {
+    "question": "How do guidelines define TB treatment success?",
+    "ground_truth": "WHO guidelines define TB treatment success as the combined rate of cure and treatment completion, representing the proportion of TB patients who complete their prescribed treatment course without evidence of failure. Cure requires bacteriological confirmation with two or more negative cultures from samples collected at least 30 days apart at the end of treatment, while treatment completion applies to patients who finish the regimen without evidence of failure but without the bacteriological documentation required for cure classification. The treatment success rate is calculated as the percentage of registered patients who achieve either of these outcomes, with the global target set at 85% or higher."
+  },
+  {
+    "question": "What factors contribute to poor TB treatment outcomes?",
+    "ground_truth": "Non-adherence to the prescribed treatment regimen is the most important modifiable factor contributing to poor TB treatment outcomes, as interruptions in drug intake result in subtherapeutic drug levels that permit bacterial regrowth and selection of resistant mutants. Drug toxicity that is not adequately managed can force treatment interruption or lead patients to self-discontinue therapy, while HIV co-infection impairs immune response and complicates treatment with additional drug interactions and overlapping toxicities. Socioeconomic factors including poverty, food insecurity, unstable housing, and lack of social support independently predict poor outcomes by creating barriers to consistent healthcare engagement and treatment completion."
+  },
+  {
+    "question": "How is loss to follow-up handled in TB outcome reporting?",
+    "ground_truth": "Loss to follow-up in TB treatment is defined as treatment interruption for two or more consecutive months, after which the patient is classified as lost to follow-up in the final outcome evaluation regardless of subsequent events. National TB programs are expected to actively trace patients lost to follow-up to determine whether they discontinued treatment, died, or were transferred to another facility, and to document the reason for loss where possible. Loss to follow-up data contributes to the unfavorable outcome category in treatment cohort reports, and high rates of this outcome prompt programmatic investigation into barriers to treatment completion and interventions to improve patient retention."
+  },
+  {
+    "question": "Why is relapse monitored separately from initial treatment failure?",
+    "ground_truth": "Relapse is monitored separately from initial treatment failure because it occurs after documented successful completion of a prior treatment course with evidence of cure or completion, representing a distinct clinical event from failure during ongoing treatment. The pathogenesis and clinical implications differ, as relapse may result from reactivation of residual viable organisms not eradicated during treatment or from exogenous reinfection, while treatment failure reflects ongoing active infection that was never eliminated. Different clinical implications include different retreatment approaches, with relapsed cases potentially retaining susceptibility to first-line drugs while treatment failure cases have a higher probability of acquired drug resistance requiring susceptibility-guided regimen design."
+  },
+  {
+    "question": "How do bacteriological endpoints improve outcome assessment?",
+    "ground_truth": "Bacteriological endpoints provide objective, standardized measures of treatment response that are more reliable and less subject to bias than clinical symptom assessment alone, enabling consistent outcome classification across different healthcare settings and time periods. Culture-based outcomes such as confirmed negative bacteriology at treatment end definitively demonstrate eradication of viable organisms, providing stronger evidence of true cure than symptomatic improvement or radiographic clearing, which can persist or resolve independently of actual bacterial clearance. Standardized bacteriological endpoints also enable meaningful cross-study comparisons in clinical research evaluating new TB regimens and facilitate aggregation of outcome data in global surveillance reports."
+  },
+  {
+    "question": "What is the role of follow-up after TB treatment completion?",
+    "ground_truth": "Post-treatment follow-up after TB treatment completion monitors for signs of relapse, which may develop weeks to years after completing therapy and represents reactivation of residual viable M. tuberculosis or reinfection in high-transmission settings. Follow-up visits provide an opportunity to reinforce patient education, assess functional recovery, and manage any residual treatment-related complications such as peripheral neuropathy or hearing loss from aminoglycoside therapy. Systematic post-treatment monitoring also generates data on relapse rates that contribute to evaluation of treatment regimen efficacy and inform decisions on recommended treatment duration for current and future regimens."
+  },
+  {
+    "question": "How are treatment outcomes aggregated at the program level?",
+    "ground_truth": "Treatment outcomes are aggregated at the program level through cohort analysis, in which all patients registered for TB treatment within a defined period are followed to treatment end and their outcomes classified and tabulated according to WHO-standardized categories. National TB programs compile cohort outcome data from all reporting facilities and calculate aggregate treatment success rates that represent overall program performance. These aggregated outcomes are submitted to WHO annually and used to assess progress toward national and global TB elimination targets, identify performance gaps, and guide resource allocation and programmatic interventions."
+  },
+  {
+    "question": "Why is standardized outcome reporting required internationally?",
+    "ground_truth": "International standardization of TB treatment outcome reporting enables valid comparison of program performance across countries with different healthcare systems, disease burdens, and patient populations, supporting accountability for global TB control commitments made by member states. WHO's global TB monitoring framework relies on standardized outcome data to track progress toward End TB strategy milestones, generate global burden estimates, and identify regions requiring additional support or intervention. Without standardized reporting, data submitted by different countries would reflect different definitions and practices, making cross-national comparisons meaningless and undermining the evidence base for international TB control policy."
+  },
+  {
+    "question": "How do treatment interruptions affect outcome classification?",
+    "ground_truth": "Treatment interruptions affect outcome classification by potentially triggering the loss to follow-up classification if the gap in treatment exceeds two consecutive months, regardless of the reason for interruption, as the patient's bacteriological status after prolonged interruption is unknown and the risk of relapse or resistance is elevated. Shorter interruptions may be recorded as treatment delays but do not change the final outcome classification if treatment is subsequently completed, though they may compromise treatment efficacy and increase the risk of bacteriological failure. Documented treatment interruptions and their resolution are important for interpreting treatment outcome data and identifying whether programmatic improvements in patient support and tracing are needed."
+  },
+  {
+    "question": "What challenges exist in measuring TB treatment outcomes?",
+    "ground_truth": "Incomplete bacteriological data is a major challenge in measuring TB treatment outcomes accurately, as many patients do not have the two or more end-of-treatment culture results required for cure classification, resulting in treatment completion classification even when clinical and symptomatic cure is achieved. High rates of loss to follow-up in many high-burden settings mean that a substantial proportion of patients are not successfully tracked to final outcome classification, creating uncertainty about the true proportion of patients achieving cure. Incomplete data capture, patient mobility across facilities and geographic boundaries, and limited electronic information system coverage further compromise the completeness and accuracy of TB outcome measurement in routine program settings."
+  },
+  {
+    "question": "How do clinical and bacteriological outcomes complement each other?",
+    "ground_truth": "Clinical outcomes such as symptom resolution, weight gain, and improved functional status provide early indicators of treatment response that are valuable for patient monitoring before bacteriological confirmation of cure is available at the end of treatment. Bacteriological outcomes including culture conversion and negative bacteriology at treatment end provide definitive evidence of microbiological cure that may not be fully reflected in clinical status, as some patients may feel well clinically while still harboring viable bacteria that could cause relapse. Integrating both outcome types provides the most comprehensive assessment of treatment success, with clinical monitoring guiding patient management during treatment and bacteriological outcomes providing the definitive classification used for surveillance and program evaluation."
+  },
+  {
+    "question": "Why is bacteriological monitoring preferred over symptoms alone?",
+    "ground_truth": "Bacteriological monitoring is preferred over symptoms alone for TB treatment assessment because symptoms are subjective and nonspecific, varying with patient tolerance, comorbidities, and other concurrent conditions, while culture and smear results provide objective evidence of the presence or absence of viable M. tuberculosis organisms. Symptom improvement commonly precedes bacteriological clearance, and patients may report clinical improvement while positive cultures indicate persistent infection requiring continued treatment. Conversely, some patients with bacteriological failure may have minimal symptoms that do not raise clinical concern, making bacteriological testing essential for reliable treatment failure detection before extensive drug resistance develops."
+  },
+  {
+    "question": "How do outcome metrics inform TB policy decisions?",
+    "ground_truth": "TB treatment outcome metrics provide the evidence base for evaluating whether current treatment strategies are achieving the bacteriological cure rates necessary to drive down TB incidence at the population level, informing decisions on whether new regimens, delivery models, or patient support interventions are needed. Geographic and demographic variations in treatment success rates identified through outcome analysis guide targeted allocation of additional resources and specialized support to populations and regions with the greatest unmet need. Long-term trend data on treatment outcomes, drug resistance prevalence, and relapse rates together inform national TB strategy revisions and international commitments to End TB strategy targets."
+  },
+  {
+    "question": "What role does patient follow-up play in outcome accuracy?",
+    "ground_truth": "Systematic patient follow-up is essential for outcome accuracy because patients who are lost to follow-up before completing treatment cannot be assigned a definitive cure or completion outcome, introducing a category of uncertainty that inflates reported loss to follow-up rates and potentially masks both successes and failures. Active tracing of patients who miss scheduled visits enables reclassification from potential loss to follow-up to the actual outcome achieved, improving the completeness and accuracy of cohort outcome data. Follow-up contact also allows identification of patients who experienced relapse after apparent cure, enabling accurate relapse rate estimation that informs judgments about treatment regimen durability and guides recommendations on treatment duration."
+  },
+  {
+    "question": "How are adverse events incorporated into outcome evaluation?",
+    "ground_truth": "Adverse events are incorporated into TB treatment outcome evaluation by documenting treatment modifications required due to drug toxicity, including dose reductions, substitution of alternative agents, and treatment interruptions, which may affect the regimen's bactericidal effectiveness and contribute to treatment failure or loss to follow-up. Serious adverse events resulting in hospitalization or permanent discontinuation of key drugs are linked to treatment outcomes and analyzed at the program level to assess the safety profile of standard regimens and identify patient subgroups requiring modified approaches. Pharmacovigilance data on adverse event rates and severity contributes to benefit-risk assessments of current regimens and informs decisions on regimen modifications for patients at elevated toxicity risk."
+  },
+  {
+    "question": "Why is outcome evaluation central to TB control strategies?",
+    "ground_truth": "Outcome evaluation is central to TB control strategies because treatment success rates directly measure whether the most fundamental goal of TB programs, curing infected individuals to prevent ongoing transmission and personal harm, is being achieved at the scale necessary to reduce TB incidence. Outcome data identifies where in the care cascade patients are being lost, whether at diagnosis, treatment initiation, adherence, or completion, enabling targeted interventions at the most impactful points. Global outcome evaluation through WHO's annual TB report tracks whether the world is on track toward End TB strategy targets, providing accountability for international commitments and evidence to guide course corrections when progress is insufficient."
+  },
+  {
+    "question": "What are common drug-drug interactions that require monitoring during TB treatment?",
+    "ground_truth": "Rifampin is a potent inducer of multiple cytochrome P450 enzymes and significantly reduces plasma concentrations of many co-administered drugs including antiretrovirals, oral contraceptives, warfarin, and azole antifungals, often requiring dose adjustments or alternative drug selection. Isoniazid inhibits CYP2C9 and CYP2C19 enzymes, increasing plasma levels and toxicity risk of phenytoin, carbamazepine, and certain benzodiazepines in patients receiving these concurrent medications. Regular monitoring of drug levels, therapeutic effects, and adverse effects of co-administered medications is essential throughout TB treatment to detect clinically significant interactions and adjust therapy accordingly."
+  },
+  {
+    "question": "Why is hepatotoxicity a major concern in TB treatment?",
+    "ground_truth": "Hepatotoxicity is a major concern in TB treatment because three of the four standard first-line agents, isoniazid, rifampin, and pyrazinamide, all have the potential to cause liver injury ranging from asymptomatic enzyme elevation to life-threatening fulminant hepatic failure. The combination of multiple hepatotoxic drugs administered simultaneously during the intensive phase substantially increases the risk compared to any single agent alone, with reported rates of clinically significant drug-induced liver injury ranging from 2-28% depending on the population and definition used. Early recognition and management of hepatotoxicity is critical to avoid fatal outcomes while enabling continuation of effective TB treatment through modified regimens where necessary."
+  },
+  {
+    "question": "How are liver function tests used during TB therapy?",
+    "ground_truth": "Baseline liver function tests including alanine aminotransferase, aspartate aminotransferase, and bilirubin are performed before initiating TB therapy to document pre-treatment values and identify patients with pre-existing liver disease who require enhanced monitoring and potentially modified regimens. Repeat liver function testing at regular intervals, typically monthly or more frequently in high-risk patients, enables early detection of rising transaminase levels that may herald developing hepatotoxicity before clinical symptoms appear. Treatment guidelines recommend interrupting anti-TB therapy when transaminase levels exceed three to five times the upper limit of normal with symptoms, or five times in asymptomatic patients, to prevent progression to severe liver injury."
+  },
+  {
+    "question": "What role do drug labels play alongside clinical guidelines?",
+    "ground_truth": "Drug labels provide the regulatory-approved summary of drug-specific information including precise dosing recommendations, pharmacokinetic data, contraindications, known adverse effects, and drug interactions that complement the broader population-level therapeutic recommendations in clinical guidelines. While clinical guidelines synthesize evidence across drugs and populations to guide treatment strategy selection and sequencing, drug labels offer detailed safety and prescribing information for individual agents that must be integrated with guideline recommendations for safe and effective clinical implementation. Drug label information is updated based on post-marketing safety data and regulatory review, potentially providing more current safety information than guidelines that may have longer revision cycles."
+  },
+  {
+    "question": "How does toxicity monitoring support treatment adherence?",
+    "ground_truth": "Proactive toxicity monitoring demonstrates clinical attentiveness to patients' wellbeing, reinforcing the therapeutic relationship and patient trust that are fundamental to maintaining adherence through a long treatment course that may be associated with significant adverse effects. Early detection of toxicity through monitoring enables timely intervention with symptomatic management or regimen modification before side effects become severe enough to motivate patients to self-discontinue therapy. Patient education during monitoring visits about the importance of completing treatment despite manageable adverse effects and reassurance that side effects can be effectively managed is a key adherence-supporting intervention that integrates naturally with safety monitoring activities."
+  },
+  {
+    "question": "What documentation is required for serious TB drug adverse events?",
+    "ground_truth": "Documentation of serious TB drug adverse events requires detailed clinical records including the specific adverse effect, date of onset, severity assessment using standardized grading scales, the suspected causative drug, management actions taken, and clinical outcome including recovery status and any permanent sequelae. Serious adverse events must be reported to national pharmacovigilance systems within defined timeframes, with standardized reporting forms capturing drug exposure details, patient characteristics, and event outcomes required by regulatory authorities. For patients enrolled in clinical trials or expanded access programs for new TB drugs, expedited safety reporting to the sponsoring organization and regulatory authorities is mandated and essential for ongoing safety monitoring of investigational agents."
+  },
+  {
+    "question": "How do safety considerations influence regimen selection?",
+    "ground_truth": "Safety considerations influence TB regimen selection by identifying specific drugs that should be avoided or used with caution in patients with pre-existing conditions that increase toxicity risk, such as excluding ethambutol in young children unable to report visual symptoms or using caution with aminoglycosides in patients with renal impairment. In patients with documented prior adverse reactions to specific TB drugs, regimen design must exclude the causative agent and identify alternative drugs that provide adequate coverage without the contraindicated agent, often requiring specialist consultation and a modified regimen with drugs outside the standard four-drug combination. The safety profile of the complete drug regimen must be evaluated holistically, considering additive or synergistic toxicity risks from drug combinations and the cumulative burden of adverse effects on patient adherence and quality of life."
+  },
+  {
+    "question": "Why is patient education critical for TB drug safety?",
+    "ground_truth": "Patient education about TB drug safety is essential for enabling patients to recognize early warning signs of serious adverse effects such as jaundice, visual changes, skin reactions, or numbness that require immediate medical evaluation and potential treatment modification before serious harm develops. Educated patients who understand the purpose and expected duration of their medications and the safety monitoring requirements are more likely to attend scheduled follow-up visits, report adverse effects promptly, and complete the full treatment course, all of which are critical for treatment success. Education also addresses the specific risk-related behaviors that may exacerbate drug toxicity, such as alcohol consumption that increases hepatotoxicity risk with isoniazid and rifampin, and empowers patients to actively participate in their own safety monitoring."
+  },
+  {
+    "question": "How do guidelines address management of drug-induced liver injury?",
+    "ground_truth": "TB guidelines recommend interrupting all anti-TB medications when drug-induced liver injury is suspected, with thresholds for treatment interruption based on the degree of transaminase elevation in combination with the presence or absence of hepatitis symptoms such as jaundice, nausea, and abdominal pain. After liver function tests normalize, sequential drug rechallenge is recommended to identify the responsible agent and allow reintroduction of tolerated drugs, beginning with rifampin, followed by isoniazid, and then pyrazinamide if hepatotoxicity was severe. In patients who cannot tolerate standard first-line hepatotoxic agents, alternative non-hepatotoxic regimens using ethambutol, a fluoroquinolone, and aminoglycoside-based combinations may be designed with specialist guidance, though these typically require longer treatment duration."
+  },
+  {
+    "question": "What monitoring strategies reduce severe adverse events?",
+    "ground_truth": "Baseline clinical and laboratory assessment before initiating TB treatment identifies high-risk patients requiring enhanced monitoring or modified regimens, reducing the risk of severe adverse events by enabling proactive risk mitigation before treatment begins. Scheduled and symptom-triggered monitoring visits throughout the treatment course, with standardized organ-specific assessments tailored to the drugs in the regimen, enable detection of developing toxicity in the early stages when intervention is most effective. Structured patient education on adverse effect recognition and self-monitoring, combined with clear instructions on when to seek immediate medical attention for warning symptoms, extends safety monitoring beyond clinic visits and reduces the time interval between adverse effect onset and clinical intervention."
+  },
+  {
+    "question": "How do adverse effects affect TB treatment outcomes?",
+    "ground_truth": "Adverse effects are a primary driver of treatment non-adherence in TB therapy, as patients experiencing significant nausea, hepatotoxicity, neuropathy, or visual disturbances may self-discontinue medications, leading to incomplete treatment and increased risk of relapse and drug resistance. Severe adverse effects requiring treatment interruption or regimen modification disrupt the continuity of drug exposure needed for effective bacterial suppression, potentially creating windows of inadequate treatment that allow resistant organisms to emerge and proliferate. The cumulative burden of adverse effects on patient quality of life, work capacity, and social functioning during the long TB treatment course is also associated with reduced motivation to continue therapy, highlighting the importance of proactive adverse effect management as a key determinant of treatment success."
+  },
+  {
+    "question": "What role does baseline screening play before TB treatment?",
+    "ground_truth": "Baseline screening before TB treatment initiation systematically identifies pre-existing conditions, organ dysfunction, and drug interactions that modify the risk-benefit profile of the planned treatment regimen and require individualized management adjustments. Laboratory baseline testing including liver function tests, renal function, complete blood count, HIV status, and ophthalmological assessment for patients starting ethambutol establishes individual reference values against which treatment-related changes can be detected and interpreted during monitoring. Clinical baseline evaluation including documentation of drug allergies, concomitant medications, nutritional status, and comorbidities enables prescribers to select the optimal regimen and monitoring schedule for each patient's specific risk profile before treatment begins."
+  },
+  {
+    "question": "How are contraindications incorporated into prescribing decisions?",
+    "ground_truth": "Contraindications are incorporated into TB prescribing decisions through systematic pre-prescription screening that identifies patient-specific conditions, prior drug reactions, and concurrent medications that preclude the safe use of standard agents, requiring regimen modification or enhanced monitoring protocols. Absolute contraindications such as confirmed allergy to a first-line drug or active decompensated liver disease in the setting of hepatotoxic agents mandate exclusion of the contraindicated drug and substitution with an alternative, often requiring specialist consultation to design an effective modified regimen. Relative contraindications are managed through risk-benefit assessment that weighs the severity of the contraindication against the necessity of the drug, with enhanced monitoring, prophylactic co-administration of protective agents, or dose modifications implemented as clinically indicated."
+  },
+  {
+    "question": "Why must TB drug safety be monitored throughout treatment?",
+    "ground_truth": "TB treatment courses extend for 6 months or longer, and the cumulative exposure to hepatotoxic and nephrotoxic drugs creates the potential for delayed adverse effects that may not be apparent during initial weeks of therapy but develop progressively as drug exposure accumulates. Some adverse effects such as peripheral neuropathy from isoniazid and optic neuritis from ethambutol can be reversible if detected and managed early, but cause permanent disability if allowed to progress undetected through inadequate monitoring. Sustained adherence and treatment completion depend on patients experiencing manageable side effects with attentive clinical support, making ongoing safety monitoring an essential component of the patient support infrastructure that enables successful completion of the full treatment course."
+  },
+  {
+    "question": "How is community-acquired pneumonia clinically distinguished from TB?",
+    "ground_truth": "Community-acquired pneumonia typically presents acutely with fever, productive cough, and dyspnea developing over days, while pulmonary tuberculosis characteristically has a more indolent onset with constitutional symptoms including weight loss, night sweats, and prolonged low-grade fever developing over weeks to months. Radiographic patterns differ, with CAP typically showing lobar or segmental consolidation in dependent lung zones, while TB more commonly causes upper lobe infiltrates, cavitation, and hilar lymphadenopathy. Microbiological differentiation is definitive, with TB requiring demonstration of M. tuberculosis through smear, culture, or molecular testing, while CAP is caused by diverse bacterial, viral, and atypical pathogens requiring different diagnostic and treatment approaches."
+  },
+  {
+    "question": "What diagnostic tools are recommended for suspected CAP?",
+    "ground_truth": "Chest radiography is the essential initial diagnostic tool for suspected community-acquired pneumonia, used to confirm the presence of an infiltrate and assess disease extent, bilateral involvement, and complications such as pleural effusion. Blood tests including complete blood count with differential, C-reactive protein, procalcitonin, and metabolic panel assess inflammatory burden, severity, and organ function to guide treatment intensity and site-of-care decisions. Microbiological diagnostics recommended for hospitalized patients include sputum Gram stain and culture, blood cultures, and urinary antigen testing for Streptococcus pneumoniae and Legionella pneumophila to enable pathogen-directed therapy when initial empirical regimens are insufficient."
   }
 ]

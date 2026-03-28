@@ -3,7 +3,7 @@
 embedding_utils.py
 
 Compatibility Update (v3):
-Switched to 'sentence-transformers/all-MiniLM-L6-v2' (384-dim) to matches the existing
+Switched to 'BAAI/bge-base-en-v1.5' (768-dim)
 FAISS indices migrated from the previous version.
 
 Note: Class name 'MedCPTDualEmbedder' is kept for API compatibility, 
@@ -43,14 +43,14 @@ def _mean_pool(last_hidden_state: torch.Tensor, attention_mask: torch.Tensor) ->
 
 class MedCPTDualEmbedder(Embeddings):
     """
-    Wrapper that now uses all-MiniLM-L6-v2 (384d) for both query and doc.
+    Wrapper that now uses BAAI/bge-base-en-v1.5 (768d) for both query and doc.
     Preserves 'embed_query' and 'embed_texts' interface.
     """
 
     def __init__(
         self,
-        query_model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
-        doc_model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
+        query_model_name: str = "BAAI/bge-base-en-v1.5",
+        doc_model_name: str = "BAAI/bge-base-en-v1.5",
         device: Optional[str] = None,
         max_length: int = 512,
     ):
@@ -64,7 +64,7 @@ class MedCPTDualEmbedder(Embeddings):
         self.model = AutoModel.from_pretrained(query_model_name).to(self.device)
         self.model.eval()
 
-        self.dim = int(self.model.config.hidden_size) # Should be 384
+        self.dim = int(self.model.config.hidden_size) # Should be 768
         self.name = query_model_name # Added for metadata tracking
 
     def _embed_internal(self, texts: List[str], max_length: int) -> np.ndarray:

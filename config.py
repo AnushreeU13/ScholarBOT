@@ -40,8 +40,8 @@ XRAY_FOLDER = Path(os.getenv("SCHOLARBOT_XRAY_DIR", DATA_DIR / "xray")).resolve(
 # Each KB has its own FAISS index so the router's guideline/drug separation
 # is actually enforced. Previously both pointed to "main_kb" which made
 # routing non-functional. Re-ingestion into these new index names is required.
-KB_DRUGLABELS = "main_kb"
-KB_GUIDELINES = "main_kb"
+KB_DRUGLABELS = "druglabels_kb"
+KB_GUIDELINES = "guidelines_kb"
 KB_USER_FACT = "user_kb"
 
 # =============================
@@ -72,11 +72,11 @@ RERANK_K = 12 # provided to LLM after consolidation
 TOP_K_DENSE = 20
 TOP_K_SPARSE = 20
 
-DEFAULT_SIM_THRESHOLD = 0.35 # Slightly lowered to improve recall
+DEFAULT_SIM_THRESHOLD = 0.01 # Slightly lowered to improve recall
 KB_SIM_THRESHOLD = {
-    KB_DRUGLABELS: 0.35,
-    KB_GUIDELINES: 0.35,
-    KB_USER_FACT: 0.35,
+    KB_DRUGLABELS: 0.01,
+    KB_GUIDELINES: 0.01,
+    KB_USER_FACT: 0.01,
 }
 
 # =============================

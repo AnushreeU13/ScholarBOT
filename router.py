@@ -118,28 +118,28 @@ def route_query(query: str, user_uploaded_available: bool = False) -> RouteDecis
 
     targets: List[str] = []
     if user_uploaded_available:
-        targets.append("user_fact_kb_medcpt")
+        targets.append("user_kb")
 
     # Out-of-domain guard
     if has_ood and not has_guide_domain:
         if has_drug:
-            targets.append("kb_druglabels_medcpt")
+            targets.append("druglabels_kb")
             return RouteDecision("drug", targets, preferred, "Out-of-domain for guidelines; route to druglabels only.", task_hints)
         return RouteDecision("abstain", targets, preferred, "Out-of-domain and not a druglabel question.", task_hints)
 
     # Guideline domain
     if has_guide_domain and (not has_drug):
-        targets.append("kb_guidelines_medcpt")
+        targets.append("guidelines_kb")
         return RouteDecision("guideline", targets, preferred, "Matched TB/CAP guideline domain.", task_hints)
 
     # Druglabel domain
     if has_drug and not has_guide_domain:
-        targets.append("kb_druglabels_medcpt")
+        targets.append("druglabels_kb")
         return RouteDecision("drug", targets, preferred, "Matched druglabel triggers.", task_hints)
 
     # Mixed allowed only when within TB/CAP domain
     if has_guide_domain:
-        targets.extend(["kb_druglabels_medcpt", "kb_guidelines_medcpt"])
+        targets.extend(["druglabels_kb", "guidelines_kb"])
         return RouteDecision("mixed", targets, preferred, "Mixed intent within TB/CAP domain; query both.", task_hints)
 
     return RouteDecision("abstain", targets, preferred, "No clear domain match (fail-closed).", task_hints)
