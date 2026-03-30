@@ -40,8 +40,40 @@ _GUIDE_DOMAIN_TRIGGERS = [
 ]
 
 _OUT_OF_DOMAIN_TRIGGERS = [
+    # Cardiovascular
     "diabetes", "heart attack", "myocardial infarction", "stroke",
-    "hypertension", "asthma", "cancer", "kidney failure", "seizure",
+    "hypertension", "heart failure", "atrial fibrillation", "cardiac arrest",
+    "coronary artery", "angina", "arrhythmia", "atherosclerosis",
+    # Neurological
+    "seizure", "epilepsy", "parkinson", "alzheimer", "dementia",
+    "multiple sclerosis", "neuropathy", "meningitis", "encephalitis",
+    # Oncology
+    "cancer", "tumor", "lymphoma", "leukemia", "chemotherapy",
+    "radiation therapy", "metastasis", "carcinoma", "biopsy",
+    # Renal / GI / Liver
+    "kidney failure", "renal failure", "dialysis", "cirrhosis",
+    "hepatitis", "crohn", "ulcerative colitis", "appendicitis",
+    "cholecystitis", "pancreatitis", "bowel obstruction",
+    # Endocrine / Metabolic
+    "thyroid", "hypothyroidism", "hyperthyroidism", "adrenal",
+    "cushing", "addison", "osteoporosis", "gout",
+    # Musculoskeletal
+    "rheumatoid arthritis", "osteoarthritis", "fracture", "orthopedic",
+    "carpal tunnel", "rotator cuff", "spinal stenosis",
+    # Dermatology / Allergy
+    "psoriasis", "eczema", "dermatitis", "anaphylaxis", "urticaria",
+    # Psychiatry
+    "depression", "schizophrenia", "bipolar", "anxiety disorder",
+    "obsessive compulsive", "post-traumatic",
+    # OB/GYN / Urology
+    "pregnancy", "obstetric", "gynecologic", "prostate", "erectile",
+    "urinary tract infection", "uti",
+    # Ophthalmology / ENT
+    "glaucoma", "cataract", "macular degeneration", "otitis",
+    "sinusitis", "tonsillitis",
+    # Other
+    "asthma", "copd", "sleep apnea", "anemia", "sickle cell",
+    "hiv", "aids", "malaria", "dengue", "ebola",
 ]
 
 _DRUG_TRIGGERS = [
