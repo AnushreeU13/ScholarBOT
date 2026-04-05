@@ -1,4 +1,4 @@
-# ScholarBOT v9: Reducing Hallucinations in Clinical RAG
+# ScholarBOT v10: Reducing Hallucinations in Clinical RAG
 
 ScholarBOT is a working theory and proof of concept focused on reducing hallucinations and providing verifiable citations within clinical and healthcare settings. By grounding every response in a specialized knowledge base (KB), it provides clinicians with double-summarized answers (Clinical and Patient summaries) backed by direct snippets from medical literature.
 

@@ -4,9 +4,4 @@ __pycache__/
 *.pyd
 *.pyo
 *.log
-faiss_indices/
-eval/eval results/v9_eval_full_results.json
-faiss_indices/
-eval/eval results/v9_eval_full_results.json
-faiss_indices/
 eval/eval results/v9_eval_full_results.json

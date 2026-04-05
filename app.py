@@ -8,7 +8,7 @@ from aligned_backend import AlignedScholarBotEngine
 from user_ingest_aligned import ingest_user_pdf
 
 # Page Config
-st.set_page_config(page_title="ScholarBOT v9", page_icon="None", layout="wide")
+st.set_page_config(page_title="ScholarBOT v10", page_icon="None", layout="wide")
 
 # Initialize Session State
 if "messages" not in st.session_state:
@@ -99,7 +99,7 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("""
     **Note on 'No Confidence':**
-    ScholarBOT v9 uses a **Fail-Closed** design. 
+    ScholarBOT v10 uses a **Fail-Closed** design. 
     If the retrieval system cannot find explicit evidence in the guidelines matching your question, it will **Abstain** rather than hallucinate.
     
     This is a safety feature, not a bug.
@@ -120,7 +120,7 @@ except Exception as e:
     st.stop()
 
 # Main Chat Interface
-st.title("ScholarBOT v9: Clinical Assistant")
+st.title("ScholarBOT v10: Clinical Assistant")
 st.markdown(f"**Current Scope:** `{search_mode}`")
 
 # Display Chat

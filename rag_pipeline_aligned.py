@@ -621,7 +621,7 @@ class RAGPipeline:
                 tokenized = [(re.findall(r'\w+', t.lower())) for t in texts]
                 if not tokenized: continue
                 
-                self._log(f"[v9] Building BM25 index for {name} ({len(texts)} docs)...")
+                self._log(f"[v10] Building BM25 index for {name} ({len(texts)} docs)...")
                 self.bm25_indices[name] = {
                     "bm25": BM25Okapi(tokenized),
                     "docs": docs
@@ -748,14 +748,14 @@ class RAGPipeline:
             self._log("[RAG] Router abstain: out-of-scope topic.")
             return self._build_abstain_result(query, decision, reason="out_of_scope")
 
-        # v9: Strict Context Locking
+        # v10: Strict Context Locking
         if STRICT_USER_CONTEXT and self.user_kb:
             # Check if user KB has content
             u_n = -1
             try: u_n = int(self.user_kb.index.ntotal)
             except: pass
             if u_n > 0:
-                self._log("[v9] STRICT_USER_CONTEXT active. Locking retrieval to user_kb only.")
+                self._log("[v10] STRICT_USER_CONTEXT active. Locking retrieval to user_kb only.")
                 decision.target_kbs = [KB_USER_FACT]
                 decision.reason = "Strict Mode: Targeted User Document."
 
@@ -1039,9 +1039,9 @@ CLINICIAN OUTPUT:
 
         lines = _parse_relaxed_bullets(clean, max_items=12)
 
-        # --- v9: Self-Critique Loop ---
+        # --- v10: Self-Critique Loop ---
         if USE_SELF_CRITIQUE and len(lines) > 0:
-            self._log(f"[v9] Running Self-Critique on {len(lines)} claims...")
+            self._log(f"[v10] Running Self-Critique on {len(lines)} claims...")
             refined_lines = self._refine_answer(query, lines, context, is_strict_user)
             lines = refined_lines if refined_lines else lines
 
@@ -1071,7 +1071,7 @@ CLINICIAN OUTPUT:
         return "FINAL:\n" + "\n".join(final)
 
     def _refine_answer(self, query: str, draft_bullets: List[str], context: str, is_strict_user: bool = False) -> List[str]:
-        """v9 Self-Critique: Prunes claims that the LLM realizes are not 100% grounded."""
+        """v10 Self-Critique: Prunes claims that the LLM realizes are not 100% grounded."""
         draft_text = "\n".join([f"- {b}" for b in draft_bullets])
         
         refine_rule = "3. Eliminate or correct any claim that explicitly CONTRADICTS the EVIDENCE. General foundational definitions (like what a disease is) are allowed to remain even if not explicitly supported, so long as they aren't contradicted."

@@ -307,7 +307,8 @@ class AlignedScholarBotEngine:
 
         g_n = _ntotal(self.kb_guidelines)
         d_n = _ntotal(self.kb_druglabels)
-        if self.kb_guidelines is None or self.kb_druglabels is None or g_n <= 0 or d_n <= 0:
+        # Fix: Allow proceeding if AT LEAST one KB is populated (previously failed if drug labels were empty)
+        if self.kb_guidelines is None or self.kb_druglabels is None or (g_n <= 0 and d_n <= 0):
             meta = {
                 "title": "Evidence-backed answer (Aligned RAG)",
                 "status": "error_kb_not_loaded",
@@ -316,12 +317,12 @@ class AlignedScholarBotEngine:
                 "route": {},
                 "zero_hallucination_mode": bool(ZERO_HALLUCINATION_MODE),
                 "reason": (
-                    "Static KB empty/not loaded. "
+                    "Static KBs are both empty or not loaded. "
                     f"FAISS_INDICES_DIR={Path(FAISS_INDICES_DIR).resolve()} "
                     f"guidelines_ntotal={g_n} druglabels_ntotal={d_n}"
                 ),
             }
-            return "**Final Answer:** System error: KB not loaded (empty FAISS index).", 0.0, meta
+            return "**Final Answer:** System error: KB not loaded (No records found in guidelines or drug labels index).", 0.0, meta
 
         orig_route_query = rpa.route_query
         try:

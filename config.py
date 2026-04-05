@@ -64,7 +64,7 @@ USE_QUERY_EXPANSION = True
 USE_RERANKER = True
 RERANK_MODEL_NAME = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
-# v9 Features (Researcher Grade)
+# v10 Features (Researcher Grade)
 USE_HYBRID_SEARCH = True  # Dense (Semantic) + Sparse (BM25 Keyword)
 STRICT_USER_CONTEXT = False # If user uploads a file, MUTE the database
 USE_SELF_CRITIQUE = True  # Self-refinement loop for hallucinations
