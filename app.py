@@ -158,7 +158,7 @@ elif prompt := st.chat_input("Ask a clinical question..."):
                 # Note: response_text might contain markdown like "### Clinician Summary"
                 
                 # FIX: Ensure bullet points have newlines for proper Markdown rendering
-                response_text = response_text.replace("- ", "\n- ").replace("• ", "\n- ")
+                # Removed aggressive bullet replacement that was breaking sentences
                 
                 # We'll stream it character by character or word by word
                 

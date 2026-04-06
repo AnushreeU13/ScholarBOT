@@ -69,7 +69,7 @@ def bullets_to_paragraph(text: str, max_sentences: int = 7) -> str:
 
     sentences = sentences[:max_sentences]
     if len(sentences) <= 4:
-        return " ".join(sentences).strip()
+        return " ".join(sentences).replace(" .", ". ").replace("  ", " ").strip()
 
     p1 = " ".join(sentences[:3]).strip()
     p2 = " ".join(sentences[3:]).strip()
@@ -391,7 +391,11 @@ class AlignedScholarBotEngine:
                 parts.append("\n### Patient Summary\n" + (patient_paragraph or patient_bullets.strip()))
 
         if citations:
-            parts.append("\n### Evidence\n" + "\n".join([f"- {c}" for c in citations]))
+            ref_list = []
+            for i, c in enumerate(citations):
+                # Put everything on ONE line
+                ref_list.append(f"{i+1}. {c} — *Click to check the retrieved chunks*")
+            parts.append("\n### Reference\n" + "\n".join(ref_list))
 
         response_text = "\n\n".join(parts).strip()
 

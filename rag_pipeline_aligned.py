@@ -264,17 +264,30 @@ def _clean_pdf_text(s: str) -> str:
     return t
 
 def _stable_citation(meta: Dict[str, Any], store_name: str = "") -> str:
-    from config import KB_USER_FACT
-    kb_str = "[User KB]" if store_name == KB_USER_FACT else "[Existing KB]"
+    from config import KB_USER_FACT, KB_GUIDELINES, KB_DRUGLABELS
     
-    if not meta: return f"{kb_str} Unknown source"
+    if store_name == KB_USER_FACT:
+        kb_label = "User Uploaded KB"
+    elif store_name == KB_GUIDELINES or "guidelines" in str(store_name).lower():
+        kb_label = "Existing KB - Guidelines"
+    elif store_name == KB_DRUGLABELS or "druglabels" in str(store_name).lower():
+        kb_label = "Existing KB - Drug Labels"
+    else:
+        kb_label = "Existing KB"
     
-    if meta.get("source") == "DailyMed" or meta.get("doc_type") == "druglabel_spl":
-        title = meta.get("title") or meta.get("source_title") or "DrugLabel"
-        return f"{kb_str} {title}"
-        
+    if not meta: return f"KB: {kb_label}, Unknown source"
+    
     doc = meta.get("document_name") or meta.get("document") or meta.get("title") or "Guideline"
-    return f"{kb_str} {doc}"
+    # Format page number(s)
+    pages = meta.get("page_number") or meta.get("page")
+    if pages is None:
+        p_str = "N/A"
+    elif isinstance(pages, list):
+        p_str = ", ".join(map(str, pages))
+    else:
+        p_str = str(pages)
+        
+    return f"KB: {kb_label}, Document name: {doc}, Page number: {p_str}"
 
 def _collect_citations(chunks: List[Dict], max_items: int = 5) -> List[str]:
     seen = set()
