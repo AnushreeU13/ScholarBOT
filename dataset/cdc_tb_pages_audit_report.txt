@@ -1,0 +1,8 @@
+=== KB Quality Audit Report: CDC TB Pages ===
+Date: 2026-04-06 15:52:15
+
+Total Chunks Audited: 6
+Average Noise Level: 0.00/10
+Percentage of Noisy Chunks (>4 score): 0.0%
+
+Top Noise Examples:

@@ -264,17 +264,32 @@ def _clean_pdf_text(s: str) -> str:
     return t
 
 def _stable_citation(meta: Dict[str, Any], store_name: str = "") -> str:
-    from config import KB_USER_FACT
-    kb_str = "[User KB]" if store_name == KB_USER_FACT else "[Existing KB]"
+    from config import KB_USER_FACT, KB_DRUGLABELS, KB_GUIDELINES
     
-    if not meta: return f"{kb_str} Unknown source"
+    # Map store names to display labels
+    kb_map = {
+        KB_USER_FACT: "User Uploaded",
+        KB_DRUGLABELS: "Existing KB - Drug Labels",
+        KB_GUIDELINES: "Existing KB - Guidelines"
+    }
+    kb_str = kb_map.get(store_name, "Existing KB")
     
-    if meta.get("source") == "DailyMed" or meta.get("doc_type") == "druglabel_spl":
-        title = meta.get("title") or meta.get("source_title") or "DrugLabel"
-        return f"{kb_str} {title}"
+    if not meta: return f"KB: {kb_str}, Document name: Unknown source"
+    
+    # 1. Get Document Name
+    doc = meta.get("document_name") or meta.get("document") or meta.get("title") or meta.get("file_name") or "Guideline"
+    
+    # 2. Get Page Number (v11 improvement)
+    pages = meta.get("page_numbers") or meta.get("page_number")
+    page_str = "N/A"
+    if isinstance(pages, list) and pages:
+        page_str = str(pages[0])
+    elif pages is not None:
+        page_str = str(pages)
         
-    doc = meta.get("document_name") or meta.get("document") or meta.get("title") or "Guideline"
-    return f"{kb_str} {doc}"
+    if page_str and page_str != "N/A":
+        return f"KB: {kb_str}, Document name: {doc}, Page number: {page_str}"
+    return f"KB: {kb_str}, Document name: {doc}"
 
 def _collect_citations(chunks: List[Dict], max_items: int = 5) -> List[str]:
     seen = set()

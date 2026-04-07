@@ -19,7 +19,7 @@ PASS = True # placeholder
 # Project roots (portable)
 # =============================
 PROJECT_ROOT = Path(os.getenv("SCHOLARBOT_ROOT", Path(__file__).resolve().parent)).resolve()
-DATA_DIR = Path(os.getenv("SCHOLARBOT_DATA_DIR", PROJECT_ROOT / "datasets")).resolve()
+DATA_DIR = Path(os.getenv("SCHOLARBOT_DATA_DIR", PROJECT_ROOT / "dataset")).resolve()
 
 # Raw / processed KB data (you can keep everything local)
 KB_RAW_DIR = Path(os.getenv("SCHOLARBOT_KB_RAW_DIR", DATA_DIR / "KB_raw")).resolve()

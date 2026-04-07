@@ -1,0 +1,20 @@
+=== KB Quality Audit Report: Guidelines ===
+Date: 2026-04-06 03:12:17
+
+Total Chunks Audited: 3219
+Average Noise Level: 3.25/10
+Percentage of Noisy Chunks (>4 score): 0.9%
+
+Top Noise Examples:
+- "or more than"
+- "Keep Reading"
+- "Keep Reading:"
+- "Skip directly to site content"
+- "Executive Summary Full Guidelines"
+- "Communication and Education Resources"
+- "a glance"
+- "Full Guidelines"
+- "Baseline Individual TB Risk Assessment"
+- "Research needed in this area."
+- "Context | Tuberculosis | Guidance | NICE"
+- Examples of noise:

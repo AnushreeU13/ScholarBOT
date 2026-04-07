@@ -8,7 +8,7 @@ from aligned_backend import AlignedScholarBotEngine
 from user_ingest_aligned import ingest_user_pdf
 
 # Page Config
-st.set_page_config(page_title="ScholarBOT v9", page_icon="None", layout="wide")
+st.set_page_config(page_title="ScholarBOT v11", page_icon="🤖", layout="wide")
 
 # Initialize Session State
 if "messages" not in st.session_state:
@@ -19,7 +19,7 @@ if "messages" not in st.session_state:
         from config import PROJECT_ROOT, FAISS_INDICES_DIR, KB_PROCESSED_DIR
         temp_dir = PROJECT_ROOT / "temp_uploads"
         user_faiss = FAISS_INDICES_DIR / "user_kb"
-        user_chunks = KB_PROCESSED_DIR / "user_fact"
+        user_chunks = DATA_DIR / "user_fact"
         
         if temp_dir.exists(): shutil.rmtree(temp_dir, ignore_errors=True)
         if user_faiss.exists(): shutil.rmtree(user_faiss, ignore_errors=True)
@@ -120,7 +120,7 @@ except Exception as e:
     st.stop()
 
 # Main Chat Interface
-st.title("ScholarBOT v9: Clinical Assistant")
+st.title("ScholarBOT v11: Clinical Assistant")
 st.markdown(f"**Current Scope:** `{search_mode}`")
 
 # Display Chat
@@ -158,7 +158,7 @@ elif prompt := st.chat_input("Ask a clinical question..."):
                 # Note: response_text might contain markdown like "### Clinician Summary"
                 
                 # FIX: Ensure bullet points have newlines for proper Markdown rendering
-                response_text = response_text.replace("- ", "\n- ").replace("• ", "\n- ")
+                # Removed aggressive bullet replacement for v11
                 
                 # We'll stream it character by character or word by word
                 
@@ -174,11 +174,9 @@ elif prompt := st.chat_input("Ask a clinical question..."):
                 
                 # Show Metadata (Sources)
                 with st.expander("View Retrieved Evidence & Metadata"):
-                    st.json({
-                        "Confidence Score": confidence,
-                        "Routing": meta.get("route", {}),
-                        "Source Indices": meta.get("source", "Unknown")
-                    })
+                    # Removed raw JSON for clean presentation
+                    st.write(f"**Confidence Score:** `{confidence:.2f}`")
+                    st.write(f"**Source Index:** `{meta.get('source', 'Unknown')}`")
                     
                     if "evidence_chunks" in meta:
                         st.subheader("Source Chunks")

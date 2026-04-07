@@ -1,13 +1,11 @@
-
 """
 embedding_utils.py
 
-Compatibility Update (v3):
-Switched to 'BAAI/bge-base-en-v1.5' (768-dim)
-FAISS indices migrated from the previous version.
+Compatibility Update (v11):
+Switched to 'BAAI/bge-large-en-v1.5' (1024-dim)
+FAISS indices migrated to v11 standards.
 
-Note: Class name 'MedCPTDualEmbedder' is kept for API compatibility, 
-but it now uses a single symmetric encoder (MiniLM).
+Note: Class name 'MedCPTDualEmbedder' is kept for API compatibility.
 """
 
 from __future__ import annotations
@@ -43,22 +41,24 @@ def _mean_pool(last_hidden_state: torch.Tensor, attention_mask: torch.Tensor) ->
 
 class MedCPTDualEmbedder(Embeddings):
     """
-    Wrapper that now uses BAAI/bge-base-en-v1.5 (768d) for both query and doc.
+    Wrapper that now uses BAAI/bge-large-en-v1.5 (1024d) for both query and doc.
     Preserves 'embed_query' and 'embed_texts' interface.
     """
 
     def __init__(
         self,
-        query_model_name: str = "BAAI/bge-base-en-v1.5",
-        doc_model_name: str = "BAAI/bge-base-en-v1.5",
+        query_model_name: str = "BAAI/bge-large-en-v1.5",
+        doc_model_name: str = "BAAI/bge-large-en-v1.5",
         device: Optional[str] = None,
         max_length: int = 512,
     ):
         self.device = _get_device(device)
         self.max_length = int(max_length)
+        self.dim = 1024
+        self.name = query_model_name
 
         # In this mode, query_model and doc_model are the SAME.
-        print(f"[embedder] Loading Model: {query_model_name} on {self.device}")
+        print(f"[v11 embedder] Loading Large Model: {query_model_name} on {self.device}")
         
         self.tokenizer = AutoTokenizer.from_pretrained(query_model_name)
         self.model = AutoModel.from_pretrained(query_model_name).to(self.device)

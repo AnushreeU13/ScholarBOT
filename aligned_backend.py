@@ -69,7 +69,7 @@ def bullets_to_paragraph(text: str, max_sentences: int = 7) -> str:
 
     sentences = sentences[:max_sentences]
     if len(sentences) <= 4:
-        return " ".join(sentences).strip()
+        return " ".join(sentences).replace(" .", ". ").replace("  ", " ").strip()
 
     p1 = " ".join(sentences[:3]).strip()
     p2 = " ".join(sentences[3:]).strip()
@@ -252,13 +252,13 @@ class AlignedScholarBotEngine:
         self.embedder = MedCPTDualEmbedder()
 
         self.guidelines_store = create_faiss_store(
-            store_name=KB_GUIDELINES, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
+            store_name=KB_GUIDELINES, dimension=1024, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
         )
         self.druglabels_store = create_faiss_store(
-            store_name=KB_DRUGLABELS, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
+            store_name=KB_DRUGLABELS, dimension=1024, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
         )
         self.user_store = create_faiss_store(
-            store_name=KB_USER_FACT, dimension=768, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
+            store_name=KB_USER_FACT, dimension=1024, base_dir=str(FAISS_INDICES_DIR), embedder=self.embedder
         )
 
         self.kb_guidelines = self.guidelines_store
@@ -390,7 +390,11 @@ class AlignedScholarBotEngine:
                 parts.append("\n### Patient Summary\n" + (patient_paragraph or patient_bullets.strip()))
 
         if citations:
-            parts.append("\n### Evidence\n" + "\n".join([f"- {c}" for c in citations]))
+            ref_list = []
+            for i, c in enumerate(citations):
+                # Professional numbered list for poster presentation
+                ref_list.append(f"{i+1}. {c}")
+            parts.append("\n### Reference\n" + "\n".join(ref_list))
 
         response_text = "\n\n".join(parts).strip()
 
