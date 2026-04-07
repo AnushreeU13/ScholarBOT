@@ -12,7 +12,7 @@ if not kb_dir:
     print("Usage: python3 rebuild_indices_v2.py --kb_processed_dir ~/Downloads/KB_processed")
     sys.exit(1)
 
-GUIDELINES_JSONL = kb_dir / "guidelines_text" / "guidelines_chunks.jsonl"
+GUIDELINES_JSONL = kb_dir / "guidelines_text" / "guidelines_chunks_cleaned.jsonl"
 DRUGLABELS_JSONL = kb_dir / "druglabels_text" / "druglabels_chunks.jsonl"
 FAISS_DIR = Path(__file__).resolve().parent / "faiss_indices"
 
