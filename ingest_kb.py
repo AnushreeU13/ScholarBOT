@@ -29,8 +29,9 @@ Output
 ------
 - faiss_indices/guidelines_kb/   FAISS index for guidelines
 - faiss_indices/druglabels_kb/   FAISS index for drug labels
-- datasets/KB_processed/guidelines_chunks.jsonl   Chunk cache (inspect/debug)
-- datasets/KB_processed/druglabels_chunks.jsonl   Chunk cache (inspect/debug)
+- datasets/KB_processed/guidelines_chunks_cleaned.jsonl   Chunk cache (inspect/debug)
+- datasets/KB_processed/druglabels_chunks.jsonl           Chunk cache (inspect/debug)
+- datasets/KB_processed/cdc_tb_pages.jsonl                Chunk cache for HTML
 
 Notes
 -----
@@ -173,7 +174,7 @@ def _annotate_chunks(
                 "doc_type": doc_type,
                 "source_type": source_type,
                 "section_group": section_group_override or _detect_section_group(c["text"]),
-                "embed_model": "BAAI/bge-base-en-v1.5",
+                "embed_model": "BAAI/bge-large-en-v1.5",
                 "ingested_at": _NOW,
             }
         )
@@ -513,7 +514,14 @@ def ingest_source(
     print(f"\n  Source : {source_dir}  [{ext_str}]  ({len(files)} files)")
 
     index_path = faiss_dir / kb_name
-    jsonl_path = processed_dir / f"{kb_name}_chunks.jsonl"
+    # v11 Mapping
+    out_name = f"{kb_name}_chunks"
+    if kb_name == KB_GUIDELINES:
+        out_name = "guidelines_chunks_cleaned" if "pdf" in extensions else "cdc_tb_pages"
+    elif kb_name == KB_DRUGLABELS:
+        out_name = "druglabels_chunks"
+        
+    jsonl_path = processed_dir / f"{out_name}.jsonl"
 
     if rebuild and not dry_run and index_path.exists():
         print(f"  [REBUILD] Deleting existing index at {index_path}")
@@ -743,7 +751,7 @@ def main() -> None:
     print(f"\nScholarBOT KB Ingestion")
     print(f"  FAISS dir      : {faiss_dir.resolve()}")
     print(f"  Processed dir  : {processed_dir.resolve()}")
-    print(f"  Embedding model: BAAI/bge-base-en-v1.5  (768-dim)")
+    print(f"  Embedding model: BAAI/bge-large-en-v1.5  (1024-dim)")
     print(f"  Chunk size     : {args.chunk_size} tokens")
     print(f"  Overlap        : {args.overlap} tokens")
     print(f"  Excluded files : {len(exclude)}")

@@ -35,11 +35,8 @@ TUBERCULOSIS_FOLDER = Path(os.getenv("SCHOLARBOT_TB_DIR", DATA_DIR / "tuberculos
 XRAY_FOLDER = Path(os.getenv("SCHOLARBOT_XRAY_DIR", DATA_DIR / "xray")).resolve()
 
 # =============================
-# KB store names (single source of truth)
+# v11 Standards (Index Names)
 # =============================
-# Each KB has its own FAISS index so the router's guideline/drug separation
-# is actually enforced. Previously both pointed to "main_kb" which made
-# routing non-functional. Re-ingestion into these new index names is required.
 KB_DRUGLABELS = "druglabels_kb"
 KB_GUIDELINES = "guidelines_kb"
 KB_USER_FACT = "user_kb"

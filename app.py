@@ -16,7 +16,7 @@ if "messages" not in st.session_state:
     
     # Security Feature: Purge user files on new session / browser restart
     try:
-        from config import PROJECT_ROOT, FAISS_INDICES_DIR, KB_PROCESSED_DIR
+        from config import PROJECT_ROOT, FAISS_INDICES_DIR, DATA_DIR
         temp_dir = PROJECT_ROOT / "temp_uploads"
         user_faiss = FAISS_INDICES_DIR / "user_kb"
         user_chunks = DATA_DIR / "user_fact"
@@ -30,6 +30,9 @@ if "messages" not in st.session_state:
 
 if "uploaded_file_name" not in st.session_state:
     st.session_state.uploaded_file_name = None
+
+if "openai_api_key" not in st.session_state:
+    st.session_state.openai_api_key = None
 
 # Sidebar - Configuration
 with st.sidebar:
@@ -107,12 +110,15 @@ with st.sidebar:
 
 # Initialize Engine (Cached)
 @st.cache_resource
-def load_engine():
-    return AlignedScholarBotEngine(verbose=True)
+def load_engine(api_key):
+    # Only initialize if we have a key
+    if not api_key:
+        return None
+    return AlignedScholarBotEngine(api_key=api_key, verbose=True)
 
 try:
-    engine = load_engine()
-    if st.session_state.get("needs_reload", False):
+    engine = load_engine(st.session_state.get("openai_api_key"))
+    if engine and st.session_state.get("needs_reload", False):
         engine.reload_user_kb()
         st.session_state.needs_reload = False
 except Exception as e:

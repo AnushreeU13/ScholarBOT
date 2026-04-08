@@ -51,9 +51,9 @@ except Exception:
         task_hints: List[str] = None
 
     def route_query(query: str, user_uploaded_available: bool = False) -> RouteDecision:
-        targets = ["kb_druglabels_medcpt", "kb_guidelines_medcpt"]
+        targets = [KB_DRUGLABELS, KB_GUIDELINES]
         if user_uploaded_available:
-            targets.append("user_fact_kb_medcpt")
+            targets.append(KB_USER_FACT)
         return RouteDecision("mixed", targets, [], "Fallback router.", task_hints=[])
 
 # ------------------------------------------------------------
@@ -232,9 +232,11 @@ def _rerank_candidates(query: str, candidates: List[Dict], k: int = 8) -> List[D
         pairs = [[query, c["text"]] for c in candidates]
         scores = _RERANKER_MODEL.predict(pairs)
         
-        # Update scores
+        # Update scores (propagate rerank score to main 'score' and 'raw_sim')
         for i, score in enumerate(scores):
             candidates[i]["rerank_score"] = float(score)
+            candidates[i]["score"] = float(score)  # CRITICAL FIX: Update main score for confidence check
+            candidates[i]["raw_sim"] = float(score)
             
         # Re-sort
         candidates.sort(key=lambda x: x["rerank_score"], reverse=True)
@@ -391,14 +393,15 @@ def _filter_candidates_by_drug_anchor(candidates: List[Dict], query: str) -> Lis
 # ------------------------------------------------------------
 # Gate B: Guideline Diagnosis Gate
 # ------------------------------------------------------------
-_DIAG_KEYS = ["diagnos", "testing", "test", "workup", "radiograph", "x-ray", "imaging", "culture", "sputum", "blood", "procalcitonin", "pcr"]
+_DIAG_KEYS = ["diagnos", "testing", "test", "workup", "radiograph", "x-ray", "imaging", "culture", "sputum", "blood", "procalcitonin", "pcr", "tuberculosis", "tb", "pneumonia", "cap"]
 
 def _guideline_diagnosis_gate(chunks: List[Dict]) -> List[Dict]:
     out = []
     for c in chunks:
         meta = c.get("metadata", {})
         sec = (meta.get("section_title") or meta.get("section") or "").lower()
-        txt = (c.get("text") or "").lower()[:900]
+        txt = (c.get("text") or "").lower()[:1000]
+        # Include foundational disease definitions alongside diagnostic tests
         if any(k in sec for k in _DIAG_KEYS) or any(k in txt for k in _DIAG_KEYS):
             out.append(c)
     return out
@@ -722,7 +725,11 @@ class RAGPipeline:
 
     def _log(self, msg: str):
         if self.verbose:
-            (self.logger if self.logger else print)(msg)
+            try:
+                (self.logger if self.logger else print)(msg)
+            except UnicodeEncodeError:
+                # Fallback for Windows consoles that can't handle special characters
+                (self.logger if self.logger else print)(msg.encode('ascii', 'replace').decode('ascii'))
 
     def _get_store_by_name(self, name: str):
         if name == KB_DRUGLABELS or name == "kb_druglabels_medcpt": return self.kb_druglabels

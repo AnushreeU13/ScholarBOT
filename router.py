@@ -129,12 +129,16 @@ def route_query(query: str, user_uploaded_available: bool = False) -> RouteDecis
     if any(t in q for t in _TASK_PREVENTION):
         task_hints.append("prevention")
 
-    # Regex for robust boundary detection (fixes "TB?" or "TB!")
+    # Robust boundary detection for acronyms (e.g., "TB?", "TB!", "PTB", "M.tb")
     has_guide_domain = any(t in q for t in _GUIDE_DOMAIN_TRIGGERS)
     if not has_guide_domain:
-        # Fallback to regex for short acronyms
-        if re.search(r"\b(tb|cap)\b", q):
+        # Matches 'tb' or 'cap' as a word, even if followed by punctuation
+        if re.search(r"(?i)\b(tb|cap|ltbi|ptb)\b", q):
             has_guide_domain = True
+        # Also check common shorthand like m.tb
+        if "m.tb" in q or "m. tuberculosis" in q:
+            has_guide_domain = True
+
     has_drug = any(t in q for t in _DRUG_TRIGGERS)
     has_ood = any(t in q for t in _OUT_OF_DOMAIN_TRIGGERS)
 
