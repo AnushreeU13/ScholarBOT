@@ -19,7 +19,7 @@ def open_browser():
         print(f"Failed to launch browser: {e}")
 
 def main():
-    print("Starting ScholarBOT v9...")
+    print("Starting ScholarBOT v12...")
     # Schedule browser open
     Timer(3, open_browser).start()
     
