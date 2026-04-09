@@ -235,6 +235,7 @@ def _rerank_candidates(query: str, candidates: List[Dict], k: int = 8) -> List[D
         # Update scores
         for i, score in enumerate(scores):
             candidates[i]["rerank_score"] = float(score)
+            candidates[i]["score"] = float(score) # Propagate to main score field
             
         # Re-sort
         candidates.sort(key=lambda x: x["rerank_score"], reverse=True)
@@ -636,7 +637,7 @@ class RAGPipeline:
                 tokenized = [(re.findall(r'\w+', t.lower())) for t in texts]
                 if not tokenized: continue
                 
-                self._log(f"[v9] Building BM25 index for {name} ({len(texts)} docs)...")
+                self._log(f"[v12] Building BM25 index for {name} ({len(texts)} docs)...")
                 self.bm25_indices[name] = {
                     "bm25": BM25Okapi(tokenized),
                     "docs": docs
@@ -722,7 +723,11 @@ class RAGPipeline:
 
     def _log(self, msg: str):
         if self.verbose:
-            (self.logger if self.logger else print)(msg)
+            try:
+                (self.logger if self.logger else print)(msg)
+            except UnicodeEncodeError:
+                # Fallback for Windows consoles that can't handle special characters
+                (self.logger if self.logger else print)(msg.encode('ascii', 'replace').decode('ascii'))
 
     def _get_store_by_name(self, name: str):
         if name == KB_DRUGLABELS or name == "kb_druglabels_medcpt": return self.kb_druglabels
@@ -747,7 +752,7 @@ class RAGPipeline:
         return {"score": sim, "status": "pass" if sim >= 0.72 else "fail"}
 
     def retrieve_and_answer(self, query: str) -> RAGResult:
-        self._log(f"\n=== TIER-1 RAG QUERY (v7): {query} ===")
+        self._log(f"\n=== TIER-1 RAG QUERY (v12): {query} ===")
         t0 = time.time()
 
         # v7: Query Expansion
@@ -1054,9 +1059,9 @@ CLINICIAN OUTPUT:
 
         lines = _parse_relaxed_bullets(clean, max_items=12)
 
-        # --- v9: Self-Critique Loop ---
+        # --- v12: Self-Critique Loop ---
         if USE_SELF_CRITIQUE and len(lines) > 0:
-            self._log(f"[v9] Running Self-Critique on {len(lines)} claims...")
+            self._log(f"[v12] Running Self-Critique on {len(lines)} claims...")
             refined_lines = self._refine_answer(query, lines, context, is_strict_user)
             lines = refined_lines if refined_lines else lines
 
