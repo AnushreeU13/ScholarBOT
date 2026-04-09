@@ -16,7 +16,7 @@ if "messages" not in st.session_state:
     
     # Security Feature: Purge user files on new session / browser restart
     try:
-        from config import PROJECT_ROOT, FAISS_INDICES_DIR, KB_PROCESSED_DIR
+        from config import PROJECT_ROOT, FAISS_INDICES_DIR, DATA_DIR
         temp_dir = PROJECT_ROOT / "temp_uploads"
         user_faiss = FAISS_INDICES_DIR / "user_kb"
         user_chunks = DATA_DIR / "user_fact"
@@ -37,12 +37,13 @@ with st.sidebar:
     
     # 0. API KEY (REQUIRED)
     st.subheader("Access Control")
-    api_key_input = st.text_input("Enter OpenAI API Key", type="password", help="ScholarBOT requires a valid OpenAI API key to process clinicians' queries.")
+    api_key_input = st.text_input("Enter OpenAI API Key", type="password", help="ScholarBOT requires a valid OpenAI API key.")
     
-    if api_key_input:
+    # Ultra-safe environment setting
+    if api_key_input and isinstance(api_key_input, str):
         os.environ["OPENAI_API_KEY"] = api_key_input
         st.session_state.openai_api_key = api_key_input
-    elif "openai_api_key" in st.session_state:
+    elif st.session_state.get("openai_api_key") and isinstance(st.session_state.get("openai_api_key"), str):
          os.environ["OPENAI_API_KEY"] = st.session_state.openai_api_key
     
     if not st.session_state.get("openai_api_key"):
@@ -107,11 +108,14 @@ with st.sidebar:
 
 # Initialize Engine (Cached)
 @st.cache_resource
-def load_engine():
-    return AlignedScholarBotEngine(verbose=True)
+def load_engine(api_key):
+    # Only initialize if we have a key
+    if not api_key:
+        return None
+    return AlignedScholarBotEngine(api_key=api_key, verbose=True)
 
 try:
-    engine = load_engine()
+    engine = load_engine(st.session_state.get("openai_api_key"))
     if st.session_state.get("needs_reload", False):
         engine.reload_user_kb()
         st.session_state.needs_reload = False
