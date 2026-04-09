@@ -72,11 +72,11 @@ RERANK_K = 12 # provided to LLM after consolidation
 TOP_K_DENSE = 20
 TOP_K_SPARSE = 20
 
-DEFAULT_SIM_THRESHOLD = 0.01 # Slightly lowered to improve recall
+DEFAULT_SIM_THRESHOLD = 0.5
 KB_SIM_THRESHOLD = {
-    KB_DRUGLABELS: 0.01,
-    KB_GUIDELINES: 0.01,
-    KB_USER_FACT: 0.01,
+    KB_DRUGLABELS: 0.5,
+    KB_GUIDELINES: 0.5,
+    KB_USER_FACT: 0.3,  # slightly lower for user uploads (smaller corpus)
 }
 
 # =============================
@@ -89,11 +89,11 @@ ZERO_HALLUCINATION_MODE = os.getenv("SCHOLARBOT_ZERO_HALLUCINATION", "0") == "1"
 # If you want finer control:
 USE_CLINICIAN_LLM = True
 
-# NEW: Strict system prompt for better grammar
+# NEW: Strict system prompt — evidence-only, no supplementation allowed
 LOCAL_QA_PROMPT = """You are a meticulous clinical assistant.
 Your answers must be in fluent, complete English sentences.
 Do not use fragmented phrases or lists without context.
-Prioritize the provided evidence, but you may supplement it with standard clinical knowledge to define fundamental concepts if they are missing."""
+You must ONLY use the provided evidence. Do NOT add any information, definitions, or clinical knowledge not explicitly present in the evidence. If the evidence is insufficient, output ABSTAIN."""
 
 # =============================
 # Local LLM (only used if USE_CLINICIAN_LLM == True)

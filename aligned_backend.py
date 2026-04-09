@@ -30,8 +30,7 @@ from rag_pipeline_aligned import RAGPipeline
 import rag_pipeline_aligned as rpa
 from router import RouteDecision
 
-from pdf_utils import extract_text_by_page
-from chunking_utils import chunk_document
+from rag_pipeline_aligned import _generate_with_prompt
 
 
 def _now_str() -> str:
@@ -180,67 +179,52 @@ def align_claims_to_snippets(
 
 
 # -----------------------------
-# Ingestion for uploaded PDFs
+# Context-aware query rewriting
 # -----------------------------
-def ingest_user_file(pdf_path: Path) -> None:
-    pdf_path = Path(pdf_path)
-    if not pdf_path.exists():
-        raise FileNotFoundError(f"User upload not found: {pdf_path}")
+_REF_PATTERN = re.compile(
+    r'\b(it|its|this|these|they|them|the condition|the disease|the infection|'
+    r'the illness|the treatment|the drug|the medication|the disorder)\b',
+    re.IGNORECASE,
+)
 
-    pages = extract_text_by_page(str(pdf_path))
-    if not pages:
-        return
 
-    all_chunks: List[Dict[str, Any]] = []
-    for page_number, page_text in pages:
-        if not page_text or not page_text.strip():
-            continue
+def _rewrite_query_with_context(query: str, history: List[Dict[str, Any]]) -> str:
+    """
+    If the query contains unresolved pronouns/references and there is prior
+    conversation history, uses the LLM to rewrite it as a self-contained
+    clinical question.  Falls back to the original query on any failure.
+    """
+    if not history or not _REF_PATTERN.search(query):
+        return query
 
-        chunks = chunk_document(
-            text=page_text,
-            document_name=pdf_path.name,
-            page_number=page_number,
-            chunk_size=400,
-            overlap=50,
-        )
-
-        for c in chunks:
-            meta = c.get("metadata", {}) or {}
-            meta.update(
-                {
-                    "source_type": "user_upload",
-                    "organization": "User Upload",
-                    "source": "User Upload",
-                    "document": pdf_path.name,
-                    "file_name": pdf_path.name,
-                    "section": "Uploaded Document",
-                    "section_title": "Uploaded Document",
-                    "page_numbers": [page_number] if page_number is not None else [],
-                    "file_path": str(pdf_path),
-                    "ingested_at": _now_str(),
-                }
-            )
-            c["metadata"] = meta
-
-        all_chunks.extend(chunks)
-
-    if not all_chunks:
-        return
-
-    texts = [c["text"] for c in all_chunks]
-    metas = [c["metadata"] for c in all_chunks]
-
-    embedder = MedCPTDualEmbedder()
-    vectors = embedder.embed_texts(texts)
-
-    store = create_faiss_store(
-        store_name=KB_USER_FACT,
-        dimension=vectors.shape[1],
-        base_dir=str(FAISS_INDICES_DIR),
-        embedder=embedder,
+    # Use last 4 messages (2 turns) for context — enough without overloading
+    recent = history[-4:]
+    history_text = "\n".join(
+        f"{m['role'].capitalize()}: {m['content'][:300]}"
+        for m in recent
+        if m.get("role") in ("user", "assistant") and m.get("content")
     )
-    store.add_vectors(vectors, metas)
-    store.save()
+
+    prompt = (
+        "You are resolving ambiguous pronouns in a clinical question.\n\n"
+        f"Conversation history:\n{history_text}\n\n"
+        f"Latest question: {query}\n\n"
+        "Rewrite the latest question to be fully self-contained by replacing every "
+        "pronoun or vague reference with the specific clinical term it refers to, "
+        "using the conversation history above. "
+        "Output only the rewritten question — no explanation, no quotes.\n\n"
+        "Rewritten question:"
+    )
+
+    try:
+        rewritten = _generate_with_prompt(prompt, max_new_tokens=80)
+        rewritten = rewritten.strip().strip('"').strip("'")
+        if rewritten and 5 < len(rewritten) < 300:
+            return rewritten
+    except Exception:
+        pass
+
+    return query
 
 
 # -----------------------------
@@ -305,8 +289,12 @@ class AlignedScholarBotEngine:
         history: Optional[List[Dict[str, Any]]] = None,
     ) -> Tuple[str, float, Dict[str, Any]]:
         history = history or []
-        _ = history
         _ = model_name
+
+        # Resolve coreferences before routing
+        resolved_query = _rewrite_query_with_context(query, history)
+        if resolved_query != query:
+            print(f"[ScholarBOT] Query rewritten: '{query}' -> '{resolved_query}'")
 
         g_n = _ntotal(self.kb_guidelines)
         d_n = _ntotal(self.kb_druglabels)
@@ -339,7 +327,7 @@ class AlignedScholarBotEngine:
                     )
                 rpa.route_query = _route_user_only
 
-            result = self.pipeline.retrieve_and_answer(query)
+            result = self.pipeline.retrieve_and_answer(resolved_query)
         finally:
             rpa.route_query = orig_route_query
 

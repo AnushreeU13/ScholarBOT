@@ -20,8 +20,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List
 
-import numpy as np
-
 from config import (
     FAISS_INDICES_DIR, KB_USER_FACT,
     CHUNK_SIZE, OVERLAP,
@@ -31,6 +29,15 @@ from embedding_utils import MedCPTDualEmbedder
 from storage_utils import create_faiss_store
 from pdf_utils import extract_text_by_page
 from chunking_utils import chunk_document
+
+# Module-level singleton — avoids reloading the 1.3 GB BGE model on every upload
+_embedder_instance: MedCPTDualEmbedder | None = None
+
+def _get_embedder() -> MedCPTDualEmbedder:
+    global _embedder_instance
+    if _embedder_instance is None:
+        _embedder_instance = MedCPTDualEmbedder()
+    return _embedder_instance
 
 
 def ingest_user_pdf(
@@ -45,7 +52,7 @@ def ingest_user_pdf(
     if not pdf_path.exists():
         raise FileNotFoundError(pdf_path)
 
-    embedder = MedCPTDualEmbedder()
+    embedder = _get_embedder()
     dim = embedder.dim
     store = create_faiss_store(store_name, dim, base_dir=FAISS_INDICES_DIR, embedder=embedder)
 
@@ -73,16 +80,20 @@ def ingest_user_pdf(
 
     for ch in chunks:
             t = (ch.get("text") or "").strip()
-            # print(f"[DEBUG] Chunk len: {len(t)}")
             if len(t) < 50:  # Relaxed from 120
                 continue
 
-            meta = (ch.get("metadata") or {})
+            # Read page_number from the chunk's own metadata (set by chunk_document),
+            # not from the outer loop variable which holds the last page's value.
+            ch_meta = (ch.get("metadata") or {})
+            chunk_page_num = ch_meta.get("page_number")
+
+            meta = ch_meta.copy()
             meta.update({
                 "source_type": "user_pdf",
                 "organization": "user",
                 "document_name": doc_name,
-                "page_number": page_num,
+                "page_number": chunk_page_num,
                 # CRITICAL: keep the chunk text in metadata for downstream evidence assembly
                 "text": t,
                 "ingested_at": datetime.utcnow().isoformat(),

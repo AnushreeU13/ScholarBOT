@@ -1017,7 +1017,7 @@ Rules additions (guideline):
 - Prefer short complete sentences (not fragments).
 """.strip()
 
-        evidence_rule = "4) EVIDENCE PRIORITIZATION: Prioritize the provided EVIDENCE to build your answer. You may use standard clinical knowledge to define fundamental concepts if they are missing from the evidence, but NEVER contradict the evidence."
+        evidence_rule = "4) EVIDENCE PRIORITIZATION: Use ONLY the provided EVIDENCE. Do NOT add any information, definitions, or clinical knowledge not explicitly stated in the evidence. If the evidence is insufficient to answer, output ABSTAIN."
         if is_strict_user:
             evidence_rule = "4) EVIDENCE PRIORITIZATION: You are strictly locked into a custom user document. You must ONLY use the provided evidence. Do NOT supplement with outside clinical knowledge. Do NOT include foundational definitions unless they are explicitly written in the text."
 
@@ -1094,7 +1094,7 @@ CLINICIAN OUTPUT:
         """v9 Self-Critique: Prunes claims that the LLM realizes are not 100% grounded."""
         draft_text = "\n".join([f"- {b}" for b in draft_bullets])
         
-        refine_rule = "3. Eliminate or correct any claim that explicitly CONTRADICTS the EVIDENCE. General foundational definitions (like what a disease is) are allowed to remain even if not explicitly supported, so long as they aren't contradicted."
+        refine_rule = "3. Eliminate any claim that is NOT EXPLICITLY supported by the EVIDENCE. Do NOT allow outside clinical knowledge, definitions, or assumptions to remain — if it is not in the evidence, it must be removed."
         if is_strict_user:
             refine_rule = "3. Eliminate any claim that is NOT EXPLICITLY supported by exactly what is written in the EVIDENCE. Do not allow outside knowledge to remain."
 

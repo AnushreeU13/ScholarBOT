@@ -7,6 +7,14 @@ import re
 from typing import List, Dict
 from transformers import AutoTokenizer
 
+# Module-level tokenizer cache — avoids reloading SciBERT once per page
+_tokenizer_cache: dict = {}
+
+def _get_tokenizer(model_name: str):
+    if model_name not in _tokenizer_cache:
+        _tokenizer_cache[model_name] = AutoTokenizer.from_pretrained(model_name)
+    return _tokenizer_cache[model_name]
+
 
 def semantic_chunk_text(
     text: str,
@@ -30,7 +38,7 @@ def semantic_chunk_text(
         text = ""
     text = str(text) # Force string conversion
     
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    tokenizer = _get_tokenizer(model_name)
     
     # Split text into sentences (simple approach)
     sentences = re.split(r'(?<=[.!?])\s+', text)

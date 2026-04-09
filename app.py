@@ -152,10 +152,11 @@ elif prompt := st.chat_input("Ask a clinical question..."):
         
         with st.spinner("Analyzing guidelines & evidences..."):
             try:
-                # Call Backend
+                # Call Backend — pass all prior messages (excluding the one just added)
                 response_text, confidence, meta = engine.generate_response(
-                    prompt, 
-                    force_user_kb=force_user
+                    prompt,
+                    force_user_kb=force_user,
+                    history=st.session_state.messages[:-1],
                 )
 
                 # Process the text for streaming effect
