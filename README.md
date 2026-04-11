@@ -1,4 +1,4 @@
-# ScholarBOT v12: Reducing Hallucinations in Clinical RAG
+# ScholarBOT v13: Reducing Hallucinations in Clinical RAG
 
 ScholarBOT is a working theory and proof of concept focused on reducing hallucinations and providing verifiable citations within clinical and healthcare settings. By grounding every response in a specialized knowledge base (KB), it provides clinicians with double-summarized answers (Clinical and Patient summaries) backed by direct snippets from medical literature.
 
@@ -129,12 +129,23 @@ Response (Clinician Summary + Patient Summary + References)
 
 ---
 
-## v12 Changes
+## v13 Changes
 
+### v13 (current) — Full architecture rebuild
+- **Numbered pipeline files** (`01_config.py` → `12_app.py`) — each file named by its position in the architecture
+- **LLM-based router** (`08_router.py`) — replaces 170-line keyword list with a single structured JSON LLM call covering domain, intent, KB selection, and abstain signal
+- **First-class context manager** (`07_context_manager.py`) — rolling topic summary, coreference resolution, and meta-reference stripping as a dedicated component
+- **Structured JSON generation** throughout — replaces regex bullet parsing; chunk IDs in bullets give direct unambiguous citations (no Jaccard alignment)
+- **Summarization pipeline path** — stratified page sampling + dedicated summarize prompt; no longer falls through the Q&A gate and abstains
+- **Evidence sufficiency check** — LLM binary YES/NO after retrieval, before generation, catches cases where chunks are retrieved but don't address the question
+- **BM25 persisted to disk** — built once at ingest time, loaded instantly on subsequent starts; no more silent runtime rebuild failures
+- **Separate pipeline paths** for Q&A, drug info, and summarization — clean intent-specific prompts instead of if/else branches
+
+### v12 — Targeted fixes on original architecture
 - **Context retention**: query rewriting resolves pronouns and references using conversation history before routing
 - **Strict evidence-only generation**: removed permission to supplement answers with outside clinical knowledge across all generation and critique prompts
 - **Meaningful confidence gate**: raised `KB_SIM_THRESHOLD` from `0.01` to `0.5` (guidelines/druglabels) and `0.3` (user uploads) so the abstain mechanism is actually enforced
 - **Fixed stale page number bug**: uploaded document chunks were all being labelled with the last page's number; each chunk now correctly records its own page
-- **Removed broken dead code**: `ingest_user_file` in `aligned_backend.py` had wrong tuple unpacking and non-existent FAISS API calls
+- **Removed broken dead code**: `ingest_user_file` had wrong tuple unpacking and non-existent FAISS API calls
 - **Embedder singleton**: BAAI/bge-large-en-v1.5 (1.3 GB) is loaded once per session instead of on every upload
 - **Tokenizer cache**: SciBERT tokenizer is loaded once instead of once per page during ingestion
