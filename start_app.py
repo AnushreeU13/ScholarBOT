@@ -25,7 +25,7 @@ def main():
     
     # Run Streamlit (Force port 8501)
     # Using shell=True to allow killing via Ctrl+C if run manually
-    cmd = [sys.executable, "-m", "streamlit", "run", "app.py", "--server.port=8501", "--server.headless=true"]
+    cmd = [sys.executable, "-m", "streamlit", "run", "12_app.py", "--server.port=8501", "--server.headless=true"]
     try:
         subprocess.run(cmd)
     except KeyboardInterrupt:
