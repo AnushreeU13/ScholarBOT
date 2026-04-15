@@ -161,20 +161,7 @@ Response: Clinician Summary + Patient Summary + References
 
 ## Evaluation
 
-MIRAGE benchmark evaluation is available in `eval/mirage_eval.py`. It tests ScholarBOT against TB and Pneumonia questions from the MIRAGE medical QA benchmark using an LLM-as-judge strategy, and separately measures the abstain rate on out-of-domain questions.
 
-```bash
-# Smoke test (20 in-domain + 10 out-of-domain)
-python eval/mirage_eval.py --limit 20 --ood 10
-
-# Full evaluation (all 146 TB/Pneumonia questions + 50 out-of-domain)
-python eval/mirage_eval.py
-
-# Resume an interrupted run
-python eval/mirage_eval.py --resume
-```
-
-Results are saved to `eval/eval results/mirage_results.json`.
 
 ---
 
