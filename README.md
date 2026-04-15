@@ -1,151 +1,192 @@
-# ScholarBOT v13: Reducing Hallucinations in Clinical RAG
+# ScholarBOT v13: Clinical Assistant
 
-ScholarBOT is a working theory and proof of concept focused on reducing hallucinations and providing verifiable citations within clinical and healthcare settings. By grounding every response in a specialized knowledge base (KB), it provides clinicians with double-summarized answers (Clinical and Patient summaries) backed by direct snippets from medical literature.
-
-Clinicians or physicians can ask questions to ScholarBOT, which will fetch the answer from its internal knowledge base. The system responds in two distinct ways: a **Clinical Summary** for professional use and a **Patient Summary** designed for direct patient communication. All answers are accompanied by citations featuring exact words from the cited articles to ensure transparency.
-
-The current knowledge base covers **Tuberculosis (TB)** and **Pneumonia (CAP)**, indexed from raw PDF and XML source files into two FAISS indices: `guidelines_kb` and `druglabels_kb`.
+ScholarBOT is a fail-closed, hallucination-resistant medical question-answering system for **Tuberculosis (TB)** and **Pneumonia (CAP)**. Every answer is grounded strictly in its knowledge base — if the evidence is insufficient, the system abstains rather than guessing. All responses include direct citations with page numbers.
 
 ---
 
-## Key Principles
+## Core Design Principles
 
-### 1. Safety-First: Abstention is a Choice
-In a medical context, providing an uncertain or incorrect answer is as dangerous as providing a wrong one. ScholarBOT is designed with a **Fail-Closed** philosophy: if the knowledge base does not contain the necessary information to answer a query with high confidence, the system will consciously **Abstain** rather than synthesize a response. Nothing is "made up" — every word is grounded in the retrieved evidence.
-
-### 2. Strict Evidence-Only Generation
-All generation paths (clinician answer, self-critique loop, patient rewrite) are restricted to the retrieved evidence. The system will not supplement answers with outside clinical knowledge. If the evidence is insufficient, the output is `ABSTAIN`.
-
-### 3. Dual-Audience Outputs
-- **Clinical Summary**: A precise, technical abstract for medical professionals.
-- **Patient Summary**: A jargon-free explanation that translates clinical findings into accessible language for patients, without losing factual grounding.
-
-### 4. Traceability
-Every claim is mapped to a specific citation — KB name, document name, and page number — allowing for immediate human verification.
-
-### 5. Flexible Knowledge Base
-The system primarily answers from its pre-indexed medical guidelines and drug labels. Users can also **upload their own PDFs** and query against them in isolation ("User Document Only" mode) or combined with the existing KB ("Standard" mode), processed under the same strict grounding rules.
-
-### 6. Context Retention
-Follow-up questions with pronouns or references (e.g. *"How is it diagnosed?"* after asking about TB) are automatically rewritten into self-contained clinical queries before routing and retrieval, so multi-turn conversations work correctly.
+- **Fail-closed** — abstains when confidence is low rather than generating uncertain answers
+- **Evidence-only** — no outside clinical knowledge is ever added; every sentence is sourced from retrieved documents
+- **Dual-audience output** — Clinical Summary (technical, for clinicians) and Patient Summary (plain language, for patients)
+- **Full traceability** — every claim links to a KB name, document, and page number
+- **Context retention** — follow-up questions with pronouns ("How is it diagnosed?") are resolved against conversation history before retrieval
 
 ---
 
-## How to Execute
+## Prerequisites
 
-### 1. Prerequisites
-You will need an **OpenAI API Key** to enable the clinical reasoning and summarization features.
+- Python 3.9 or higher
+- An OpenAI API key (`gpt-4o-mini` is used by default)
+- ~4 GB disk space (for the BGE-large embedding model, downloaded automatically on first run)
 
-### 2. Installation
-Ensure you have Python 3.9+ installed, then install the required dependencies:
+---
+
+## Installation
+
 ```bash
 pip install streamlit langchain-community PyPDF2 sentence-transformers faiss-cpu openai rank-bm25 transformers torch
 ```
 
-### 3. Launch the Application
-Navigate to the project directory and run the startup script:
+---
+
+## Running ScholarBOT
+
+**Step 1 — Set your OpenAI API key**
+
+PowerShell:
+```powershell
+$env:OPENAI_API_KEY='sk-proj-...'
+```
+
+CMD:
+```cmd
+set OPENAI_API_KEY=sk-proj-...
+```
+
+**Step 2 — Navigate to the project folder**
+
+```bash
+cd path/to/ScholarBOT_v12 - Copy
+```
+
+**Step 3 — Launch the app**
+
 ```bash
 python start_app.py
 ```
-The application will automatically open in your default browser at `http://localhost:8501`.
 
-Alternatively:
-```bash
-streamlit run app.py
-```
+The browser will open automatically at `http://localhost:8501`.
+If it doesn't, open that URL manually.
 
-### 4. Provide Authorization
-Once the UI loads, enter your **OpenAI API Key** in the "Access Control" section of the sidebar. You can then begin querying the system.
+**Step 4 — Enter your API key in the sidebar**
 
-### 5. Stop the Server
-```bash
-Ctrl+C
-```
-To clear Streamlit's resource cache:
-```bash
-streamlit cache clear
-```
+Once the UI loads, paste your OpenAI API key in the **Access Control** field in the left sidebar. You can then start asking questions.
+
+**To stop the server:** press `Ctrl+C` in the terminal.
+
+---
+
+## Using the Interface
+
+### Asking questions
+Type your clinical question in the chat box. ScholarBOT will:
+1. Route the query to the appropriate knowledge base (guidelines or drug labels)
+2. Retrieve and rerank relevant evidence
+3. Generate a clinician answer and a patient-friendly rewrite
+4. Return citations with document name and page number
+
+If it cannot find sufficient evidence, it will respond: **No Confidence — Abstaining**.
+
+### Search scope (sidebar)
+| Option | Behaviour |
+|---|---|
+| All sources | Searches guidelines KB + drug labels KB (default) |
+| User doc only | Searches only your uploaded PDF |
+| All + User doc | Searches all KBs including your upload |
+
+### Uploading your own documents
+Use the **Upload PDF** section in the sidebar to add your own document. After uploading, switch to **User doc only** mode to ask questions specifically about that document. The same strict evidence-only rules apply.
+
+### Multi-turn conversation
+You can ask follow-up questions naturally. ScholarBOT resolves pronouns and references against the previous answer, so "How is it treated?" after a TB question will correctly retrieve TB treatment information.
+
+---
+
+## Knowledge Base
+
+The pre-built knowledge base covers:
+- **guidelines_kb** — TB and Pneumonia clinical guidelines and research papers
+- **druglabels_kb** — Drug labels for TB and Pneumonia medications (isoniazid, rifampin, pyrazinamide, ethambutol, azithromycin, levofloxacin, etc.)
+
+Source files are stored in `dataset/`. FAISS indices are in `faiss_indices/`.
 
 ---
 
 ## System Architecture
 
-| File | Role |
-|---|---|
-| `app.py` | Streamlit web interface — handles user input, session state, file uploads, and response rendering |
-| `aligned_backend.py` | Engine layer — query rewriting, history wiring, claim-to-snippet alignment, response formatting |
-| `rag_pipeline_aligned.py` | Core RAG engine — hybrid search (dense + sparse), RRF merging, cross-encoder reranking, multi-gate filtering, self-critique loop |
-| `router.py` | Domain router — classifies queries as TB/pneumonia/drug/out-of-domain and selects target KBs |
-| `config.py` | Central configuration — similarity thresholds, feature toggles, generation settings |
-| `embedding_utils.py` | Embedder wrapper — BAAI/bge-large-en-v1.5 (1024-dim) via SentenceTransformer |
-| `user_ingest_aligned.py` | On-demand PDF ingestion — chunks, embeds, and indexes user-uploaded documents into `user_kb` |
-| `chunking_utils.py` | Token-aware semantic chunking using SciBERT tokenizer |
-| `storage_utils.py` | FAISS index creation and loading |
-| `eval/` | Evaluation suite using the RAGAS framework to measure faithfulness and relevancy |
-
----
-
-## Pipeline Flow
-
 ```
 User Query
     |
     v
-Query Rewriting (coreference resolution via conversation history)
+Context Manager (07) — coreference resolution, pronoun rewriting
     |
     v
-Domain Router (TB / Pneumonia / Drug / Out-of-domain / Abstain)
+LLM Router (08) — domain classification, KB selection, abstain signal
     |
     v
-Hybrid Retrieval (Dense BGE-large + Sparse BM25) per target KB
+Hybrid Retrieval (09) — BGE-large dense search + BM25 sparse search per KB
     |
     v
-RRF Merge + Section Bias
+RRF Merge + Cross-Encoder Reranking (ms-marco-MiniLM-L-6-v2)
     |
     v
-Cross-Encoder Reranking (ms-marco-MiniLM-L-6-v2)
+Confidence Gate — abstain if best score below threshold
     |
     v
-Confidence Gate (threshold check -> Abstain if low)
+Evidence Sufficiency Check — LLM binary YES/NO before generation
     |
     v
-Context Consolidation (merge adjacent chunks)
+Answer Generation (10) — structured JSON, evidence-only, chunk-ID citations
     |
     v
-Clinician Answer Generation (evidence-only, LLM)
+Self-Critique Loop — prune any unsupported claims
     |
     v
-Self-Critique Loop (prune unsupported claims)
+Patient Rewrite — plain language, no new facts added
     |
     v
-Patient Answer Rewrite
-    |
-    v
-Patient Safety Gate + Consistency Check
-    |
-    v
-Response (Clinician Summary + Patient Summary + References)
+Response: Clinician Summary + Patient Summary + References
 ```
+
+### File map
+
+| File | Role |
+|---|---|
+| `01_config.py` | Central configuration — thresholds, model names, paths |
+| `02_embedding_utils.py` | BGE-large-en-v1.5 embedder singleton (1024-dim) |
+| `03_storage_utils.py` | FAISS index creation/loading; BM25 persistence |
+| `04_pdf_utils.py` | PDF text extraction with reference-section stripping |
+| `05_chunking_utils.py` | Token-aware semantic chunking (SciBERT tokenizer) |
+| `06_ingest_user.py` | User PDF upload — chunk, embed, index into user_kb |
+| `07_context_manager.py` | Rolling topic summary + LLM coreference resolution |
+| `08_router.py` | LLM-based domain/intent/KB router with JSON output |
+| `09_retriever.py` | Hybrid retrieval, RRF, cross-encoder reranking, sufficiency check |
+| `10_pipeline.py` | RAG generation — Q&A, drug info, and summarization paths |
+| `11_backend.py` | Engine class — wires all components, formats responses |
+| `12_app.py` | Streamlit UI (port 8501) |
+| `start_app.py` | Launch script |
 
 ---
 
-## v13 Changes
+## Evaluation
 
-### v13 (current) — Full architecture rebuild
-- **Numbered pipeline files** (`01_config.py` → `12_app.py`) — each file named by its position in the architecture
-- **LLM-based router** (`08_router.py`) — replaces 170-line keyword list with a single structured JSON LLM call covering domain, intent, KB selection, and abstain signal
-- **First-class context manager** (`07_context_manager.py`) — rolling topic summary, coreference resolution, and meta-reference stripping as a dedicated component
-- **Structured JSON generation** throughout — replaces regex bullet parsing; chunk IDs in bullets give direct unambiguous citations (no Jaccard alignment)
-- **Summarization pipeline path** — stratified page sampling + dedicated summarize prompt; no longer falls through the Q&A gate and abstains
-- **Evidence sufficiency check** — LLM binary YES/NO after retrieval, before generation, catches cases where chunks are retrieved but don't address the question
-- **BM25 persisted to disk** — built once at ingest time, loaded instantly on subsequent starts; no more silent runtime rebuild failures
-- **Separate pipeline paths** for Q&A, drug info, and summarization — clean intent-specific prompts instead of if/else branches
+MIRAGE benchmark evaluation is available in `eval/mirage_eval.py`. It tests ScholarBOT against TB and Pneumonia questions from the MIRAGE medical QA benchmark using an LLM-as-judge strategy, and separately measures the abstain rate on out-of-domain questions.
 
-### v12 — Targeted fixes on original architecture
-- **Context retention**: query rewriting resolves pronouns and references using conversation history before routing
-- **Strict evidence-only generation**: removed permission to supplement answers with outside clinical knowledge across all generation and critique prompts
-- **Meaningful confidence gate**: raised `KB_SIM_THRESHOLD` from `0.01` to `0.5` (guidelines/druglabels) and `0.3` (user uploads) so the abstain mechanism is actually enforced
-- **Fixed stale page number bug**: uploaded document chunks were all being labelled with the last page's number; each chunk now correctly records its own page
-- **Removed broken dead code**: `ingest_user_file` had wrong tuple unpacking and non-existent FAISS API calls
-- **Embedder singleton**: BAAI/bge-large-en-v1.5 (1.3 GB) is loaded once per session instead of on every upload
-- **Tokenizer cache**: SciBERT tokenizer is loaded once instead of once per page during ingestion
+```bash
+# Smoke test (20 in-domain + 10 out-of-domain)
+python eval/mirage_eval.py --limit 20 --ood 10
+
+# Full evaluation (all 146 TB/Pneumonia questions + 50 out-of-domain)
+python eval/mirage_eval.py
+
+# Resume an interrupted run
+python eval/mirage_eval.py --resume
+```
+
+Results are saved to `eval/eval results/mirage_results.json`.
+
+---
+
+## Configuration
+
+Key settings in `01_config.py`:
+
+| Setting | Default | Description |
+|---|---|---|
+| `OPENAI_MODEL` | `gpt-4o-mini` | Model for generation, routing, and rewriting |
+| `KB_SIM_THRESHOLD` | 0.5 (guidelines/drugs), 0.3 (user) | Confidence gate — below this, system abstains |
+| `TOP_K_DENSE` | 20 | Dense retrieval candidates per KB |
+| `TOP_K_SPARSE` | 20 | BM25 retrieval candidates per KB |
+| `RERANK_K` | 12 | Chunks kept after cross-encoder reranking |
+| `CHUNK_SIZE` | 400 tokens | Size of each text chunk |
