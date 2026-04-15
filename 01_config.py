@@ -31,11 +31,11 @@ RERANK_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 # Confidence gate — applied to the best reranker score after reranking.
 # Below threshold → ABSTAIN. Raised from 0.01 (v12 fix).
 KB_SIM_THRESHOLD = {
-    KB_DRUGLABELS: 0.5,
-    KB_GUIDELINES: 0.5,
+    KB_DRUGLABELS: 0.2,
+    KB_GUIDELINES: 0.2,
     KB_USER:       0.3,   # lower for user uploads (smaller, noisier corpus)
 }
-DEFAULT_SIM_THRESHOLD = 0.5
+DEFAULT_SIM_THRESHOLD = 0.2
 
 # ── LLM ───────────────────────────────────────────────────────────────────────
 OPENAI_MODEL  = os.getenv("OPENAI_MODEL",             "gpt-4o-mini")
