@@ -236,6 +236,8 @@ def main():
                     help="Max questions to evaluate (default: all in-domain)")
     ap.add_argument("--category", choices=["clinician", "patient", "all"], default="all",
                     help="Which question category to evaluate (default: all)")
+    ap.add_argument("--resume",   action="store_true",
+                    help="Resume from existing results file, skipping already-done questions")
     args = ap.parse_args()
 
     if args.judge == "llm" and not os.getenv("OPENAI_API_KEY"):
@@ -262,20 +264,41 @@ def main():
     target_kbs = ["guidelines_kb", "druglabels_kb"]
     print("  Ready.\n")
 
-    # ── Per-stage relevance lists ─────────────────────────────────────────────
+    # ── Load existing results if resuming ────────────────────────────────────
+    done_ids: set = set()
+    per_question_results: List[Dict] = []
+
+    if args.resume and RESULTS_FILE.exists():
+        with open(RESULTS_FILE, encoding="utf-8") as f:
+            existing = json.load(f)
+        per_question_results = existing.get("per_question", [])
+        done_ids = {r["id"] for r in per_question_results}
+        print(f"[IR Eval] Resuming — {len(done_ids)} questions already done, skipping them.\n")
+
+    # ── Per-stage relevance lists (seed from already-done results) ────────────
     stage_relevances: Dict[str, List[List[float]]] = {
         "dense":    [],
         "bm25":     [],
         "rrf":      [],
         "reranker": [],
     }
-
-    per_question_results = []
+    for prev in per_question_results:
+        for stage_name in stage_relevances:
+            stage_data = prev["stages"].get(stage_name, {})
+            # Reconstruct a binary relevance list from n_relevant / n_chunks
+            # (approximate — exact values not stored, but sufficient for aggregate)
+            n_rel   = stage_data.get("n_relevant", 0)
+            n_total = stage_data.get("n_chunks_retrieved", 0)
+            rel_list = [1.0] * n_rel + [0.0] * max(0, n_total - n_rel)
+            stage_relevances[stage_name].append(rel_list)
 
     for qi, q in enumerate(questions):
         qid      = q["id"]
         question = q["question"]
         key_facts = q.get("key_facts", [])
+
+        if qid in done_ids:
+            continue
 
         print(f"[{qi+1:03d}/{len(questions)}] {qid} — {question[:70]}...")
 
@@ -307,6 +330,17 @@ def main():
             }
 
         per_question_results.append(q_result)
+
+        # Save after every question — safe to interrupt and resume
+        RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+        _interim = {
+            "config": {"judge": args.judge, "category": args.category,
+                       "n_questions": len(questions)},
+            "summary": {s: aggregate(rl) for s, rl in stage_relevances.items()},
+            "per_question": per_question_results,
+        }
+        with open(RESULTS_FILE, "w", encoding="utf-8") as f:
+            json.dump(_interim, f, indent=2, ensure_ascii=False)
 
     # ── Aggregate scores ──────────────────────────────────────────────────────
     summary = {}
