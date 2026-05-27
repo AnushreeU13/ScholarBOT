@@ -38,6 +38,7 @@ RESULTS_FILE = RESULTS_DIR / "mirage_results.json"
 # Add project root to path so we can import ScholarBOT modules
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
+os.chdir(PROJECT_ROOT)
 
 # ── Domain keywords ────────────────────────────────────────────────────────────
 TB_TERMS = [

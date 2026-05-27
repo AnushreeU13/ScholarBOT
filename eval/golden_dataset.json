@@ -1,0 +1,1160 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "domain": "Tuberculosis (TB) and Pneumonia (CAP)",
+    "description": "Purpose-built golden evaluation dataset for ScholarBOT. Questions are designed to reflect actual use — direct factual queries from both clinicians and patients. Scenario/vignette questions are excluded as ScholarBOT is a knowledge retrieval system, not a clinical reasoner.",
+    "categories": {
+      "clinician": "Direct factual questions a physician would ask",
+      "patient": "Plain-language questions a patient would ask",
+      "out_of_domain": "Questions outside TB/Pneumonia — ScholarBOT should abstain"
+    },
+    "answer_format": "Reference answer for judge evaluation — ScholarBOT is not expected to match verbatim but must convey the same core facts",
+    "total_questions": 150
+  },
+  "questions": [
+    {
+      "id": "C_TB_001",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "treatment",
+      "question": "What is the standard first-line treatment regimen for drug-sensitive pulmonary tuberculosis?",
+      "reference_answer": "The standard first-line regimen for drug-sensitive TB is 2 months of isoniazid, rifampin, pyrazinamide, and ethambutol (HRZE) in the intensive phase, followed by 4 months of isoniazid and rifampin (HR) in the continuation phase — a total of 6 months.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "isoniazid",
+        "rifampin",
+        "pyrazinamide",
+        "ethambutol",
+        "2 months intensive",
+        "4 months continuation",
+        "6 months total"
+      ]
+    },
+    {
+      "id": "C_TB_002",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "diagnosis",
+      "question": "What tests are used to diagnose active pulmonary tuberculosis?",
+      "reference_answer": "Diagnosis of active pulmonary TB involves sputum AFB smear microscopy, sputum culture for Mycobacterium tuberculosis, and rapid molecular tests such as Xpert MTB/RIF. Chest radiography is used as a supporting tool. At least three sputum specimens including one early morning sample are recommended.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "AFB smear",
+        "sputum culture",
+        "Xpert MTB/RIF",
+        "chest X-ray",
+        "three sputum specimens",
+        "early morning sample"
+      ]
+    },
+    {
+      "id": "C_TB_003",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "diagnosis",
+      "question": "How is latent tuberculosis infection diagnosed?",
+      "reference_answer": "Latent TB infection (LTBI) is diagnosed using the tuberculin skin test (TST/Mantoux) or interferon-gamma release assays (IGRAs) such as QuantiFERON-TB Gold. Neither test can distinguish latent from active disease, so active TB must be excluded clinically.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "tuberculin skin test",
+        "TST",
+        "Mantoux",
+        "IGRA",
+        "QuantiFERON",
+        "interferon-gamma",
+        "exclude active TB"
+      ]
+    },
+    {
+      "id": "C_TB_004",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "treatment",
+      "question": "What is the treatment regimen for latent TB infection?",
+      "reference_answer": "Preferred regimens for LTBI include 3 months of weekly isoniazid plus rifapentine (3HP), 4 months of daily rifampin (4R), or 6-9 months of daily isoniazid (6H or 9H). The 3HP and 4R regimens are preferred for their shorter duration and better adherence.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "isoniazid",
+        "rifapentine",
+        "rifampin",
+        "3HP",
+        "4R",
+        "6-9 months",
+        "latent TB"
+      ]
+    },
+    {
+      "id": "C_TB_005",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "drug",
+      "question": "What are the major adverse effects of isoniazid?",
+      "reference_answer": "Major adverse effects of isoniazid include hepatotoxicity (elevated liver enzymes, clinical hepatitis), peripheral neuropathy (due to pyridoxine depletion), and drug-induced lupus. Hepatotoxicity risk increases with age, alcohol use, and pre-existing liver disease. Pyridoxine supplementation is recommended to prevent neuropathy.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "hepatotoxicity",
+        "peripheral neuropathy",
+        "pyridoxine",
+        "drug-induced lupus",
+        "liver enzymes",
+        "alcohol"
+      ]
+    },
+    {
+      "id": "C_TB_006",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "drug",
+      "question": "What are the hepatotoxicity monitoring requirements during TB treatment?",
+      "reference_answer": "Baseline liver function tests should be obtained before starting TB therapy. Routine monitoring is recommended for patients with risk factors (pre-existing liver disease, alcohol use, HIV, pregnancy). Treatment should be interrupted if ALT exceeds 3 times the upper limit of normal with symptoms, or 5 times without symptoms.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "liver function tests",
+        "baseline",
+        "ALT",
+        "3 times upper limit",
+        "5 times",
+        "interrupt treatment",
+        "risk factors"
+      ]
+    },
+    {
+      "id": "C_TB_007",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "drug",
+      "question": "What are the contraindications to rifampin use?",
+      "reference_answer": "Rifampin is contraindicated in patients with hypersensitivity to rifamycins. It is a potent CYP450 inducer and is contraindicated with certain antiretrovirals (particularly protease inhibitors and some NNRTIs), as it significantly reduces their plasma levels. Caution is required in severe hepatic impairment.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "hypersensitivity",
+        "rifamycins",
+        "CYP450",
+        "antiretrovirals",
+        "protease inhibitors",
+        "hepatic impairment"
+      ]
+    },
+    {
+      "id": "C_TB_008",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "drug",
+      "question": "What drug interactions does rifampin have?",
+      "reference_answer": "Rifampin is a potent inducer of CYP3A4, CYP2C9, and P-glycoprotein. It significantly reduces plasma levels of antiretrovirals, oral contraceptives, warfarin, corticosteroids, methadone, and many other drugs. Alternative contraception should be recommended. Dose adjustments of co-administered drugs are often required.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "CYP3A4 inducer",
+        "antiretrovirals",
+        "oral contraceptives",
+        "warfarin",
+        "methadone",
+        "dose adjustment"
+      ]
+    },
+    {
+      "id": "C_TB_009",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "treatment",
+      "question": "How is drug-resistant tuberculosis classified?",
+      "reference_answer": "Drug-resistant TB is classified as: isoniazid-resistant TB (Hr-TB), multidrug-resistant TB (MDR-TB — resistant to at least isoniazid and rifampin), pre-extensively drug-resistant TB (pre-XDR-TB — MDR-TB plus resistance to any fluoroquinolone), and extensively drug-resistant TB (XDR-TB — MDR-TB plus resistance to fluoroquinolones and at least one Group A drug).",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "MDR-TB",
+        "isoniazid",
+        "rifampin",
+        "XDR-TB",
+        "fluoroquinolone",
+        "pre-XDR"
+      ]
+    },
+    {
+      "id": "C_TB_010",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "prevention",
+      "question": "Who should receive TB preventive therapy?",
+      "reference_answer": "TB preventive therapy is recommended for: people living with HIV, household contacts of bacteriologically confirmed TB cases, patients initiating anti-TNF therapy, dialysis patients, organ transplant recipients, silicosis patients, and prisoners in high-burden settings. Testing for LTBI should precede treatment.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "HIV",
+        "household contacts",
+        "anti-TNF",
+        "dialysis",
+        "transplant",
+        "silicosis",
+        "LTBI testing"
+      ]
+    },
+    {
+      "id": "C_TB_011",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "drug",
+      "question": "What is the mechanism of action of pyrazinamide?",
+      "reference_answer": "Pyrazinamide is a prodrug converted to pyrazinoic acid by bacterial pyrazinamidase. It is active against slowly replicating and dormant mycobacteria in acidic environments such as macrophages and areas of caseous necrosis. Its exact mechanism is not fully understood but it disrupts membrane potential and inhibits energy production.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "prodrug",
+        "pyrazinoic acid",
+        "pyrazinamidase",
+        "acidic environment",
+        "macrophages",
+        "dormant mycobacteria"
+      ]
+    },
+    {
+      "id": "C_TB_012",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "drug",
+      "question": "What ocular monitoring is required for patients on ethambutol?",
+      "reference_answer": "Ethambutol can cause optic neuritis — presenting as reduced visual acuity and loss of colour discrimination (especially red-green). Baseline visual acuity and colour vision testing should be performed before starting ethambutol. Monthly monitoring is recommended, and the drug should be stopped immediately if visual changes occur.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "optic neuritis",
+        "visual acuity",
+        "colour vision",
+        "red-green",
+        "baseline testing",
+        "monthly monitoring",
+        "stop if changes"
+      ]
+    },
+    {
+      "id": "C_TB_013",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "special populations",
+      "question": "How should TB be managed in pregnancy?",
+      "reference_answer": "TB in pregnancy should be treated promptly as the risks of untreated TB outweigh the risks of treatment. The standard HRZE regimen is used. Streptomycin is contraindicated due to ototoxicity to the fetus. Pyridoxine supplementation is essential. Breastfeeding is not contraindicated with standard TB drugs.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "treat promptly",
+        "HRZE",
+        "streptomycin contraindicated",
+        "ototoxicity",
+        "pyridoxine",
+        "breastfeeding safe"
+      ]
+    },
+    {
+      "id": "C_TB_014",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "special populations",
+      "question": "How does HIV coinfection affect TB treatment?",
+      "reference_answer": "HIV-positive TB patients should receive standard 6-month TB treatment. Antiretroviral therapy (ART) should be started within 2 weeks of TB treatment in patients with CD4 <50, and within 8 weeks for others. Rifampin interactions with antiretrovirals require careful drug selection — efavirenz is preferred over NVP-based regimens.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "ART",
+        "2 weeks",
+        "CD4 <50",
+        "8 weeks",
+        "rifampin interactions",
+        "efavirenz"
+      ]
+    },
+    {
+      "id": "C_TB_015",
+      "category": "clinician",
+      "topic": "TB",
+      "subtopic": "monitoring",
+      "question": "What defines treatment failure in TB?",
+      "reference_answer": "Treatment failure is defined as sputum cultures that remain positive or become positive again after 5 months of treatment. Failure requires drug susceptibility testing to guide regimen change and should prompt consideration of MDR-TB.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "positive cultures",
+        "5 months",
+        "drug susceptibility testing",
+        "MDR-TB",
+        "regimen change"
+      ]
+    },
+    {
+      "id": "C_PN_001",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "treatment",
+      "question": "What is the first-line antibiotic treatment for community-acquired pneumonia in outpatients?",
+      "reference_answer": "For outpatient CAP in previously healthy patients with no antibiotic use in the past 3 months, amoxicillin is recommended. For patients with comorbidities or recent antibiotic use, a respiratory fluoroquinolone (levofloxacin, moxifloxacin) or beta-lactam plus macrolide combination is recommended.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "amoxicillin",
+        "respiratory fluoroquinolone",
+        "levofloxacin",
+        "moxifloxacin",
+        "macrolide",
+        "beta-lactam",
+        "outpatient"
+      ]
+    },
+    {
+      "id": "C_PN_002",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "diagnosis",
+      "question": "What criteria are used to assess the severity of community-acquired pneumonia?",
+      "reference_answer": "Severity of CAP is assessed using validated scoring tools. CURB-65 scores confusion, urea >7mmol/L, respiratory rate ≥30, blood pressure <90/60 mmHg, and age ≥65 — scores 0-1 are low severity (outpatient), 2 is moderate (consider hospital), 3-5 is severe (hospital/ICU). The PSI/PORT score is an alternative with greater granularity.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "CURB-65",
+        "confusion",
+        "urea",
+        "respiratory rate",
+        "blood pressure",
+        "age 65",
+        "PSI",
+        "PORT",
+        "ICU"
+      ]
+    },
+    {
+      "id": "C_PN_003",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "diagnosis",
+      "question": "What organisms most commonly cause community-acquired pneumonia?",
+      "reference_answer": "The most common pathogen in CAP is Streptococcus pneumoniae. Other common pathogens include Haemophilus influenzae, Mycoplasma pneumoniae, Chlamydophila pneumoniae, Legionella pneumophila (atypical), and respiratory viruses including influenza. Staphylococcus aureus is associated with post-influenza pneumonia.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "Streptococcus pneumoniae",
+        "Haemophilus influenzae",
+        "Mycoplasma",
+        "Chlamydophila",
+        "Legionella",
+        "influenza",
+        "Staphylococcus aureus"
+      ]
+    },
+    {
+      "id": "C_PN_004",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "treatment",
+      "question": "What antibiotics are recommended for severe CAP requiring ICU admission?",
+      "reference_answer": "Severe CAP requiring ICU care should be treated with a beta-lactam (ceftriaxone or ampicillin-sulbactam) plus either a macrolide (azithromycin) or a respiratory fluoroquinolone (levofloxacin or moxifloxacin). If Pseudomonas is a concern, an anti-pseudomonal beta-lactam should be used.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "ceftriaxone",
+        "azithromycin",
+        "levofloxacin",
+        "moxifloxacin",
+        "beta-lactam",
+        "ICU",
+        "Pseudomonas"
+      ]
+    },
+    {
+      "id": "C_PN_005",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "treatment",
+      "question": "What is the recommended duration of antibiotic therapy for CAP?",
+      "reference_answer": "For CAP, a minimum of 5 days of antibiotics is recommended. Treatment should continue until the patient is afebrile for at least 48-72 hours and clinically stable. Longer courses (7-14 days) may be needed for Legionella, Staphylococcus aureus, or Pseudomonas pneumonia, or for immunocompromised patients.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "5 days minimum",
+        "afebrile 48-72 hours",
+        "clinically stable",
+        "Legionella 7-14 days",
+        "Pseudomonas"
+      ]
+    },
+    {
+      "id": "C_PN_006",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "drug",
+      "question": "What are the side effects of azithromycin?",
+      "reference_answer": "Common adverse effects of azithromycin include gastrointestinal symptoms (nausea, vomiting, diarrhoea, abdominal pain). Importantly, azithromycin prolongs the QT interval and should be used with caution in patients with cardiac arrhythmias or concurrent QT-prolonging drugs. Hepatotoxicity is rare but reported.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "gastrointestinal",
+        "nausea",
+        "QT prolongation",
+        "cardiac arrhythmia",
+        "hepatotoxicity"
+      ]
+    },
+    {
+      "id": "C_PN_007",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "prevention",
+      "question": "What vaccinations are recommended to prevent pneumonia?",
+      "reference_answer": "Pneumococcal vaccines (PCV13 and PPSV23) are recommended for adults ≥65 years, immunocompromised patients, and those with chronic cardiopulmonary or renal disease. Annual influenza vaccination is also recommended as influenza increases susceptibility to secondary bacterial pneumonia.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "PCV13",
+        "PPSV23",
+        "pneumococcal",
+        "age 65",
+        "influenza vaccine",
+        "immunocompromised"
+      ]
+    },
+    {
+      "id": "C_PN_008",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "diagnosis",
+      "question": "What is atypical pneumonia and which organisms cause it?",
+      "reference_answer": "Atypical pneumonia refers to pneumonia caused by organisms not detectable on standard Gram stain and not responsive to beta-lactam antibiotics. Common atypical pathogens include Mycoplasma pneumoniae, Chlamydophila pneumoniae, Legionella pneumophila, and Coxiella burnetii. Clinical presentation is often more gradual with extrapulmonary features.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "Mycoplasma",
+        "Chlamydophila",
+        "Legionella",
+        "Coxiella",
+        "Gram stain negative",
+        "beta-lactam resistant",
+        "extrapulmonary"
+      ]
+    },
+    {
+      "id": "C_PN_009",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "drug",
+      "question": "What are the contraindications to levofloxacin use in pneumonia?",
+      "reference_answer": "Levofloxacin is contraindicated in patients with known hypersensitivity to fluoroquinolones, history of tendon disorders related to fluoroquinolone use, and myasthenia gravis. QT prolongation is a concern — avoid in patients with known QT prolongation or concurrent QT-prolonging drugs. Use with caution in patients with renal impairment as dose adjustment is required.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "hypersensitivity",
+        "tendon disorders",
+        "myasthenia gravis",
+        "QT prolongation",
+        "renal impairment",
+        "dose adjustment"
+      ]
+    },
+    {
+      "id": "C_PN_010",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "special populations",
+      "question": "How should CAP be managed in immunocompromised patients?",
+      "reference_answer": "Immunocompromised patients with CAP require broader empirical antibiotic coverage and consideration of opportunistic pathogens including Pneumocystis jirovecii (PCP), fungi, and drug-resistant organisms. TMP-SMX is first-line for PCP in HIV patients. Bronchoscopy with BAL may be needed for microbiological diagnosis.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "broader coverage",
+        "Pneumocystis jirovecii",
+        "PCP",
+        "TMP-SMX",
+        "HIV",
+        "bronchoscopy",
+        "BAL"
+      ]
+    },
+    {
+      "id": "C_PN_011",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "monitoring",
+      "question": "What defines failure to respond to antibiotic therapy in CAP?",
+      "reference_answer": "Non-response in CAP is defined as failure to improve clinically within 72 hours of starting antibiotics. This should prompt reassessment including repeat imaging, review of cultures, consideration of resistant or atypical organisms, non-infectious causes (PE, malignancy, vasculitis), and empyema or lung abscess complications.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "72 hours",
+        "repeat imaging",
+        "resistant organisms",
+        "non-infectious causes",
+        "empyema",
+        "lung abscess"
+      ]
+    },
+    {
+      "id": "C_PN_012",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "diagnosis",
+      "question": "What is the role of procalcitonin in pneumonia management?",
+      "reference_answer": "Procalcitonin (PCT) is a biomarker that rises in bacterial infections and can guide antibiotic decisions in CAP. Elevated PCT supports a bacterial aetiology and continued antibiotic therapy. Declining PCT levels can guide early discontinuation of antibiotics, reducing antibiotic exposure and risk of resistance.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "procalcitonin",
+        "PCT",
+        "bacterial infection",
+        "antibiotic guidance",
+        "early discontinuation",
+        "antibiotic stewardship"
+      ]
+    },
+    {
+      "id": "C_PN_013",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "treatment",
+      "question": "When should a patient with CAP be admitted to the ICU?",
+      "reference_answer": "ICU admission for CAP is indicated for patients requiring mechanical ventilation or vasopressors (major criteria), or by fulfilling 3 or more minor criteria: respiratory rate ≥30, PaO2/FiO2 ≤250, multilobar infiltrates, confusion, uraemia, leukopenia, thrombocytopenia, hypothermia, or hypotension requiring aggressive fluid resuscitation.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "mechanical ventilation",
+        "vasopressors",
+        "major criteria",
+        "minor criteria",
+        "respiratory rate 30",
+        "PaO2/FiO2 250",
+        "multilobar"
+      ]
+    },
+    {
+      "id": "C_PN_014",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "drug",
+      "question": "What is the dosing of amoxicillin for outpatient community-acquired pneumonia?",
+      "reference_answer": "For outpatient CAP, amoxicillin is typically dosed at 500 mg to 1 g orally three times daily for 5 days in adults. Higher doses (1 g three times daily) may be used for suspected penicillin-intermediate Streptococcus pneumoniae. Dose adjustment is required for renal impairment.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "500mg",
+        "1g",
+        "three times daily",
+        "5 days",
+        "renal adjustment",
+        "Streptococcus pneumoniae"
+      ]
+    },
+    {
+      "id": "C_PN_015",
+      "category": "clinician",
+      "topic": "pneumonia",
+      "subtopic": "diagnosis",
+      "question": "What radiographic findings are typical of Legionella pneumonia?",
+      "reference_answer": "Legionella pneumonia typically presents with rapidly progressive, unilateral lower lobe consolidation that may spread to involve multiple lobes. It does not resolve quickly with treatment. Pleural effusions are common. Radiographic improvement often lags behind clinical improvement by weeks.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "lower lobe consolidation",
+        "rapidly progressive",
+        "multilobar",
+        "pleural effusion",
+        "slow radiographic resolution"
+      ]
+    },
+    {
+      "id": "P_TB_001",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "basics",
+      "question": "What is tuberculosis?",
+      "reference_answer": "Tuberculosis (TB) is a bacterial infection caused by Mycobacterium tuberculosis. It mainly affects the lungs but can affect other parts of the body. It spreads through the air when an infected person coughs or sneezes. With proper treatment, TB is curable.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "bacterial infection",
+        "Mycobacterium tuberculosis",
+        "lungs",
+        "spread through air",
+        "curable"
+      ]
+    },
+    {
+      "id": "P_TB_002",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "transmission",
+      "question": "Is tuberculosis contagious?",
+      "reference_answer": "Yes, active TB of the lungs is contagious. It spreads through the air when an infected person coughs, sneezes, or talks. However, latent TB (where you have the bacteria but are not sick) is not contagious. After about 2 weeks of treatment, most people are no longer contagious.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "contagious",
+        "airborne",
+        "cough",
+        "latent TB not contagious",
+        "2 weeks treatment",
+        "no longer contagious"
+      ]
+    },
+    {
+      "id": "P_TB_003",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "symptoms",
+      "question": "What are the symptoms of tuberculosis?",
+      "reference_answer": "Common symptoms of active TB include a persistent cough lasting more than 3 weeks, coughing up blood or phlegm, night sweats, fever, unintentional weight loss, fatigue, and chest pain. Some people have no symptoms at all — this is called latent TB.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "persistent cough",
+        "3 weeks",
+        "coughing blood",
+        "night sweats",
+        "fever",
+        "weight loss",
+        "fatigue",
+        "latent TB no symptoms"
+      ]
+    },
+    {
+      "id": "P_TB_004",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "treatment",
+      "question": "How long does TB treatment take?",
+      "reference_answer": "Standard TB treatment takes 6 months. The first 2 months involve taking 4 drugs (isoniazid, rifampin, pyrazinamide, ethambutol). The last 4 months involve 2 drugs (isoniazid and rifampin). It is very important to complete the full course even if you feel better early.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "6 months",
+        "2 months 4 drugs",
+        "4 months 2 drugs",
+        "complete full course"
+      ]
+    },
+    {
+      "id": "P_TB_005",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "treatment",
+      "question": "What happens if I stop taking my TB medication early?",
+      "reference_answer": "Stopping TB medication early is dangerous. The bacteria may not be fully eliminated, causing the disease to return. Worse, the bacteria can become resistant to the drugs, resulting in drug-resistant TB which is much harder and longer to treat. You must complete the full 6-month course.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "bacteria not eliminated",
+        "disease returns",
+        "drug resistance",
+        "MDR-TB",
+        "complete full course"
+      ]
+    },
+    {
+      "id": "P_TB_006",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "drug",
+      "question": "Can I drink alcohol while taking TB medication?",
+      "reference_answer": "You should avoid or strictly limit alcohol during TB treatment. Isoniazid and rifampin — the main TB drugs — can both cause liver damage. Drinking alcohol significantly increases this risk. Your doctor will monitor your liver through blood tests during treatment.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "avoid alcohol",
+        "isoniazid",
+        "rifampin",
+        "liver damage",
+        "hepatotoxicity",
+        "blood tests",
+        "monitoring"
+      ]
+    },
+    {
+      "id": "P_TB_007",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "drug",
+      "question": "Why does my urine turn orange when I take TB medication?",
+      "reference_answer": "Rifampin — one of the main TB drugs — causes body fluids including urine, sweat, tears, and saliva to turn orange or reddish-brown. This is harmless and expected. It can permanently stain soft contact lenses, so glasses are recommended during treatment.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "rifampin",
+        "orange urine",
+        "body fluids",
+        "harmless",
+        "contact lenses",
+        "expected side effect"
+      ]
+    },
+    {
+      "id": "P_TB_008",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "drug",
+      "question": "What side effects should I watch out for while on TB medication?",
+      "reference_answer": "Warning signs to report to your doctor immediately include: yellowing of skin or eyes (jaundice), severe nausea or vomiting, tingling or numbness in hands and feet, visual changes or blurred vision, skin rash, and dark urine. Orange-coloured urine from rifampin is normal and not a warning sign.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "jaundice",
+        "nausea",
+        "tingling numbness",
+        "visual changes",
+        "skin rash",
+        "dark urine",
+        "report immediately"
+      ]
+    },
+    {
+      "id": "P_TB_009",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "prevention",
+      "question": "How can I protect my family from getting TB?",
+      "reference_answer": "To protect your family during active TB treatment: cover your mouth when coughing, open windows for ventilation, wear a mask in enclosed spaces, and avoid close contact especially in the first 2 weeks of treatment. Your family members should be tested for TB. After 2 weeks of treatment you are usually no longer contagious.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "cover mouth",
+        "ventilation",
+        "mask",
+        "2 weeks",
+        "family testing",
+        "no longer contagious after 2 weeks"
+      ]
+    },
+    {
+      "id": "P_TB_010",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "basics",
+      "question": "What is the difference between active TB and latent TB?",
+      "reference_answer": "Latent TB means you have the TB bacteria in your body but your immune system is keeping it under control — you have no symptoms and cannot spread it to others. Active TB means the bacteria are multiplying, you feel sick with symptoms, and you can spread it. Latent TB can become active if your immune system weakens.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "latent no symptoms",
+        "latent not contagious",
+        "active TB symptoms",
+        "active TB contagious",
+        "immune system",
+        "can reactivate"
+      ]
+    },
+    {
+      "id": "P_TB_011",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "treatment",
+      "question": "Do I need to be hospitalised for TB treatment?",
+      "reference_answer": "Most people with TB do not need to be hospitalised. Treatment is usually taken at home. However, you may need a short hospital stay at the start of treatment if you are very ill, if your TB is drug-resistant, or if you are at risk of not completing treatment. Your doctor will decide.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "usually at home",
+        "not hospitalised",
+        "drug-resistant may need hospital",
+        "very ill",
+        "doctor decides"
+      ]
+    },
+    {
+      "id": "P_TB_012",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "drug",
+      "question": "Can TB medication affect my birth control pill?",
+      "reference_answer": "Yes — rifampin, a key TB drug, reduces the effectiveness of hormonal contraceptives including the birth control pill, patch, and implant. You should use an additional non-hormonal method of contraception (such as condoms) throughout TB treatment. Talk to your doctor about contraception options.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "rifampin",
+        "reduces effectiveness",
+        "birth control pill",
+        "hormonal contraceptives",
+        "use additional contraception",
+        "condoms"
+      ]
+    },
+    {
+      "id": "P_TB_013",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "monitoring",
+      "question": "How will my doctor know if my TB treatment is working?",
+      "reference_answer": "Your doctor will monitor your treatment with regular sputum tests — you will provide sputum samples to check if the TB bacteria are decreasing. Chest X-rays may be taken to see if the infection is clearing. You should also notice your symptoms improving — fever reducing, cough improving, and weight returning.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "sputum tests",
+        "bacteria decreasing",
+        "chest X-ray",
+        "symptoms improving",
+        "fever",
+        "cough",
+        "weight"
+      ]
+    },
+    {
+      "id": "P_TB_014",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "basics",
+      "question": "Can tuberculosis be cured completely?",
+      "reference_answer": "Yes, drug-sensitive TB can be completely cured with a full 6-month course of antibiotics. The key is to take all medications as prescribed without missing doses. Drug-resistant TB is harder to cure and requires longer treatment with different drugs, but is still treatable.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "yes curable",
+        "6 months",
+        "complete course",
+        "drug-resistant harder",
+        "still treatable"
+      ]
+    },
+    {
+      "id": "P_TB_015",
+      "category": "patient",
+      "topic": "TB",
+      "subtopic": "drug",
+      "question": "Should I take my TB pills with food?",
+      "reference_answer": "TB medications can be taken with or without food. However, if you experience nausea or stomach upset, taking them with a light meal can help. Avoid taking them with antacids containing aluminum as these can reduce absorption of some TB drugs. Consistency — taking them at the same time each day — is more important than food.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "with or without food",
+        "nausea take with meal",
+        "avoid antacids with aluminum",
+        "same time each day",
+        "consistency"
+      ]
+    },
+    {
+      "id": "P_PN_001",
+      "category": "patient",
+      "topic": "pneumonia",
+      "subtopic": "basics",
+      "question": "What is pneumonia?",
+      "reference_answer": "Pneumonia is an infection that inflames the air sacs in one or both lungs. The air sacs may fill with fluid or pus, causing cough with phlegm, fever, chills, and difficulty breathing. It can be caused by bacteria, viruses, or fungi. Most people recover fully with treatment.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "lung infection",
+        "air sacs",
+        "fluid",
+        "bacteria viruses fungi",
+        "cough fever",
+        "difficulty breathing",
+        "treatable"
+      ]
+    },
+    {
+      "id": "P_PN_002",
+      "category": "patient",
+      "topic": "pneumonia",
+      "subtopic": "symptoms",
+      "question": "What are the symptoms of pneumonia?",
+      "reference_answer": "Symptoms of pneumonia include cough (often with yellow, green, or bloody phlegm), fever, chills, shortness of breath, chest pain when breathing or coughing, fatigue, and confusion (especially in older adults). Symptoms can develop over days or come on suddenly.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "cough with phlegm",
+        "fever",
+        "chills",
+        "shortness of breath",
+        "chest pain",
+        "fatigue",
+        "confusion in elderly"
+      ]
+    },
+    {
+      "id": "P_PN_003",
+      "category": "patient",
+      "topic": "pneumonia",
+      "subtopic": "treatment",
+      "question": "How long does it take to recover from pneumonia?",
+      "reference_answer": "Recovery from mild pneumonia typically takes 1-3 weeks. More severe pneumonia requiring hospitalisation can take 6-8 weeks or longer for full recovery. Fatigue and cough may persist for several weeks after completing treatment. Older adults and people with other health conditions tend to recover more slowly.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "1-3 weeks mild",
+        "6-8 weeks severe",
+        "fatigue persists",
+        "older adults slower",
+        "varies by severity"
+      ]
+    },
+    {
+      "id": "P_PN_004",
+      "category": "patient",
+      "topic": "pneumonia",
+      "subtopic": "treatment",
+      "question": "Do I need antibiotics for pneumonia?",
+      "reference_answer": "It depends on the cause. Bacterial pneumonia is treated with antibiotics. Viral pneumonia does not respond to antibiotics — it is managed with rest, fluids, and sometimes antiviral medication. Your doctor will assess the likely cause and decide whether antibiotics are needed.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "bacterial needs antibiotics",
+        "viral no antibiotics",
+        "antiviral",
+        "rest fluids",
+        "doctor decides"
+      ]
+    },
+    {
+      "id": "P_PN_005",
+      "category": "patient",
+      "topic": "pneumonia",
+      "subtopic": "prevention",
+      "question": "How can I prevent getting pneumonia?",
+      "reference_answer": "You can reduce your risk of pneumonia by getting the pneumococcal vaccine and annual flu vaccine, washing hands regularly, not smoking, and managing chronic conditions like diabetes or heart disease. Good nutrition and adequate sleep also support your immune system.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "pneumococcal vaccine",
+        "flu vaccine",
+        "hand washing",
+        "not smoking",
+        "chronic conditions",
+        "immune system"
+      ]
+    },
+    {
+      "id": "P_PN_006",
+      "category": "patient",
+      "topic": "pneumonia",
+      "subtopic": "treatment",
+      "question": "When do I need to go to hospital for pneumonia?",
+      "reference_answer": "Go to hospital immediately if you have difficulty breathing or rapid breathing, bluish lips or fingertips, severe chest pain, confusion or disorientation, very high fever, or if you are elderly, very young, or have a weakened immune system. Your doctor may also admit you based on a severity score.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "difficulty breathing",
+        "bluish lips",
+        "chest pain",
+        "confusion",
+        "high fever",
+        "elderly",
+        "immunocompromised",
+        "severity score"
+      ]
+    },
+    {
+      "id": "P_PN_007",
+      "category": "patient",
+      "topic": "pneumonia",
+      "subtopic": "basics",
+      "question": "Is pneumonia contagious?",
+      "reference_answer": "Some types of pneumonia are contagious. Bacterial and viral pneumonias caused by organisms like Streptococcus pneumoniae, Mycoplasma, or influenza can spread through coughing, sneezing, or close contact. Fungal pneumonia is generally not spread person-to-person. Good hand hygiene and avoiding close contact with infected people reduces risk.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "some types contagious",
+        "bacterial viral spread",
+        "coughing sneezing",
+        "fungal not spread person-to-person",
+        "hand hygiene"
+      ]
+    },
+    {
+      "id": "P_PN_008",
+      "category": "patient",
+      "topic": "pneumonia",
+      "subtopic": "drug",
+      "question": "How long will I need to take antibiotics for pneumonia?",
+      "reference_answer": "For mild pneumonia treated at home, antibiotics are typically prescribed for 5 days. More severe or complicated pneumonia may require 7-14 days. Always complete the full prescribed course even if you feel better, to prevent the bacteria becoming resistant to antibiotics.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "5 days mild",
+        "7-14 days severe",
+        "complete full course",
+        "antibiotic resistance"
+      ]
+    },
+    {
+      "id": "P_PN_009",
+      "category": "patient",
+      "topic": "pneumonia",
+      "subtopic": "monitoring",
+      "question": "When should I start feeling better after starting antibiotics for pneumonia?",
+      "reference_answer": "Most people with bacterial pneumonia start to feel better within 2-3 days of starting antibiotics — fever reduces and breathing improves. If you are not improving after 3 days, contact your doctor as the antibiotic may not be working and further investigation is needed.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "2-3 days",
+        "fever reduces",
+        "breathing improves",
+        "contact doctor if no improvement",
+        "3 days",
+        "antibiotic may not be working"
+      ]
+    },
+    {
+      "id": "P_PN_010",
+      "category": "patient",
+      "topic": "pneumonia",
+      "subtopic": "treatment",
+      "question": "What can I do at home to recover from pneumonia faster?",
+      "reference_answer": "To recover faster: take all your prescribed medication, rest and get plenty of sleep, stay hydrated by drinking lots of fluids, use over-the-counter pain relief for fever and chest discomfort, avoid smoking, and do breathing exercises if recommended. Follow up with your doctor as scheduled.",
+      "expected_behaviour": "answer",
+      "key_facts": [
+        "complete medication",
+        "rest",
+        "fluids",
+        "pain relief",
+        "avoid smoking",
+        "breathing exercises",
+        "follow up"
+      ]
+    },
+    {
+      "id": "OOD_001",
+      "category": "out_of_domain",
+      "topic": "diabetes",
+      "subtopic": "treatment",
+      "question": "What is the first-line medication for type 2 diabetes?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_002",
+      "category": "out_of_domain",
+      "topic": "cardiology",
+      "subtopic": "treatment",
+      "question": "What medications are used to treat high blood pressure?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_003",
+      "category": "out_of_domain",
+      "topic": "oncology",
+      "subtopic": "treatment",
+      "question": "What chemotherapy is used for breast cancer?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_004",
+      "category": "out_of_domain",
+      "topic": "neurology",
+      "subtopic": "diagnosis",
+      "question": "What are the early signs of Alzheimer's disease?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_005",
+      "category": "out_of_domain",
+      "topic": "rheumatology",
+      "subtopic": "treatment",
+      "question": "How is rheumatoid arthritis treated?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_006",
+      "category": "out_of_domain",
+      "topic": "gastroenterology",
+      "subtopic": "diagnosis",
+      "question": "What causes irritable bowel syndrome?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_007",
+      "category": "out_of_domain",
+      "topic": "dermatology",
+      "subtopic": "treatment",
+      "question": "What is the best treatment for psoriasis?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_008",
+      "category": "out_of_domain",
+      "topic": "psychiatry",
+      "subtopic": "treatment",
+      "question": "What medications are used to treat depression?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_009",
+      "category": "out_of_domain",
+      "topic": "endocrinology",
+      "subtopic": "diagnosis",
+      "question": "What are the symptoms of hypothyroidism?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_010",
+      "category": "out_of_domain",
+      "topic": "cardiology",
+      "subtopic": "diagnosis",
+      "question": "What are the warning signs of a heart attack?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_011",
+      "category": "out_of_domain",
+      "topic": "nephrology",
+      "subtopic": "treatment",
+      "question": "How is chronic kidney disease managed?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_012",
+      "category": "out_of_domain",
+      "topic": "hepatology",
+      "subtopic": "diagnosis",
+      "question": "What are the causes of cirrhosis?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_013",
+      "category": "out_of_domain",
+      "topic": "paediatrics",
+      "subtopic": "vaccination",
+      "question": "What vaccines does a newborn need in the first year of life?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_014",
+      "category": "out_of_domain",
+      "topic": "obstetrics",
+      "subtopic": "diagnosis",
+      "question": "What are the symptoms of preeclampsia?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_015",
+      "category": "out_of_domain",
+      "topic": "general",
+      "subtopic": "general",
+      "question": "What is the recommended daily intake of vitamin D?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_016",
+      "category": "out_of_domain",
+      "topic": "orthopaedics",
+      "subtopic": "treatment",
+      "question": "How long does a broken bone take to heal?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_017",
+      "category": "out_of_domain",
+      "topic": "ophthalmology",
+      "subtopic": "diagnosis",
+      "question": "What causes glaucoma?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_018",
+      "category": "out_of_domain",
+      "topic": "HIV",
+      "subtopic": "treatment",
+      "question": "What antiretroviral drugs are used to treat HIV?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_019",
+      "category": "out_of_domain",
+      "topic": "oncology",
+      "subtopic": "diagnosis",
+      "question": "How is lung cancer diagnosed?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    },
+    {
+      "id": "OOD_020",
+      "category": "out_of_domain",
+      "topic": "general",
+      "subtopic": "general",
+      "question": "What is the normal range for blood pressure?",
+      "reference_answer": null,
+      "expected_behaviour": "abstain",
+      "key_facts": []
+    }
+  ]
+}
