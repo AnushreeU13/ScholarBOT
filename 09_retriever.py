@@ -242,10 +242,15 @@ class HybridRetriever:
         candidates: List[Dict] = []
 
         for kb in target_kbs:
-            dense  = self._dense_search(query, kb, k_dense)
-            sparse = self._bm25_search(query, kb, k_sparse)
-            merged = _rrf_merge(dense, sparse) if sparse else dense
-            candidates.extend(merged)
+            dense = self._dense_search(query, kb, k_dense)
+            if _cfg.RETRIEVAL_MODE == "dense_only":
+                # IR evaluation showed BM25 degrades ranking for this domain —
+                # dense candidates fed directly to reranker outperform RRF fusion
+                candidates.extend(dense)
+            else:
+                sparse = self._bm25_search(query, kb, k_sparse)
+                merged = _rrf_merge(dense, sparse) if sparse else dense
+                candidates.extend(merged)
 
         # Deduplicate by text prefix
         seen, unique = set(), []

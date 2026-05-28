@@ -28,6 +28,12 @@ TOP_K_SPARSE = 20   # candidates from BM25 per KB
 RERANK_K     = 12   # top N kept after cross-encoder reranking
 RERANK_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
+# Retrieval mode:
+#   "hybrid"     — dense + BM25 fused via RRF, then reranked (original)
+#   "dense_only" — dense candidates fed directly to reranker (no BM25/RRF)
+# IR evaluation showed BM25 degrades RRF ranking for this clinical domain.
+RETRIEVAL_MODE = os.getenv("SCHOLARBOT_RETRIEVAL_MODE", "dense_only")
+
 # Confidence gate — applied to the best reranker score after reranking.
 # Below threshold → ABSTAIN. Raised from 0.01 (v12 fix).
 KB_SIM_THRESHOLD = {
