@@ -191,26 +191,34 @@ def _retrieve_stages(retriever, query: str, target_kbs: List[str]) -> Dict[str, 
             rrf_unique.append(c)
     rrf_unique.sort(key=lambda x: x["score"], reverse=True)
 
-    # ── After reranker ────────────────────────────────────────────────────────
-    reranked = rrf_unique[:_cfg.TOP_K_DENSE]
-    if reranked:
+    def _rerank(candidates, label):
+        top = candidates[:_cfg.TOP_K_DENSE]
+        if not top:
+            return top
         try:
             reranker = _ret._get_reranker()
-            pairs  = [[query, c["text"]] for c in reranked]
+            pairs  = [[query, c["text"]] for c in top]
             scores = reranker.predict(pairs)
-            for c, s in zip(reranked, scores):
-                c["rerank_score"] = float(s)
-            reranked = sorted(reranked, key=lambda x: x.get("rerank_score", 0), reverse=True)
-            reranked = reranked[:_cfg.RERANK_K]
+            for c, s in zip(top, scores):
+                c[f"rerank_score_{label}"] = float(s)
+            top = sorted(top, key=lambda x: x.get(f"rerank_score_{label}", 0), reverse=True)
+            return top[:_cfg.RERANK_K]
         except Exception as e:
-            print(f"  [IR] Reranking failed: {e}")
-            reranked = reranked[:_cfg.RERANK_K]
+            print(f"  [IR] Reranking failed ({label}): {e}")
+            return top[:_cfg.RERANK_K]
+
+    # RRF → reranker  (old production pipeline)
+    reranked_rrf = _rerank([c.copy() for c in rrf_unique], "rrf")
+
+    # Dense → reranker  (new production pipeline — dense_only mode)
+    reranked_dense = _rerank([c.copy() for c in dense_results], "dense")
 
     return {
-        "dense":    dense_results[:20],
-        "bm25":     sparse_results[:20],
-        "rrf":      rrf_unique[:20],
-        "reranker": reranked,
+        "dense":          dense_results[:20],
+        "bm25":           sparse_results[:20],
+        "rrf":            rrf_unique[:20],
+        "reranker_rrf":   reranked_rrf,    # old: RRF → reranker
+        "reranker_dense": reranked_dense,  # new: dense → reranker
     }
 
 
@@ -277,10 +285,11 @@ def main():
 
     # ── Per-stage relevance lists (seed from already-done results) ────────────
     stage_relevances: Dict[str, List[List[float]]] = {
-        "dense":    [],
-        "bm25":     [],
-        "rrf":      [],
-        "reranker": [],
+        "dense":          [],
+        "bm25":           [],
+        "rrf":            [],
+        "reranker_rrf":   [],   # old production: RRF → reranker
+        "reranker_dense": [],   # new production: dense → reranker
     }
     for prev in per_question_results:
         for stage_name in stage_relevances:
@@ -351,13 +360,15 @@ def main():
     print("\n" + "=" * 65)
     print(f"IR EVALUATION — ScholarBOT v13  |  judge={args.judge}")
     print("=" * 65)
-    print(f"{'Stage':<14} {'NDCG@5':>8} {'NDCG@10':>9} {'MRR':>8} {'MAP':>8}  {'N':>5}")
-    print("-" * 65)
-    for stage in ["dense", "bm25", "rrf", "reranker"]:
+    print(f"{'Stage':<18} {'NDCG@5':>8} {'NDCG@10':>9} {'MRR':>8} {'MAP':>8}  {'N':>5}")
+    print("-" * 69)
+    for stage in ["dense", "bm25", "rrf", "reranker_rrf", "reranker_dense"]:
         s = summary[stage]
-        print(f"{stage:<14} {s['ndcg@5']:>8.4f} {s['ndcg@10']:>9.4f} "
+        label = stage + (" ← old" if stage == "reranker_rrf" else
+                         " ← NEW" if stage == "reranker_dense" else "")
+        print(f"{label:<22} {s['ndcg@5']:>8.4f} {s['ndcg@10']:>9.4f} "
               f"{s['mrr']:>8.4f} {s['map']:>8.4f}  {s['n_queries']:>5}")
-    print("=" * 65)
+    print("=" * 69)
 
     # ── Save ──────────────────────────────────────────────────────────────────
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
