@@ -1,0 +1,22 @@
+# Requires an ingress controller (e.g. `minikube addons enable ingress`, or k3s's
+# built-in Traefik — swap ingressClassName to "traefik" in that case).
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: scholarbot-ingress
+  namespace: scholarbot
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: scholarbot.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: scholarbot-frontend
+                port:
+                  number: 80

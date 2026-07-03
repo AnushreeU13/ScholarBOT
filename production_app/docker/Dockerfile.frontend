@@ -1,0 +1,21 @@
+# Build from production_app/frontend as context:
+#   docker build -f production_app/docker/Dockerfile.frontend -t scholarbot-frontend production_app/frontend
+FROM node:20-slim AS build
+
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+FROM nginx:1.27-alpine
+
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf.template /etc/nginx/templates/default.conf.template
+
+# BACKEND_HOST is substituted into the proxy_pass target at container start —
+# override it per environment (docker-compose service name, k8s Service DNS name).
+ENV BACKEND_HOST=backend:8000
+
+EXPOSE 80

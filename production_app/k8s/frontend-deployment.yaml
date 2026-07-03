@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scholarbot-frontend
+  namespace: scholarbot
+  labels:
+    app: scholarbot-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: scholarbot-frontend
+  template:
+    metadata:
+      labels:
+        app: scholarbot-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: scholarbot-frontend:local
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          env:
+            - name: BACKEND_HOST
+              value: "scholarbot-backend:8000"
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "250m"
+              memory: "128Mi"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10

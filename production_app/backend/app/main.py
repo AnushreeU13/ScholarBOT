@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import os
 import shutil
 import tempfile
 from pathlib import Path
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app import config
 from app.engine import ScholarBotEngine
@@ -104,3 +106,12 @@ async def upload(file: UploadFile = File(...)) -> UploadResponse:
         num_pages=stats["num_pages"],
         doc_name=file.filename,
     )
+
+
+# Single-container deployments (Hugging Face Spaces) build the frontend into
+# STATIC_DIR and serve it from this same FastAPI process, alongside the API
+# routes above. Docker Compose / Kubernetes instead run the frontend as its
+# own nginx container, so STATIC_DIR is unset there and this mount is skipped.
+_static_dir = os.getenv("STATIC_DIR")
+if _static_dir and Path(_static_dir).is_dir():
+    app.mount("/", StaticFiles(directory=_static_dir, html=True), name="static")

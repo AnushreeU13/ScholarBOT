@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scholarbot-backend
+  namespace: scholarbot
+  labels:
+    app: scholarbot-backend
+spec:
+  # Kept at 1 replica: Chroma's persistent client is a single-writer embedded
+  # store, and this PVC is ReadWriteOnce. See README "how I'd scale this" for
+  # the path to running >1 backend replica.
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scholarbot-backend
+  template:
+    metadata:
+      labels:
+        app: scholarbot-backend
+    spec:
+      containers:
+        - name: backend
+          image: scholarbot-backend:local
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: scholarbot-backend-config
+            - secretRef:
+                name: scholarbot-backend-secret
+          volumeMounts:
+            - name: chroma-data
+              mountPath: /data/chroma
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "2Gi"
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 60
+            periodSeconds: 30
+      volumes:
+        - name: chroma-data
+          persistentVolumeClaim:
+            claimName: scholarbot-chroma-data

@@ -2,6 +2,8 @@
 
 ScholarBOT is a fail-closed, hallucination-resistant medical question-answering system for **Tuberculosis (TB)** and **Pneumonia (CAP)**. Every answer is grounded strictly in its knowledge base — if the evidence is insufficient, the system abstains rather than guessing. All responses include direct citations with page numbers.
 
+> **Production rebuild:** [`production_app/`](production_app/README.md) is a standalone rebuild of this pipeline as a deployable app — React/TypeScript + FastAPI + Chroma, with pytest CI, Docker, and Kubernetes manifests. The Streamlit app below is unaffected.
+
 ---
 
 ## Core Design Principles
