@@ -11,3 +11,12 @@ eval/eval results/v9_eval_full_results.json
 faiss_indices/
 eval/eval results/v9_eval_full_results.json
 .claude/settings.local.json
+
+# production_app
+.coverage
+coverage.xml
+htmlcov/
+production_app/backend/chroma_data/
+node_modules/
+production_app/frontend/dist/
+*.egg-info/
