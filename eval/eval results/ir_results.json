@@ -6,31 +6,38 @@
   },
   "summary": {
     "dense": {
-      "ndcg@5": 0.6378,
-      "ndcg@10": 0.6763,
-      "mrr": 0.8296,
-      "map": 0.7327,
+      "ndcg@5": 0.3556,
+      "ndcg@10": 0.3939,
+      "mrr": 0.4805,
+      "map": 0.4313,
       "n_queries": 55
     },
     "bm25": {
-      "ndcg@5": 0.361,
-      "ndcg@10": 0.4189,
-      "mrr": 0.53,
-      "map": 0.4039,
+      "ndcg@5": 0.207,
+      "ndcg@10": 0.2441,
+      "mrr": 0.2987,
+      "map": 0.2432,
       "n_queries": 55
     },
     "rrf": {
-      "ndcg@5": 0.2853,
-      "ndcg@10": 0.4264,
-      "mrr": 0.4671,
-      "map": 0.4551,
+      "ndcg@5": 0.1735,
+      "ndcg@10": 0.2442,
+      "mrr": 0.2805,
+      "map": 0.2681,
       "n_queries": 55
     },
-    "reranker": {
-      "ndcg@5": 0.7557,
-      "ndcg@10": 0.822,
-      "mrr": 0.8735,
-      "map": 0.8178,
+    "reranker_rrf": {
+      "ndcg@5": 0.4512,
+      "ndcg@10": 0.4878,
+      "mrr": 0.5279,
+      "map": 0.4862,
+      "n_queries": 55
+    },
+    "reranker_dense": {
+      "ndcg@5": 0.4403,
+      "ndcg@10": 0.4746,
+      "mrr": 0.5198,
+      "map": 0.4876,
       "n_queries": 55
     }
   },
@@ -40,36 +47,44 @@
       "question": "What is the standard first-line treatment regimen for drug-sensitive pulmonary tuberculosis?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.0,
-          "ndcg@10": 0.2157,
-          "mrr": 0.1667,
-          "ap": 0.3404,
+          "ndcg@5": 0.0656,
+          "ndcg@10": 0.2386,
+          "mrr": 0.2,
+          "ap": 0.4347,
           "n_chunks_retrieved": 20,
-          "n_relevant": 8
+          "n_relevant": 10
         },
         "bm25": {
           "ndcg@5": 0.786,
           "ndcg@10": 0.5906,
           "mrr": 1.0,
-          "ap": 0.5755,
+          "ap": 0.5896,
           "n_chunks_retrieved": 20,
-          "n_relevant": 10
+          "n_relevant": 11
         },
         "rrf": {
           "ndcg@5": 1.0,
           "ndcg@10": 0.7968,
           "mrr": 1.0,
-          "ap": 0.844,
+          "ap": 0.8597,
           "n_chunks_retrieved": 20,
-          "n_relevant": 13
+          "n_relevant": 14
         },
-        "reranker": {
-          "ndcg@5": 0.6379,
-          "ndcg@10": 0.7506,
+        "reranker_rrf": {
+          "ndcg@5": 0.7035,
+          "ndcg@10": 0.7714,
           "mrr": 1.0,
-          "ap": 0.7823,
+          "ap": 0.8494,
           "n_chunks_retrieved": 12,
-          "n_relevant": 9
+          "n_relevant": 10
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.7691,
+          "ndcg@10": 0.9335,
+          "mrr": 1.0,
+          "ap": 0.8802,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 7
         }
       }
     },
@@ -101,13 +116,21 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 6
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.7754,
           "ndcg@10": 0.8714,
           "mrr": 1.0,
           "ap": 0.9484,
           "n_chunks_retrieved": 12,
           "n_relevant": 6
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.7283,
+          "ndcg@10": 0.8051,
+          "mrr": 1.0,
+          "ap": 0.9698,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 10
         }
       }
     },
@@ -139,13 +162,21 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 5
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.8869,
           "ndcg@10": 0.9647,
           "mrr": 1.0,
           "ap": 0.9667,
           "n_chunks_retrieved": 12,
           "n_relevant": 5
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.893,
+          "ndcg@10": 0.9149,
+          "mrr": 1.0,
+          "ap": 0.9599,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 9
         }
       }
     },
@@ -177,9 +208,17 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 13
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 1.0,
           "ndcg@10": 0.9628,
+          "mrr": 1.0,
+          "ap": 1.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 12
+        },
+        "reranker_dense": {
+          "ndcg@5": 1.0,
+          "ndcg@10": 1.0,
           "mrr": 1.0,
           "ap": 1.0,
           "n_chunks_retrieved": 12,
@@ -215,13 +254,21 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 4
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.9829,
           "ndcg@10": 0.9829,
           "mrr": 1.0,
           "ap": 0.95,
           "n_chunks_retrieved": 12,
           "n_relevant": 4
+        },
+        "reranker_dense": {
+          "ndcg@5": 1.0,
+          "ndcg@10": 1.0,
+          "mrr": 1.0,
+          "ap": 1.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 12
         }
       }
     },
@@ -230,8 +277,8 @@
       "question": "What are the hepatotoxicity monitoring requirements during TB treatment?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.1242,
-          "ndcg@10": 0.2017,
+          "ndcg@5": 0.1378,
+          "ndcg@10": 0.2189,
           "mrr": 0.5,
           "ap": 0.4143,
           "n_chunks_retrieved": 20,
@@ -253,11 +300,19 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 10
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.9467,
           "ndcg@10": 0.9394,
           "mrr": 1.0,
           "ap": 0.9444,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 6
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.753,
+          "ndcg@10": 0.9106,
+          "mrr": 1.0,
+          "ap": 0.8734,
           "n_chunks_retrieved": 12,
           "n_relevant": 6
         }
@@ -269,11 +324,11 @@
       "stages": {
         "dense": {
           "ndcg@5": 0.9238,
-          "ndcg@10": 0.8015,
+          "ndcg@10": 0.8987,
           "mrr": 1.0,
-          "ap": 0.7684,
+          "ap": 0.8464,
           "n_chunks_retrieved": 20,
-          "n_relevant": 10
+          "n_relevant": 12
         },
         "bm25": {
           "ndcg@5": 0.6608,
@@ -284,20 +339,28 @@
           "n_relevant": 15
         },
         "rrf": {
-          "ndcg@5": 0.6998,
-          "ndcg@10": 0.6998,
+          "ndcg@5": 0.7578,
+          "ndcg@10": 0.7578,
           "mrr": 1.0,
-          "ap": 0.75,
+          "ap": 0.8625,
           "n_chunks_retrieved": 20,
-          "n_relevant": 4
+          "n_relevant": 5
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.8909,
           "ndcg@10": 0.9811,
           "mrr": 1.0,
           "ap": 0.9267,
           "n_chunks_retrieved": 12,
           "n_relevant": 5
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.9152,
+          "ndcg@10": 0.9355,
+          "mrr": 1.0,
+          "ap": 0.9073,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 11
         }
       }
     },
@@ -306,36 +369,44 @@
       "question": "What drug interactions does rifampin have?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.5431,
-          "ndcg@10": 0.688,
-          "mrr": 1.0,
-          "ap": 0.9277,
+          "ndcg@5": 0.3616,
+          "ndcg@10": 0.5473,
+          "mrr": 0.5,
+          "ap": 0.7736,
           "n_chunks_retrieved": 20,
-          "n_relevant": 16
+          "n_relevant": 15
         },
         "bm25": {
-          "ndcg@5": 0.4307,
-          "ndcg@10": 0.4307,
-          "mrr": 0.25,
-          "ap": 0.25,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 1
+          "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.2457,
-          "ndcg@10": 0.4711,
+          "ndcg@5": 0.1696,
+          "ndcg@10": 0.4131,
           "mrr": 0.25,
-          "ap": 0.6147,
+          "ap": 0.5415,
           "n_chunks_retrieved": 20,
-          "n_relevant": 12
+          "n_relevant": 11
         },
-        "reranker": {
-          "ndcg@5": 0.6153,
-          "ndcg@10": 0.796,
-          "mrr": 1.0,
-          "ap": 0.8228,
+        "reranker_rrf": {
+          "ndcg@5": 0.3969,
+          "ndcg@10": 0.6538,
+          "mrr": 0.3333,
+          "ap": 0.6092,
           "n_chunks_retrieved": 12,
-          "n_relevant": 8
+          "n_relevant": 7
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.5589,
+          "ndcg@10": 0.7843,
+          "mrr": 0.5,
+          "ap": 0.7857,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 9
         }
       }
     },
@@ -344,8 +415,8 @@
       "question": "How is drug-resistant tuberculosis classified?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.7244,
-          "ndcg@10": 0.649,
+          "ndcg@5": 0.6531,
+          "ndcg@10": 0.6004,
           "mrr": 1.0,
           "ap": 0.7252,
           "n_chunks_retrieved": 20,
@@ -361,19 +432,27 @@
         },
         "rrf": {
           "ndcg@5": 0.3668,
-          "ndcg@10": 0.5107,
+          "ndcg@10": 0.4781,
           "mrr": 0.5,
-          "ap": 0.4718,
+          "ap": 0.4677,
           "n_chunks_retrieved": 20,
-          "n_relevant": 7
+          "n_relevant": 8
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.8909,
-          "ndcg@10": 0.8303,
+          "ndcg@10": 0.8358,
           "mrr": 1.0,
-          "ap": 0.8062,
+          "ap": 0.8022,
           "n_chunks_retrieved": 12,
-          "n_relevant": 7
+          "n_relevant": 8
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.8774,
+          "ndcg@10": 0.8397,
+          "mrr": 1.0,
+          "ap": 0.8358,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 8
         }
       }
     },
@@ -382,12 +461,12 @@
       "question": "Who should receive TB preventive therapy?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.6992,
-          "ndcg@10": 0.769,
+          "ndcg@5": 0.5531,
+          "ndcg@10": 0.7173,
           "mrr": 1.0,
-          "ap": 0.6926,
+          "ap": 0.6105,
           "n_chunks_retrieved": 20,
-          "n_relevant": 8
+          "n_relevant": 7
         },
         "bm25": {
           "ndcg@5": 1.0,
@@ -405,13 +484,21 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 7
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.5531,
           "ndcg@10": 0.781,
           "mrr": 1.0,
           "ap": 0.6909,
           "n_chunks_retrieved": 12,
           "n_relevant": 5
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.6367,
+          "ndcg@10": 0.7598,
+          "mrr": 1.0,
+          "ap": 0.6847,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 4
         }
       }
     },
@@ -443,7 +530,15 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 1
         },
-        "reranker": {
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
+        },
+        "reranker_dense": {
           "ndcg@5": 0.0,
           "ndcg@10": 0.0,
           "mrr": 0.0,
@@ -475,19 +570,27 @@
         },
         "rrf": {
           "ndcg@5": 0.6164,
-          "ndcg@10": 0.5609,
+          "ndcg@10": 0.5841,
           "mrr": 1.0,
-          "ap": 0.5872,
+          "ap": 0.5665,
           "n_chunks_retrieved": 20,
-          "n_relevant": 9
+          "n_relevant": 8
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.6992,
           "ndcg@10": 0.8792,
           "mrr": 1.0,
           "ap": 0.9085,
           "n_chunks_retrieved": 12,
           "n_relevant": 8
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.8304,
+          "ndcg@10": 0.89,
+          "mrr": 1.0,
+          "ap": 1.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 12
         }
       }
     },
@@ -496,8 +599,8 @@
       "question": "How should TB be managed in pregnancy?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.704,
-          "ndcg@10": 0.629,
+          "ndcg@5": 0.7648,
+          "ndcg@10": 0.6807,
           "mrr": 1.0,
           "ap": 0.8163,
           "n_chunks_retrieved": 20,
@@ -512,20 +615,28 @@
           "n_relevant": 9
         },
         "rrf": {
-          "ndcg@5": 0.0984,
-          "ndcg@10": 0.2179,
+          "ndcg@5": 0.1746,
+          "ndcg@10": 0.2664,
           "mrr": 0.3333,
-          "ap": 0.3797,
+          "ap": 0.4442,
           "n_chunks_retrieved": 20,
-          "n_relevant": 9
+          "n_relevant": 10
         },
-        "reranker": {
-          "ndcg@5": 0.8757,
-          "ndcg@10": 0.8764,
+        "reranker_rrf": {
+          "ndcg@5": 0.8879,
+          "ndcg@10": 0.8879,
           "mrr": 1.0,
-          "ap": 0.9583,
+          "ap": 1.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 6
+          "n_relevant": 5
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.8304,
+          "ndcg@10": 0.905,
+          "mrr": 1.0,
+          "ap": 1.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 9
         }
       }
     },
@@ -537,9 +648,9 @@
           "ndcg@5": 0.7958,
           "ndcg@10": 0.7965,
           "mrr": 1.0,
-          "ap": 0.9059,
+          "ap": 0.9081,
           "n_chunks_retrieved": 20,
-          "n_relevant": 17
+          "n_relevant": 18
         },
         "bm25": {
           "ndcg@5": 0.7387,
@@ -557,13 +668,21 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 11
         },
-        "reranker": {
-          "ndcg@5": 0.576,
-          "ndcg@10": 0.7183,
-          "mrr": 0.5,
-          "ap": 0.798,
+        "reranker_rrf": {
+          "ndcg@5": 0.7456,
+          "ndcg@10": 0.8457,
+          "mrr": 1.0,
+          "ap": 1.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 10
+          "n_relevant": 11
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.5222,
+          "ndcg@10": 0.7133,
+          "mrr": 0.5,
+          "ap": 0.8088,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 11
         }
       }
     },
@@ -572,8 +691,8 @@
       "question": "What defines treatment failure in TB?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.8073,
-          "ndcg@10": 0.7979,
+          "ndcg@5": 0.6789,
+          "ndcg@10": 0.6996,
           "mrr": 1.0,
           "ap": 0.851,
           "n_chunks_retrieved": 20,
@@ -588,20 +707,28 @@
           "n_relevant": 5
         },
         "rrf": {
-          "ndcg@5": 0.341,
-          "ndcg@10": 0.4536,
+          "ndcg@5": 0.3955,
+          "ndcg@10": 0.5052,
           "mrr": 0.5,
           "ap": 0.6437,
           "n_chunks_retrieved": 20,
           "n_relevant": 13
         },
-        "reranker": {
-          "ndcg@5": 0.7816,
-          "ndcg@10": 0.8868,
+        "reranker_rrf": {
+          "ndcg@5": 0.9065,
+          "ndcg@10": 0.9334,
           "mrr": 1.0,
           "ap": 1.0,
           "n_chunks_retrieved": 12,
           "n_relevant": 11
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.6258,
+          "ndcg@10": 0.8007,
+          "mrr": 1.0,
+          "ap": 1.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 12
         }
       }
     },
@@ -627,17 +754,25 @@
         },
         "rrf": {
           "ndcg@5": 0.0,
-          "ndcg@10": 0.3602,
+          "ndcg@10": 0.3214,
           "mrr": 0.125,
-          "ap": 0.2174,
+          "ap": 0.1639,
           "n_chunks_retrieved": 20,
-          "n_relevant": 4
+          "n_relevant": 3
         },
-        "reranker": {
-          "ndcg@5": 0.6886,
-          "ndcg@10": 0.8585,
+        "reranker_rrf": {
+          "ndcg@5": 0.6345,
+          "ndcg@10": 0.8239,
           "mrr": 1.0,
-          "ap": 0.7333,
+          "ap": 0.6333,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 3
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.5911,
+          "ndcg@10": 0.5911,
+          "mrr": 1.0,
+          "ap": 0.5015,
           "n_chunks_retrieved": 12,
           "n_relevant": 4
         }
@@ -648,10 +783,10 @@
       "question": "What criteria are used to assess the severity of community-acquired pneumonia?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.4913,
-          "ndcg@10": 0.6617,
+          "ndcg@5": 0.576,
+          "ndcg@10": 0.7255,
           "mrr": 0.5,
-          "ap": 0.6392,
+          "ap": 0.7488,
           "n_chunks_retrieved": 20,
           "n_relevant": 10
         },
@@ -664,20 +799,28 @@
           "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.0845,
-          "ndcg@10": 0.2708,
-          "mrr": 0.2,
-          "ap": 0.3222,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 6
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 0.6534,
-          "ndcg@10": 0.8053,
-          "mrr": 1.0,
-          "ap": 0.9107,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 6
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -686,36 +829,44 @@
       "question": "What organisms most commonly cause community-acquired pneumonia?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.8422,
-          "ndcg@10": 0.7468,
-          "mrr": 1.0,
-          "ap": 0.8816,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 11
+          "n_relevant": 0
         },
         "bm25": {
           "ndcg@5": 0.0,
           "ndcg@10": 0.0,
-          "mrr": 0.0556,
-          "ap": 0.0556,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 1
+          "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.2426,
-          "ndcg@10": 0.3027,
-          "mrr": 0.3333,
-          "ap": 0.4984,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 12
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 0.8254,
-          "ndcg@10": 0.9627,
-          "mrr": 1.0,
-          "ap": 0.9379,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 7
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -724,12 +875,12 @@
       "question": "What antibiotics are recommended for severe CAP requiring ICU admission?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.727,
-          "ndcg@10": 0.7471,
-          "mrr": 1.0,
-          "ap": 0.7279,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 12
+          "n_relevant": 0
         },
         "bm25": {
           "ndcg@5": 0.0,
@@ -741,19 +892,27 @@
         },
         "rrf": {
           "ndcg@5": 0.0,
-          "ndcg@10": 0.278,
-          "mrr": 0.1667,
-          "ap": 0.2341,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 3
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 0.4948,
-          "ndcg@10": 0.5895,
-          "mrr": 0.3333,
-          "ap": 0.4444,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 3
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -762,36 +921,44 @@
       "question": "What is the recommended duration of antibiotic therapy for CAP?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.927,
-          "ndcg@10": 0.9437,
-          "mrr": 1.0,
-          "ap": 0.9488,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 10
+          "n_relevant": 0
         },
         "bm25": {
-          "ndcg@5": 0.6508,
-          "ndcg@10": 0.818,
-          "mrr": 1.0,
-          "ap": 0.6333,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 3
+          "n_relevant": 0
         },
         "rrf": {
           "ndcg@5": 0.0,
-          "ndcg@10": 0.2999,
-          "mrr": 0.1429,
-          "ap": 0.3704,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 8
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 0.9344,
-          "ndcg@10": 0.9926,
-          "mrr": 1.0,
-          "ap": 1.0,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 8
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -800,36 +967,44 @@
       "question": "What are the side effects of azithromycin?",
       "stages": {
         "dense": {
-          "ndcg@5": 1.0,
-          "ndcg@10": 1.0,
-          "mrr": 1.0,
-          "ap": 1.0,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 20
+          "n_relevant": 0
         },
         "bm25": {
-          "ndcg@5": 0.6608,
-          "ndcg@10": 0.7407,
-          "mrr": 0.5,
-          "ap": 0.8633,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 19
+          "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.9152,
-          "ndcg@10": 0.9152,
-          "mrr": 1.0,
-          "ap": 0.8225,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 5
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 1.0,
-          "ndcg@10": 1.0,
-          "mrr": 1.0,
-          "ap": 1.0,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 4
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -838,36 +1013,44 @@
       "question": "What vaccinations are recommended to prevent pneumonia?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.7648,
-          "ndcg@10": 0.6996,
-          "mrr": 1.0,
-          "ap": 0.8821,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 16
+          "n_relevant": 0
         },
         "bm25": {
-          "ndcg@5": 0.3194,
-          "ndcg@10": 0.3194,
-          "mrr": 1.0,
-          "ap": 0.423,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 3
+          "n_relevant": 0
         },
         "rrf": {
           "ndcg@5": 0.0,
-          "ndcg@10": 0.391,
-          "mrr": 0.1667,
-          "ap": 0.3458,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 7
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 0.8793,
-          "ndcg@10": 0.8906,
-          "mrr": 1.0,
-          "ap": 0.9821,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 7
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -876,36 +1059,44 @@
       "question": "What is atypical pneumonia and which organisms cause it?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.927,
-          "ndcg@10": 0.9401,
-          "mrr": 1.0,
-          "ap": 0.9471,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 19
+          "n_relevant": 0
         },
         "bm25": {
-          "ndcg@5": 0.2808,
-          "ndcg@10": 0.2808,
-          "mrr": 1.0,
-          "ap": 0.4294,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 4
+          "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.3082,
-          "ndcg@10": 0.5495,
-          "mrr": 0.3333,
-          "ap": 0.6727,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 15
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 0.8422,
-          "ndcg@10": 0.9238,
-          "mrr": 1.0,
-          "ap": 0.9909,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 10
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -914,12 +1105,12 @@
       "question": "What are the contraindications to levofloxacin use in pneumonia?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.2773,
-          "ndcg@10": 0.322,
-          "mrr": 0.25,
-          "ap": 0.5384,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 14
+          "n_relevant": 0
         },
         "bm25": {
           "ndcg@5": 0.0,
@@ -930,20 +1121,28 @@
           "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.6608,
-          "ndcg@10": 0.7629,
-          "mrr": 0.5,
-          "ap": 0.6544,
-          "n_chunks_retrieved": 20,
-          "n_relevant": 5
-        },
-        "reranker": {
           "ndcg@5": 0.0,
-          "ndcg@10": 0.2304,
-          "mrr": 0.1111,
-          "ap": 0.2293,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 20,
+          "n_relevant": 0
+        },
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 4
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -952,12 +1151,12 @@
       "question": "How should CAP be managed in immunocompromised patients?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.4788,
-          "ndcg@10": 0.4549,
-          "mrr": 0.5,
-          "ap": 0.575,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 11
+          "n_relevant": 0
         },
         "bm25": {
           "ndcg@5": 0.0,
@@ -969,19 +1168,27 @@
         },
         "rrf": {
           "ndcg@5": 0.0,
-          "ndcg@10": 0.3368,
-          "mrr": 0.1429,
-          "ap": 0.2738,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 5
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 1.0,
-          "ndcg@10": 1.0,
-          "mrr": 1.0,
-          "ap": 1.0,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 5
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -990,36 +1197,44 @@
       "question": "What defines failure to respond to antibiotic therapy in CAP?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.7643,
-          "ndcg@10": 0.6894,
-          "mrr": 1.0,
-          "ap": 0.6464,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 9
+          "n_relevant": 0
         },
         "bm25": {
-          "ndcg@5": 0.7602,
-          "ndcg@10": 0.7602,
-          "mrr": 1.0,
-          "ap": 0.5588,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 2
+          "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.3161,
-          "ndcg@10": 0.3161,
-          "mrr": 0.25,
-          "ap": 0.3004,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 5
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 0.8909,
-          "ndcg@10": 0.9708,
-          "mrr": 1.0,
-          "ap": 0.885,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 5
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -1028,36 +1243,44 @@
       "question": "What is the role of procalcitonin in pneumonia management?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.6258,
-          "ndcg@10": 0.7583,
-          "mrr": 1.0,
-          "ap": 0.8366,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 12
+          "n_relevant": 0
         },
         "bm25": {
-          "ndcg@5": 0.8772,
-          "ndcg@10": 0.8772,
-          "mrr": 1.0,
-          "ap": 0.75,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 2
+          "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.3355,
-          "ndcg@10": 0.4048,
-          "mrr": 0.3333,
-          "ap": 0.4652,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 7
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 0.5324,
-          "ndcg@10": 0.7505,
-          "mrr": 1.0,
-          "ap": 0.8121,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 7
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -1066,36 +1289,44 @@
       "question": "When should a patient with CAP be admitted to the ICU?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.6153,
-          "ndcg@10": 0.7854,
-          "mrr": 1.0,
-          "ap": 0.6893,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 8
+          "n_relevant": 0
         },
         "bm25": {
-          "ndcg@5": 0.6131,
-          "ndcg@10": 0.6131,
-          "mrr": 1.0,
-          "ap": 0.5714,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 2
+          "n_relevant": 0
         },
         "rrf": {
           "ndcg@5": 0.0,
-          "ndcg@10": 0.3447,
-          "mrr": 0.1667,
-          "ap": 0.271,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 5
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 0.902,
-          "ndcg@10": 0.9922,
-          "mrr": 1.0,
-          "ap": 0.9667,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 5
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -1104,12 +1335,12 @@
       "question": "What is the dosing of amoxicillin for outpatient community-acquired pneumonia?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.4317,
-          "ndcg@10": 0.5952,
-          "mrr": 0.3333,
-          "ap": 0.7669,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 18
+          "n_relevant": 0
         },
         "bm25": {
           "ndcg@5": 0.0,
@@ -1120,20 +1351,28 @@
           "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.6608,
-          "ndcg@10": 0.4928,
-          "mrr": 0.5,
-          "ap": 0.5164,
-          "n_chunks_retrieved": 20,
-          "n_relevant": 8
-        },
-        "reranker": {
           "ndcg@5": 0.0,
-          "ndcg@10": 0.1772,
-          "mrr": 0.1,
-          "ap": 0.1333,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 20,
+          "n_relevant": 0
+        },
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 2
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -1142,126 +1381,12 @@
       "question": "What radiographic findings are typical of Legionella pneumonia?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.6608,
-          "ndcg@10": 0.7816,
-          "mrr": 0.5,
-          "ap": 0.6829,
-          "n_chunks_retrieved": 20,
-          "n_relevant": 6
-        },
-        "bm25": {
-          "ndcg@5": 0.6131,
-          "ndcg@10": 0.8316,
-          "mrr": 1.0,
-          "ap": 0.6667,
-          "n_chunks_retrieved": 20,
-          "n_relevant": 2
-        },
-        "rrf": {
           "ndcg@5": 0.0,
-          "ndcg@10": 0.3557,
-          "mrr": 0.1667,
-          "ap": 0.3323,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 7
-        },
-        "reranker": {
-          "ndcg@5": 0.8688,
-          "ndcg@10": 0.8662,
-          "mrr": 1.0,
-          "ap": 0.8502,
-          "n_chunks_retrieved": 12,
-          "n_relevant": 6
-        }
-      }
-    },
-    {
-      "id": "P_TB_001",
-      "question": "What is tuberculosis?",
-      "stages": {
-        "dense": {
-          "ndcg@5": 1.0,
-          "ndcg@10": 0.8007,
-          "mrr": 1.0,
-          "ap": 0.8555,
-          "n_chunks_retrieved": 20,
-          "n_relevant": 16
-        },
-        "bm25": {
-          "ndcg@5": 0.0,
-          "ndcg@10": 0.1391,
-          "mrr": 0.1667,
-          "ap": 0.1833,
-          "n_chunks_retrieved": 20,
-          "n_relevant": 4
-        },
-        "rrf": {
-          "ndcg@5": 0.5301,
-          "ndcg@10": 0.6674,
-          "mrr": 0.5,
-          "ap": 0.5787,
-          "n_chunks_retrieved": 20,
-          "n_relevant": 6
-        },
-        "reranker": {
-          "ndcg@5": 0.9082,
-          "ndcg@10": 0.9082,
-          "mrr": 1.0,
-          "ap": 0.8333,
-          "n_chunks_retrieved": 12,
-          "n_relevant": 4
-        }
-      }
-    },
-    {
-      "id": "P_TB_002",
-      "question": "Is tuberculosis contagious?",
-      "stages": {
-        "dense": {
-          "ndcg@5": 0.4586,
-          "ndcg@10": 0.502,
-          "mrr": 1.0,
-          "ap": 0.7038,
-          "n_chunks_retrieved": 20,
-          "n_relevant": 13
-        },
-        "bm25": {
-          "ndcg@5": 0.5065,
-          "ndcg@10": 0.5318,
-          "mrr": 1.0,
-          "ap": 0.4365,
-          "n_chunks_retrieved": 20,
-          "n_relevant": 6
-        },
-        "rrf": {
-          "ndcg@5": 0.2533,
-          "ndcg@10": 0.3789,
-          "mrr": 1.0,
-          "ap": 0.4003,
-          "n_chunks_retrieved": 20,
-          "n_relevant": 6
-        },
-        "reranker": {
-          "ndcg@5": 0.8734,
-          "ndcg@10": 0.8838,
-          "mrr": 1.0,
-          "ap": 1.0,
-          "n_chunks_retrieved": 12,
-          "n_relevant": 6
-        }
-      }
-    },
-    {
-      "id": "P_TB_003",
-      "question": "What are the symptoms of tuberculosis?",
-      "stages": {
-        "dense": {
-          "ndcg@5": 0.8402,
-          "ndcg@10": 0.7921,
-          "mrr": 1.0,
-          "ap": 0.7269,
-          "n_chunks_retrieved": 20,
-          "n_relevant": 7
+          "n_relevant": 0
         },
         "bm25": {
           "ndcg@5": 0.0,
@@ -1273,19 +1398,165 @@
         },
         "rrf": {
           "ndcg@5": 0.0,
-          "ndcg@10": 0.2042,
-          "mrr": 0.1111,
-          "ap": 0.2341,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 6
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 0.6533,
-          "ndcg@10": 0.7594,
-          "mrr": 0.5,
-          "ap": 0.7345,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 6
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
+        }
+      }
+    },
+    {
+      "id": "P_TB_001",
+      "question": "What is tuberculosis?",
+      "stages": {
+        "dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 20,
+          "n_relevant": 0
+        },
+        "bm25": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 20,
+          "n_relevant": 0
+        },
+        "rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 20,
+          "n_relevant": 0
+        },
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
+        }
+      }
+    },
+    {
+      "id": "P_TB_002",
+      "question": "Is tuberculosis contagious?",
+      "stages": {
+        "dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 20,
+          "n_relevant": 0
+        },
+        "bm25": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 20,
+          "n_relevant": 0
+        },
+        "rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 20,
+          "n_relevant": 0
+        },
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
+        }
+      }
+    },
+    {
+      "id": "P_TB_003",
+      "question": "What are the symptoms of tuberculosis?",
+      "stages": {
+        "dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 20,
+          "n_relevant": 0
+        },
+        "bm25": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 20,
+          "n_relevant": 0
+        },
+        "rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 20,
+          "n_relevant": 0
+        },
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -1294,36 +1565,44 @@
       "question": "How long does TB treatment take?",
       "stages": {
         "dense": {
-          "ndcg@5": 1.0,
-          "ndcg@10": 0.8164,
-          "mrr": 1.0,
-          "ap": 0.8877,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 17
+          "n_relevant": 0
         },
         "bm25": {
           "ndcg@5": 0.0,
-          "ndcg@10": 0.148,
-          "mrr": 0.125,
-          "ap": 0.1364,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 3
+          "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.4048,
-          "ndcg@10": 0.5475,
-          "mrr": 1.0,
-          "ap": 0.6189,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 12
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 1.0,
-          "ndcg@10": 1.0,
-          "mrr": 1.0,
-          "ap": 1.0,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 12
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -1332,36 +1611,44 @@
       "question": "What happens if I stop taking my TB medication early?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.098,
-          "ndcg@10": 0.1779,
-          "mrr": 0.2,
-          "ap": 0.2196,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 5
+          "n_relevant": 0
         },
         "bm25": {
           "ndcg@5": 0.0,
-          "ndcg@10": 0.2837,
-          "mrr": 0.125,
-          "ap": 0.1917,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 3
+          "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.1376,
-          "ndcg@10": 0.3505,
-          "mrr": 0.25,
-          "ap": 0.2286,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 3
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 0.4766,
-          "ndcg@10": 0.569,
-          "mrr": 0.5,
-          "ap": 0.4333,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 3
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -1370,36 +1657,44 @@
       "question": "Can I drink alcohol while taking TB medication?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.3665,
-          "ndcg@10": 0.3795,
-          "mrr": 1.0,
-          "ap": 0.5453,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 12
+          "n_relevant": 0
         },
         "bm25": {
-          "ndcg@5": 0.6309,
-          "ndcg@10": 0.6309,
-          "mrr": 0.5,
-          "ap": 0.5,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 1
+          "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.5694,
-          "ndcg@10": 0.5615,
-          "mrr": 1.0,
-          "ap": 0.577,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 7
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 0.902,
-          "ndcg@10": 0.9706,
-          "mrr": 1.0,
-          "ap": 0.8819,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 6
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -1408,36 +1703,44 @@
       "question": "Why does my urine turn orange when I take TB medication?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.9155,
-          "ndcg@10": 0.8905,
-          "mrr": 1.0,
-          "ap": 0.8244,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 15
+          "n_relevant": 0
         },
         "bm25": {
-          "ndcg@5": 1.0,
-          "ndcg@10": 0.9961,
-          "mrr": 1.0,
-          "ap": 0.9765,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 9
+          "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.3299,
-          "ndcg@10": 0.5367,
-          "mrr": 1.0,
-          "ap": 0.7162,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 13
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 1.0,
-          "ndcg@10": 1.0,
-          "mrr": 1.0,
-          "ap": 1.0,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 11
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -1446,36 +1749,44 @@
       "question": "What side effects should I watch out for while on TB medication?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.8073,
-          "ndcg@10": 0.8489,
-          "mrr": 1.0,
-          "ap": 0.9302,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 18
+          "n_relevant": 0
         },
         "bm25": {
-          "ndcg@5": 0.2533,
-          "ndcg@10": 0.3403,
-          "mrr": 1.0,
-          "ap": 0.3666,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 7
+          "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.4406,
-          "ndcg@10": 0.5851,
-          "mrr": 1.0,
-          "ap": 0.7751,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 13
+          "n_relevant": 0
         },
-        "reranker": {
-          "ndcg@5": 0.9714,
-          "ndcg@10": 0.9277,
-          "mrr": 1.0,
-          "ap": 0.965,
+        "reranker_rrf": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 11
+          "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 0
         }
       }
     },
@@ -1484,36 +1795,44 @@
       "question": "How can I protect my family from getting TB?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.786,
-          "ndcg@10": 0.8611,
-          "mrr": 1.0,
-          "ap": 0.8797,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 17
+          "n_relevant": 0
         },
         "bm25": {
-          "ndcg@5": 1.0,
-          "ndcg@10": 1.0,
-          "mrr": 1.0,
-          "ap": 1.0,
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0,
+          "ap": 0.0,
           "n_chunks_retrieved": 20,
-          "n_relevant": 1
+          "n_relevant": 0
         },
         "rrf": {
           "ndcg@5": 0.0,
-          "ndcg@10": 0.1774,
+          "ndcg@10": 0.1078,
           "mrr": 0.1667,
-          "ap": 0.2738,
+          "ap": 0.2306,
           "n_chunks_retrieved": 20,
-          "n_relevant": 7
+          "n_relevant": 6
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 1.0,
           "ndcg@10": 0.9878,
           "mrr": 1.0,
           "ap": 0.9571,
           "n_chunks_retrieved": 12,
           "n_relevant": 7
+        },
+        "reranker_dense": {
+          "ndcg@5": 1.0,
+          "ndcg@10": 0.9337,
+          "mrr": 1.0,
+          "ap": 0.9751,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 11
         }
       }
     },
@@ -1545,13 +1864,21 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 10
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.9344,
-          "ndcg@10": 0.9941,
+          "ndcg@10": 0.9959,
           "mrr": 1.0,
-          "ap": 0.9889,
+          "ap": 1.0,
           "n_chunks_retrieved": 12,
-          "n_relevant": 9
+          "n_relevant": 10
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.8304,
+          "ndcg@10": 0.8726,
+          "mrr": 1.0,
+          "ap": 1.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 12
         }
       }
     },
@@ -1563,9 +1890,9 @@
           "ndcg@5": 1.0,
           "ndcg@10": 0.782,
           "mrr": 1.0,
-          "ap": 0.8172,
+          "ap": 0.834,
           "n_chunks_retrieved": 20,
-          "n_relevant": 12
+          "n_relevant": 11
         },
         "bm25": {
           "ndcg@5": 0.6131,
@@ -1583,11 +1910,19 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 8
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 1.0,
           "ndcg@10": 0.9963,
           "mrr": 1.0,
           "ap": 0.9861,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 8
+        },
+        "reranker_dense": {
+          "ndcg@5": 1.0,
+          "ndcg@10": 0.9933,
+          "mrr": 1.0,
+          "ap": 0.975,
           "n_chunks_retrieved": 12,
           "n_relevant": 8
         }
@@ -1598,12 +1933,12 @@
       "question": "Can TB medication affect my birth control pill?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.1312,
-          "ndcg@10": 0.2844,
-          "mrr": 0.2,
-          "ap": 0.4356,
+          "ndcg@5": 0.2773,
+          "ndcg@10": 0.3792,
+          "mrr": 0.25,
+          "ap": 0.5006,
           "n_chunks_retrieved": 20,
-          "n_relevant": 12
+          "n_relevant": 13
         },
         "bm25": {
           "ndcg@5": 0.0,
@@ -1614,20 +1949,28 @@
           "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.7877,
-          "ndcg@10": 0.7877,
+          "ndcg@5": 0.6844,
+          "ndcg@10": 0.6844,
           "mrr": 1.0,
-          "ap": 0.7026,
+          "ap": 0.6171,
           "n_chunks_retrieved": 20,
-          "n_relevant": 4
+          "n_relevant": 5
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.3869,
           "ndcg@10": 0.3869,
           "mrr": 0.5,
           "ap": 0.3333,
           "n_chunks_retrieved": 12,
           "n_relevant": 2
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.1952,
+          "ndcg@10": 0.308,
+          "mrr": 0.3333,
+          "ap": 0.2848,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 4
         }
       }
     },
@@ -1652,20 +1995,28 @@
           "n_relevant": 0
         },
         "rrf": {
-          "ndcg@5": 0.214,
-          "ndcg@10": 0.2562,
+          "ndcg@5": 0.1598,
+          "ndcg@10": 0.2009,
           "mrr": 0.5,
           "ap": 0.3495,
           "n_chunks_retrieved": 20,
           "n_relevant": 7
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.6488,
           "ndcg@10": 0.8277,
           "mrr": 1.0,
           "ap": 0.9056,
           "n_chunks_retrieved": 12,
           "n_relevant": 6
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.5397,
+          "ndcg@10": 0.6796,
+          "mrr": 1.0,
+          "ap": 0.7657,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 8
         }
       }
     },
@@ -1683,27 +2034,35 @@
         },
         "bm25": {
           "ndcg@5": 0.6045,
-          "ndcg@10": 0.7183,
+          "ndcg@10": 0.8039,
           "mrr": 1.0,
-          "ap": 0.626,
+          "ap": 0.6293,
           "n_chunks_retrieved": 20,
-          "n_relevant": 10
+          "n_relevant": 8
         },
         "rrf": {
-          "ndcg@5": 0.2426,
-          "ndcg@10": 0.4519,
-          "mrr": 1.0,
-          "ap": 0.5859,
+          "ndcg@5": 0.073,
+          "ndcg@10": 0.3312,
+          "mrr": 0.25,
+          "ap": 0.4251,
           "n_chunks_retrieved": 20,
-          "n_relevant": 10
+          "n_relevant": 9
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 1.0,
-          "ndcg@10": 0.942,
+          "ndcg@10": 0.9392,
           "mrr": 1.0,
-          "ap": 0.8896,
+          "ap": 0.8833,
           "n_chunks_retrieved": 12,
-          "n_relevant": 8
+          "n_relevant": 7
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.8614,
+          "ndcg@10": 0.8902,
+          "mrr": 1.0,
+          "ap": 0.9573,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 10
         }
       }
     },
@@ -1735,13 +2094,21 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 9
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.8471,
           "ndcg@10": 0.8647,
           "mrr": 1.0,
           "ap": 0.9526,
           "n_chunks_retrieved": 12,
           "n_relevant": 8
+        },
+        "reranker_dense": {
+          "ndcg@5": 1.0,
+          "ndcg@10": 1.0,
+          "mrr": 1.0,
+          "ap": 1.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 12
         }
       }
     },
@@ -1751,11 +2118,11 @@
       "stages": {
         "dense": {
           "ndcg@5": 0.7483,
-          "ndcg@10": 0.7078,
+          "ndcg@10": 0.6654,
           "mrr": 1.0,
-          "ap": 0.6913,
+          "ap": 0.6445,
           "n_chunks_retrieved": 20,
-          "n_relevant": 13
+          "n_relevant": 11
         },
         "bm25": {
           "ndcg@5": 0.0,
@@ -1773,13 +2140,21 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 4
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 1.0,
           "ndcg@10": 1.0,
           "mrr": 1.0,
           "ap": 1.0,
           "n_chunks_retrieved": 12,
           "n_relevant": 4
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.9795,
+          "ndcg@10": 0.9735,
+          "mrr": 1.0,
+          "ap": 0.9468,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 9
         }
       }
     },
@@ -1804,20 +2179,28 @@
           "n_relevant": 1
         },
         "rrf": {
-          "ndcg@5": 0.1091,
-          "ndcg@10": 0.232,
-          "mrr": 0.25,
-          "ap": 0.3269,
-          "n_chunks_retrieved": 20,
-          "n_relevant": 7
-        },
-        "reranker": {
-          "ndcg@5": 0.8086,
-          "ndcg@10": 0.8836,
+          "ndcg@5": 0.3623,
+          "ndcg@10": 0.4191,
           "mrr": 1.0,
-          "ap": 0.856,
+          "ap": 0.5083,
+          "n_chunks_retrieved": 20,
+          "n_relevant": 8
+        },
+        "reranker_rrf": {
+          "ndcg@5": 0.8086,
+          "ndcg@10": 0.8787,
+          "mrr": 1.0,
+          "ap": 0.8593,
           "n_chunks_retrieved": 12,
-          "n_relevant": 7
+          "n_relevant": 6
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.9065,
+          "ndcg@10": 0.8315,
+          "mrr": 1.0,
+          "ap": 0.9167,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 6
         }
       }
     },
@@ -1829,9 +2212,9 @@
           "ndcg@5": 0.0,
           "ndcg@10": 0.0,
           "mrr": 0.0909,
-          "ap": 0.101,
+          "ap": 0.1335,
           "n_chunks_retrieved": 20,
-          "n_relevant": 2
+          "n_relevant": 3
         },
         "bm25": {
           "ndcg@5": 1.0,
@@ -1849,11 +2232,19 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 1
         },
-        "reranker": {
-          "ndcg@5": 0.6241,
-          "ndcg@10": 0.6241,
-          "mrr": 0.5,
-          "ap": 0.45,
+        "reranker_rrf": {
+          "ndcg@5": 0.3869,
+          "ndcg@10": 0.3869,
+          "mrr": 0.2,
+          "ap": 0.2,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 1
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.0,
+          "mrr": 0.0909,
+          "ap": 0.1288,
           "n_chunks_retrieved": 12,
           "n_relevant": 2
         }
@@ -1865,35 +2256,43 @@
       "stages": {
         "dense": {
           "ndcg@5": 0.7766,
-          "ndcg@10": 0.835,
+          "ndcg@10": 0.8705,
           "mrr": 1.0,
           "ap": 0.9539,
           "n_chunks_retrieved": 20,
           "n_relevant": 17
         },
         "bm25": {
-          "ndcg@5": 0.4649,
-          "ndcg@10": 0.5866,
+          "ndcg@5": 0.5891,
+          "ndcg@10": 0.6288,
           "mrr": 1.0,
-          "ap": 0.6456,
+          "ap": 0.78,
           "n_chunks_retrieved": 20,
-          "n_relevant": 7
+          "n_relevant": 9
         },
         "rrf": {
           "ndcg@5": 0.5446,
           "ndcg@10": 0.7068,
           "mrr": 0.5,
-          "ap": 0.8232,
+          "ap": 0.833,
           "n_chunks_retrieved": 20,
-          "n_relevant": 16
+          "n_relevant": 17
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.9864,
           "ndcg@10": 0.9362,
           "mrr": 1.0,
           "ap": 0.9406,
           "n_chunks_retrieved": 12,
           "n_relevant": 11
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.8496,
+          "ndcg@10": 0.9226,
+          "mrr": 1.0,
+          "ap": 0.9622,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 10
         }
       }
     },
@@ -1925,13 +2324,21 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 9
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 1.0,
           "ndcg@10": 1.0,
           "mrr": 1.0,
           "ap": 1.0,
           "n_chunks_retrieved": 12,
           "n_relevant": 9
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.9139,
+          "ndcg@10": 0.9169,
+          "mrr": 1.0,
+          "ap": 0.8289,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 8
         }
       }
     },
@@ -1940,8 +2347,8 @@
       "question": "When do I need to go to hospital for pneumonia?",
       "stages": {
         "dense": {
-          "ndcg@5": 0.6618,
-          "ndcg@10": 0.6851,
+          "ndcg@5": 0.61,
+          "ndcg@10": 0.686,
           "mrr": 1.0,
           "ap": 0.6481,
           "n_chunks_retrieved": 20,
@@ -1963,13 +2370,21 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 4
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.778,
           "ndcg@10": 0.863,
           "mrr": 1.0,
           "ap": 0.9167,
           "n_chunks_retrieved": 12,
           "n_relevant": 4
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.8879,
+          "ndcg@10": 0.8319,
+          "mrr": 1.0,
+          "ap": 0.8833,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 7
         }
       }
     },
@@ -2001,13 +2416,21 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 3
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.9652,
           "ndcg@10": 0.9652,
           "mrr": 1.0,
           "ap": 1.0,
           "n_chunks_retrieved": 12,
           "n_relevant": 3
+        },
+        "reranker_dense": {
+          "ndcg@5": 1.0,
+          "ndcg@10": 1.0,
+          "mrr": 1.0,
+          "ap": 1.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 2
         }
       }
     },
@@ -2039,13 +2462,21 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 10
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.6201,
           "ndcg@10": 0.7928,
           "mrr": 1.0,
           "ap": 0.8357,
           "n_chunks_retrieved": 12,
           "n_relevant": 6
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.7227,
+          "ndcg@10": 0.8078,
+          "mrr": 1.0,
+          "ap": 0.8207,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 9
         }
       }
     },
@@ -2071,19 +2502,27 @@
         },
         "rrf": {
           "ndcg@5": 0.4913,
-          "ndcg@10": 0.6372,
+          "ndcg@10": 0.5788,
           "mrr": 0.5,
-          "ap": 0.5537,
+          "ap": 0.5371,
           "n_chunks_retrieved": 20,
-          "n_relevant": 6
+          "n_relevant": 7
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.5531,
           "ndcg@10": 0.894,
           "mrr": 1.0,
           "ap": 0.7393,
           "n_chunks_retrieved": 12,
           "n_relevant": 5
+        },
+        "reranker_dense": {
+          "ndcg@5": 1.0,
+          "ndcg@10": 1.0,
+          "mrr": 1.0,
+          "ap": 1.0,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 3
         }
       }
     },
@@ -2115,13 +2554,21 @@
           "n_chunks_retrieved": 20,
           "n_relevant": 0
         },
-        "reranker": {
+        "reranker_rrf": {
           "ndcg@5": 0.0,
           "ndcg@10": 0.0,
           "mrr": 0.0,
           "ap": 0.0,
           "n_chunks_retrieved": 12,
           "n_relevant": 0
+        },
+        "reranker_dense": {
+          "ndcg@5": 0.0,
+          "ndcg@10": 0.3562,
+          "mrr": 0.1667,
+          "ap": 0.1667,
+          "n_chunks_retrieved": 12,
+          "n_relevant": 1
         }
       }
     }

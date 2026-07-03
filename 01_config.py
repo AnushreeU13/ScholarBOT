@@ -19,8 +19,8 @@ KB_GUIDELINES = "guidelines_kb"
 KB_USER       = "user_kb"
 
 # ── Chunking ──────────────────────────────────────────────────────────────────
-CHUNK_SIZE = 400
-OVERLAP    = 50
+CHUNK_SIZE = 512   # matches BGE-large-en-v1.5 max input length
+OVERLAP    = 100   # ~20% of chunk — enough to preserve cross-boundary context
 
 # ── Retrieval ─────────────────────────────────────────────────────────────────
 TOP_K_DENSE  = 20   # candidates from dense search per KB

@@ -178,21 +178,40 @@ def _keyword_fallback(query: str, has_user_doc: bool) -> Dict:
             "abstain": False, "reason": "Keyword fallback."}
 
 
+# ── KB name normaliser ────────────────────────────────────────────────────────
+
+_KB_MAP = {
+    "guidelines_kb": _cfg.KB_GUIDELINES,
+    "druglabels_kb": _cfg.KB_DRUGLABELS,
+    "user_kb":       _cfg.KB_USER,
+}
+
+
+def _normalise(decision: Dict) -> Dict:
+    decision["target_kbs"] = [
+        _KB_MAP.get(k, k) for k in decision.get("target_kbs", [])
+    ]
+    return decision
+
+
 # ── Public API ────────────────────────────────────────────────────────────────
 
 def route(query: str, has_user_doc: bool = False, force_user_kb: bool = False) -> Dict:
     """
-    Main entry point.
+    Main entry point. Keyword-first routing — LLM is called only when keyword
+    matching finds no domain signal (query could be a vignette or genuinely OOD).
+
+    Fast path  (~0 ms): clear keyword signal → route without any LLM call.
+    Slow path (~800 ms): no keyword signal → LLM adjudicates.
+    Abstain: only when BOTH keyword and LLM find no in-domain signal.
+    The retrieval confidence gate (threshold 0.5) is the final abstain backstop.
 
     Args:
         query        : The resolved (coreference-clean) query string.
         has_user_doc : Whether the user has uploaded a document this session.
         force_user_kb: If True (User Document Only mode), lock target_kbs to [KB_USER].
-
-    Returns a RouteDecision dict.
     """
     if force_user_kb:
-        # Bypass LLM — we already know the target
         return {
             "domain":     "user_doc",
             "intent":     "general",
@@ -201,20 +220,29 @@ def route(query: str, has_user_doc: bool = False, force_user_kb: bool = False) -
             "reason":     "Force user_kb mode.",
         }
 
-    decision = _llm_route(query, has_user_doc)
+    # ── Step 1: keyword pre-filter (free, ~0 ms) ──────────────────────────────
+    kw = _keyword_fallback(query, has_user_doc)
 
-    # Normalise target_kbs to use config constants
-    _KB_MAP = {
-        "guidelines_kb": _cfg.KB_GUIDELINES,
-        "druglabels_kb": _cfg.KB_DRUGLABELS,
-        "user_kb":       _cfg.KB_USER,
-    }
-    decision["target_kbs"] = [
-        _KB_MAP.get(k, k) for k in decision.get("target_kbs", [])
-    ]
+    if not kw["abstain"]:
+        # Clear domain signal found — no LLM call needed
+        kw["reason"] = f"Keyword match (fast path). {kw.get('reason', '')}"
+        decision = _normalise(kw)
+        print(f"[Router/kw] domain={decision.get('domain')} intent={decision.get('intent')} "
+              f"kbs={decision.get('target_kbs')} abstain=False")
+        return decision
 
-    print(f"[Router] domain={decision.get('domain')} intent={decision.get('intent')} "
-          f"kbs={decision.get('target_kbs')} abstain={decision.get('abstain')} "
-          f"reason={decision.get('reason')}")
+    # ── Step 2: no keyword signal — escalate to LLM ───────────────────────────
+    # Query might be a clinical vignette without explicit disease keywords,
+    # or truly out-of-domain. LLM decides; retrieval threshold is the backstop.
+    llm = _llm_route(query, has_user_doc)
 
+    if not llm.get("abstain"):
+        decision = _normalise(llm)
+        print(f"[Router/llm] domain={decision.get('domain')} intent={decision.get('intent')} "
+              f"kbs={decision.get('target_kbs')} abstain=False reason={decision.get('reason')}")
+        return decision
+
+    # ── Step 3: both keyword and LLM agree → out-of-domain ───────────────────
+    decision = _normalise(kw)
+    print(f"[Router] abstain=True reason={kw.get('reason')}")
     return decision

@@ -5,6 +5,10 @@ Architecture position: 05 — used by user ingest (06).
 
 Key fix vs old version: tokenizer is cached at module level,
 not reloaded on every call (was loading SciBERT once per page).
+
+v13 fix: sentence splitter now protects medical abbreviations (mg., e.g., i.v.,
+Dr., etc.) so they do not cause false sentence breaks. Overlap raised to 100
+tokens (was 50) to preserve cross-boundary clinical context.
 """
 
 import re
@@ -24,12 +28,40 @@ def _get_tokenizer(model_name: str):
     return _TOKENIZER_CACHE[model_name]
 
 
+# ── Sentence splitter with abbreviation protection ────────────────────────────
+
+# Abbreviations whose trailing period must NOT trigger a sentence split.
+# Covers clinical units, Latin phrases, titles, and common medical shorthands.
+_ABBREV_RE = re.compile(
+    r"\b(Dr|Mr|Mrs|Ms|Prof|Sr|Jr|vs|etc|approx|No|Fig|Tab|vol|al"
+    r"|mg|mL|mcg|μg|kg|g|L|dL|mmHg|bpm|wk|mo|yr|min|sec|hrs?"
+    r"|e\.g|i\.e|i\.v|p\.o|q\.d|b\.i\.d|t\.i\.d|q\.i\.d|p\.r\.n"
+    r"|LTBI|TB|CAP|MDR|XDR|HIV|INH|RIF|PZA|EMB|BCG)\.",
+    re.IGNORECASE,
+)
+_PLACEHOLDER = "\x00PERIOD\x00"
+
+
+def _split_sentences(text: str) -> List[str]:
+    """
+    Split text into sentences, preserving medical abbreviations.
+    Only splits on punctuation followed by whitespace + capital letter,
+    which is the standard sentence boundary pattern.
+    """
+    # Temporarily mask abbreviation periods so they survive the split
+    protected = _ABBREV_RE.sub(lambda m: m.group(0)[:-1] + _PLACEHOLDER, text)
+    # Split at sentence-ending punctuation followed by whitespace + capital
+    parts = re.split(r"(?<=[.!?])\s+(?=[A-Z\"])", protected)
+    # Restore masked periods and strip
+    return [p.replace(_PLACEHOLDER, ".").strip() for p in parts if p.strip()]
+
+
 # ── Core chunker ──────────────────────────────────────────────────────────────
 
 def semantic_chunk_text(
     text: str,
-    chunk_size: int = 400,
-    overlap: int = 50,
+    chunk_size: int = 512,
+    overlap: int = 100,
     model_name: str = "allenai/scibert_scivocab_uncased",
 ) -> List[Dict]:
     """
@@ -41,7 +73,7 @@ def semantic_chunk_text(
         return []
 
     tokenizer = _get_tokenizer(model_name)
-    sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
+    sentences = _split_sentences(text)
 
     chunks: List[Dict] = []
     current_sents: List[str] = []
@@ -83,8 +115,8 @@ def chunk_document(
     text: str,
     document_name: str,
     page_number: int = None,
-    chunk_size: int = 400,
-    overlap: int = 50,
+    chunk_size: int = 512,
+    overlap: int = 100,
 ) -> List[Dict]:
     """
     Chunk a document page and attach metadata to each chunk.
