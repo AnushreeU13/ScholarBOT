@@ -20,3 +20,8 @@ production_app/backend/chroma_data/
 node_modules/
 production_app/frontend/dist/
 *.egg-info/
+
+# Never commit real secrets — .env.example files are the only tracked exception.
+.env
+*.env
+!*.env.example
