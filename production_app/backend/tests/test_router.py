@@ -52,3 +52,22 @@ def test_summarize_with_user_doc_targets_user_kb():
     decision = router._keyword_fallback("please give me a summary about tuberculosis", has_user_doc=True)
     assert decision["target_kbs"] == ["user_kb"]
     assert decision["intent"] == "summarize"
+
+
+def test_summarize_uploaded_doc_without_clinical_keywords_does_not_abstain():
+    """
+    Regression test for a real production bug: "Summarize the document I just
+    uploaded" has no TB/pneumonia/drug keyword, so it fell through the domain
+    gate and incorrectly abstained with "No domain match." even though the
+    user has an uploaded document and clearly wants it summarized.
+    """
+    decision = router.route("Summarize the document I just uploaded.", has_user_doc=True)
+    assert decision["abstain"] is False
+    assert decision["intent"] == "summarize"
+    assert decision["target_kbs"] == ["user_kb"]
+
+
+def test_summarize_without_uploaded_doc_still_requires_a_domain_keyword():
+    # No has_user_doc, no clinical keyword — should still correctly abstain.
+    decision = router.route("Summarize the document I just uploaded.", has_user_doc=False)
+    assert decision["abstain"] is True

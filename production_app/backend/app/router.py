@@ -73,6 +73,16 @@ def _keyword_fallback(query: str, has_user_doc: bool) -> Dict:
     """Minimal keyword-based fallback used when the LLM is unavailable or unreachable."""
     q = query.lower()
 
+    # A summarize request against the user's own uploaded document is
+    # in-domain by virtue of the document, not the query wording — a natural
+    # phrasing like "summarize the document I just uploaded" has no TB/
+    # pneumonia/drug keyword and would otherwise fall through the domain gate
+    # below and incorrectly abstain as out-of-domain. Check this first.
+    if has_user_doc and ("summar" in q or "overview" in q):
+        return {"domain": "user_doc", "intent": "summarize",
+                "target_kbs": [config.COLLECTION_USER], "abstain": False,
+                "reason": "Summarize request against uploaded document."}
+
     has_tb = any(t in q for t in ["tuberculosis", " tb ", "tb.", "latent tb"])
     has_tb = has_tb or bool(re.search(r"\btb\b", q))
     has_cap = any(t in q for t in ["pneumonia", "community acquired"]) or bool(re.search(r"\bcap\b", q))
