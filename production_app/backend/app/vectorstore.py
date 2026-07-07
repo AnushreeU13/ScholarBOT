@@ -9,6 +9,7 @@ an independent index, mirroring the old FAISS-per-KB layout.
 
 from __future__ import annotations
 
+import threading
 from typing import Dict, List, Optional
 
 from app import config
@@ -96,15 +97,25 @@ def _sanitize_metadata(meta: Dict) -> Dict:
 
 
 _client_instance = None
+_client_lock = threading.Lock()
 
 
 def _get_client():
+    """
+    Thread-safe singleton. Two threads racing to construct a PersistentClient
+    for the same path at once corrupts Chroma's shared-system registry
+    (surfaces as AttributeError/KeyError deep in chromadb internals) — this
+    lock is what prevents that, on top of the app-level eager init in
+    app.main's lifespan hook.
+    """
     global _client_instance
     if _client_instance is None:
-        import chromadb
+        with _client_lock:
+            if _client_instance is None:
+                import chromadb
 
-        config.CHROMA_DIR.mkdir(parents=True, exist_ok=True)
-        _client_instance = chromadb.PersistentClient(path=str(config.CHROMA_DIR))
+                config.CHROMA_DIR.mkdir(parents=True, exist_ok=True)
+                _client_instance = chromadb.PersistentClient(path=str(config.CHROMA_DIR))
     return _client_instance
 
 
@@ -115,11 +126,14 @@ def reset_client() -> None:
 
 
 _stores: Dict[str, ChromaStore] = {}
+_stores_lock = threading.Lock()
 
 
 def get_store(collection_name: str, embedder=None) -> ChromaStore:
     if collection_name not in _stores:
-        _stores[collection_name] = ChromaStore(collection_name, embedder=embedder)
+        with _stores_lock:
+            if collection_name not in _stores:
+                _stores[collection_name] = ChromaStore(collection_name, embedder=embedder)
     return _stores[collection_name]
 
 

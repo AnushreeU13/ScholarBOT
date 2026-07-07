@@ -1,4 +1,5 @@
 import io
+import threading
 
 import pytest
 from fastapi.testclient import TestClient
@@ -140,3 +141,41 @@ def test_upload_ingestion_failure_returns_422(client, monkeypatch):
         "/upload", files={"file": ("broken.pdf", io.BytesIO(b"%PDF-1.4 fake"), "application/pdf")}
     )
     assert resp.status_code == 422
+
+
+def test_get_engine_constructs_exactly_once_under_concurrency(monkeypatch):
+    """
+    Regression test for a real production bug: concurrent first-requests (a
+    platform's startup health probes hitting the container simultaneously)
+    each saw `_engine is None` and raced to build their own ScholarBotEngine,
+    which corrupted Chroma's PersistentClient shared-system registry.
+    get_engine() must serialize construction to exactly one instance.
+    """
+    import time
+
+    monkeypatch.setattr(main, "_engine", None)
+    construction_count = 0
+    lock = threading.Lock()
+
+    class SlowEngine:
+        def __init__(self):
+            nonlocal construction_count
+            with lock:
+                construction_count += 1
+            time.sleep(0.05)
+
+    monkeypatch.setattr(main, "ScholarBotEngine", SlowEngine)
+
+    results = []
+
+    def worker():
+        results.append(main.get_engine())
+
+    threads = [threading.Thread(target=worker) for _ in range(20)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+
+    assert construction_count == 1
+    assert len({id(r) for r in results}) == 1

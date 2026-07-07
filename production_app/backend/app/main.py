@@ -5,6 +5,8 @@ from __future__ import annotations
 import os
 import shutil
 import tempfile
+import threading
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
@@ -16,10 +18,39 @@ from app.engine import ScholarBotEngine
 from app.ingest import ingest_user_pdf
 from app.schemas import ChatRequest, ChatResponse, HealthResponse, UploadResponse
 
+_engine: ScholarBotEngine | None = None
+_engine_lock = threading.Lock()
+
+
+def get_engine() -> ScholarBotEngine:
+    """
+    Thread-safe lazy singleton. FastAPI runs sync endpoint functions in a
+    thread pool, so a naive check-then-set here lets concurrent first requests
+    (e.g. a platform's startup health probes) each construct their own
+    ScholarBotEngine — and Chroma's PersistentClient corrupts its shared
+    system registry when two clients open the same path at once. The lifespan
+    hook below initializes the engine before any request is served, so this
+    lock is defense-in-depth rather than the primary guard.
+    """
+    global _engine
+    if _engine is None:
+        with _engine_lock:
+            if _engine is None:
+                _engine = ScholarBotEngine()
+    return _engine
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    get_engine()
+    yield
+
+
 app = FastAPI(
     title="ScholarBOT API",
     description="Evidence-only clinical RAG over TB / pneumonia guidelines and drug labels.",
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -29,15 +60,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-_engine: ScholarBotEngine | None = None
-
-
-def get_engine() -> ScholarBotEngine:
-    global _engine
-    if _engine is None:
-        _engine = ScholarBotEngine()
-    return _engine
 
 
 @app.get("/health", response_model=HealthResponse)
