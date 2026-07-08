@@ -24,14 +24,14 @@ export default function App() {
   const [hasUploadedDoc, setHasUploadedDoc] = useState(false)
 
   const refreshHealth = useCallback(() => {
-    getHealth()
+    getHealth(sessionId)
       .then((h) => {
         setHealth(h)
         setHealthError(null)
         setHasUploadedDoc(h.user_chunks > 0)
       })
       .catch((err) => setHealthError(err instanceof Error ? err.message : 'Backend unreachable.'))
-  }, [])
+  }, [sessionId])
 
   useEffect(() => {
     refreshHealth()
@@ -86,6 +86,7 @@ export default function App() {
   return (
     <div className="app-shell">
       <Sidebar
+        sessionId={sessionId}
         health={health}
         healthError={healthError}
         onReset={handleReset}

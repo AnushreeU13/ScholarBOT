@@ -86,17 +86,26 @@ class Retriever:
     def __init__(self, stores: Dict[str, object], embedder):
         """
         Args:
-            stores  : {collection_name: ChromaStore}
+            stores  : {collection_name: ChromaStore} — shared, read-only reference
+                      collections (guidelines, drug labels). Session-specific
+                      collections (the uploaded-document store) are never held
+                      here; they're passed in per-call via `session_stores` so
+                      concurrent requests for different sessions can't race on
+                      shared instance state.
             embedder: BGEEmbedder instance
         """
         self.stores = stores
         self.embedder = embedder
 
-    def reload_store(self, collection_name: str, store) -> None:
-        self.stores[collection_name] = store
+    def _resolve_store(self, collection_name: str, session_stores: Optional[Dict[str, object]]):
+        if session_stores and collection_name in session_stores:
+            return session_stores[collection_name]
+        return self.stores.get(collection_name)
 
-    def _dense_search(self, query: str, collection_name: str, k: int) -> List[Dict]:
-        store = self.stores.get(collection_name)
+    def _dense_search(
+        self, query: str, collection_name: str, k: int, session_stores: Optional[Dict[str, object]]
+    ) -> List[Dict]:
+        store = self._resolve_store(collection_name, session_stores)
         if store is None:
             return []
         q_vec = self.embedder.embed_query(query)
@@ -111,13 +120,14 @@ class Retriever:
         target_kbs: List[str],
         k_dense: Optional[int] = None,
         k_rerank: Optional[int] = None,
+        session_stores: Optional[Dict[str, object]] = None,
     ) -> List[Dict]:
         k_dense = k_dense or config.TOP_K_DENSE
         k_rerank = k_rerank or config.RERANK_K
 
         candidates: List[Dict] = []
         for kb in target_kbs:
-            candidates.extend(self._dense_search(query, kb, k_dense))
+            candidates.extend(self._dense_search(query, kb, k_dense, session_stores))
 
         seen, unique = set(), []
         for c in candidates:
@@ -147,9 +157,11 @@ class Retriever:
 
         return top
 
-    def stratified_sample(self, collection_name: str, n: int = 16) -> List[Dict]:
+    def stratified_sample(
+        self, collection_name: str, n: int = 16, session_stores: Optional[Dict[str, object]] = None
+    ) -> List[Dict]:
         """For summarization: n chunks sampled evenly across pages, no query embedding used."""
-        store = self.stores.get(collection_name)
+        store = self._resolve_store(collection_name, session_stores)
         if store is None:
             return []
 

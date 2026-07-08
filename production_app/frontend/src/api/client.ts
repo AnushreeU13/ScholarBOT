@@ -44,13 +44,16 @@ export function resetSession(sessionId: string): Promise<{ status: string }> {
   return request(`/session/${encodeURIComponent(sessionId)}/reset`, { method: 'POST' })
 }
 
-export function getHealth(): Promise<HealthResponse> {
-  return request<HealthResponse>('/health')
+export function getHealth(sessionId: string): Promise<HealthResponse> {
+  // user_chunks is scoped to this session's own uploaded-document store —
+  // without session_id the backend reports 0 regardless of what's uploaded.
+  return request<HealthResponse>(`/health?session_id=${encodeURIComponent(sessionId)}`)
 }
 
-export async function uploadDocument(file: File): Promise<UploadResponse> {
+export async function uploadDocument(file: File, sessionId: string): Promise<UploadResponse> {
   const formData = new FormData()
   formData.append('file', file)
+  formData.append('session_id', sessionId)
 
   const res = await fetch(`${BASE_URL}/upload`, { method: 'POST', body: formData })
   if (!res.ok) {

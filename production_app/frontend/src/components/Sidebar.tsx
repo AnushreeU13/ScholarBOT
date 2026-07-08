@@ -3,6 +3,7 @@ import type { HealthResponse } from '../types'
 import { uploadDocument } from '../api/client'
 
 interface Props {
+  sessionId: string
   health: HealthResponse | null
   healthError: string | null
   onReset: () => void
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export default function Sidebar({
+  sessionId,
   health,
   healthError,
   onReset,
@@ -31,7 +33,7 @@ export default function Sidebar({
     setUploading(true)
     setUploadError(null)
     try {
-      const result = await uploadDocument(file)
+      const result = await uploadDocument(file, sessionId)
       onUploadComplete(result.doc_name, result.added_chunks)
     } catch (err) {
       setUploadError(err instanceof Error ? err.message : 'Upload failed.')

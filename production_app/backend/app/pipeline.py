@@ -14,7 +14,7 @@ bullet not explicitly grounded in the retrieved evidence.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from app import config, llm
 
@@ -153,7 +153,7 @@ class RAGPipeline:
             from app.retriever import check_sufficiency
             self._check_sufficiency = check_sufficiency
 
-    def run(self, query: str, route: Dict) -> PipelineResult:
+    def run(self, query: str, route: Dict, session_stores: Optional[Dict[str, object]] = None) -> PipelineResult:
         if route.get("abstain"):
             return self._abstain(route.get("reason", "out_of_scope"))
 
@@ -161,11 +161,11 @@ class RAGPipeline:
         target_kbs = route.get("target_kbs", [])
 
         if intent == "summarize":
-            return self._summarize(target_kbs)
+            return self._summarize(target_kbs, session_stores)
         elif route.get("domain") == "drug" or intent == "drug_info":
-            return self._drug_qa(query, target_kbs)
+            return self._drug_qa(query, target_kbs, session_stores)
         else:
-            return self._guideline_qa(query, target_kbs)
+            return self._guideline_qa(query, target_kbs, session_stores)
 
     @staticmethod
     def _abstain(reason: str) -> PipelineResult:
@@ -175,8 +175,10 @@ class RAGPipeline:
             abstain_reason=reason,
         )
 
-    def _guideline_qa(self, query: str, target_kbs: List[str]) -> PipelineResult:
-        chunks = self.retriever.retrieve(query, target_kbs)
+    def _guideline_qa(
+        self, query: str, target_kbs: List[str], session_stores: Optional[Dict[str, object]] = None
+    ) -> PipelineResult:
+        chunks = self.retriever.retrieve(query, target_kbs, session_stores=session_stores)
         if not chunks:
             return self._abstain("no_chunks_retrieved")
 
@@ -213,12 +215,14 @@ class RAGPipeline:
             route={},
         )
 
-    def _drug_qa(self, query: str, target_kbs: List[str]) -> PipelineResult:
+    def _drug_qa(
+        self, query: str, target_kbs: List[str], session_stores: Optional[Dict[str, object]] = None
+    ) -> PipelineResult:
         kbs = target_kbs if target_kbs else [config.COLLECTION_DRUGLABELS]
         if config.COLLECTION_DRUGLABELS not in kbs:
             kbs = [config.COLLECTION_DRUGLABELS] + kbs
 
-        chunks = self.retriever.retrieve(query, kbs)
+        chunks = self.retriever.retrieve(query, kbs, session_stores=session_stores)
         if not chunks:
             return self._abstain("no_drug_chunks_retrieved")
 
@@ -244,13 +248,15 @@ class RAGPipeline:
             route={},
         )
 
-    def _summarize(self, target_kbs: List[str]) -> PipelineResult:
+    def _summarize(
+        self, target_kbs: List[str], session_stores: Optional[Dict[str, object]] = None
+    ) -> PipelineResult:
         store_name = config.COLLECTION_USER if config.COLLECTION_USER in target_kbs else (
             target_kbs[0] if target_kbs else None)
         if not store_name:
             return self._abstain("no_target_kb_for_summarize")
 
-        chunks = self.retriever.stratified_sample(store_name, n=16)
+        chunks = self.retriever.stratified_sample(store_name, n=16, session_stores=session_stores)
         if not chunks:
             return self._abstain("empty_store_for_summarize")
 

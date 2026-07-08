@@ -29,7 +29,7 @@ def engine(monkeypatch, fake_embedder, make_fake_store):
 def test_health_counts_start_empty(engine):
     assert engine.guidelines_store.count() == 0
     assert engine.druglabels_store.count() == 0
-    assert engine.user_store.count() == 0
+    assert engine.get_user_store("default").count() == 0
 
 
 def test_out_of_domain_query_abstains(engine):
@@ -88,11 +88,85 @@ def test_reset_session_clears_state(engine):
     assert fresh.topic_summary == ""
 
 
-def test_reload_user_kb_swaps_store(engine, monkeypatch, fake_embedder, make_fake_store):
-    new_store = make_fake_store(config.COLLECTION_USER)
-    new_store.add_texts(["uploaded content"], [{"document_name": "upload.pdf"}])
-    monkeypatch.setattr("app.vectorstore.get_store", lambda name, embedder=None: new_store)
+def test_user_stores_are_isolated_per_session(engine):
+    store_a = engine.get_user_store("session-a")
+    store_b = engine.get_user_store("session-b")
+    assert store_a is not store_b
 
-    engine.reload_user_kb()
-    assert engine.user_store.count() == 1
-    assert engine.pipeline.retriever.stores[config.COLLECTION_USER] is new_store
+    store_a.add_texts(["session A's uploaded document"], [{"document_name": "a.pdf"}])
+    assert store_a.count() == 1
+    assert store_b.count() == 0  # session B never sees session A's document
+
+
+def test_get_user_store_is_cached_per_session(engine):
+    first = engine.get_user_store("session-a")
+    second = engine.get_user_store("session-a")
+    assert first is second
+
+
+def test_user_store_collection_name_is_hashed_not_raw_session_id(fake_embedder, make_fake_store):
+    seen_names = []
+
+    def factory(name, embedder=None):
+        seen_names.append(name)
+        return make_fake_store(name)
+
+    engine = ScholarBotEngine(embedder=fake_embedder, store_factory=factory)
+    engine.get_user_store("some session id with spaces/slashes")
+
+    user_kb_calls = [n for n in seen_names if n.startswith(config.COLLECTION_USER)]
+    assert len(user_kb_calls) == 1
+    # Hashed, not a direct pass-through of client-supplied session_id (which
+    # could contain characters Chroma collection names don't allow).
+    assert "some session id with spaces/slashes" not in user_kb_calls[0]
+
+
+def test_reset_session_clears_and_forgets_user_store(engine):
+    store = engine.get_user_store("session-a")
+    store.add_texts(["doc content"], [{"document_name": "a.pdf"}])
+    assert store.count() == 1
+
+    engine.reset_session("session-a")
+
+    fresh = engine.get_user_store("session-a")
+    assert fresh.count() == 0
+
+
+def test_generate_response_only_searches_the_calling_sessions_document(engine, monkeypatch):
+    # llm.complete is one shared function used by router.py's LLM fallback AND
+    # pipeline.py's generation/critique calls — return "" for the router's
+    # classifier call (so it falls back to plain keyword routing) and the
+    # canned answer JSON for everything else, otherwise session-b's router
+    # call would get a QA-shaped response and misroute instead of cleanly
+    # abstaining as out-of-domain.
+    def _fake_complete(system, *a, **k):
+        if "classifier" in system.lower():
+            return ""
+        return json.dumps({
+            "status": "answer",
+            "clinician_bullets": ["Session A's document says X. [1]"],
+            "patient_bullets": ["X in plain language. [1]"],
+        })
+
+    monkeypatch.setattr("app.pipeline.llm.complete", _fake_complete)
+
+    engine.get_user_store("session-a").add_texts(
+        ["Session A's private uploaded document content."],
+        [{"document_name": "a.pdf", "page_number": 1, "chunk_index": 0}],
+    )
+    # session-b never uploaded anything.
+
+    answer_a, _, meta_a = engine.generate_response(
+        "Summarize the document I just uploaded.", session_id="session-a"
+    )
+    answer_b, _, meta_b = engine.generate_response(
+        "Summarize the document I just uploaded.", session_id="session-b"
+    )
+
+    assert answer_a["status"] == "answer"
+    assert meta_a["source"] == config.COLLECTION_USER
+    # session-b has no document, so has_user_doc is False for it — the query
+    # has no clinical keyword either, so it correctly abstains as out-of-domain
+    # rather than ever touching session-a's document.
+    assert answer_b["status"] == "abstain"
+    assert answer_b["abstain_reason"] == "No domain match."

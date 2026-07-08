@@ -44,6 +44,31 @@ etc.), with FAISS/BM25 swapped for Chroma dense-only retrieval (the parent
 repo's own IR eval found BM25/RRF hurt ranking quality on this corpus, so
 dense-only + rerank was kept as-is here).
 
+## Multi-user document isolation
+
+Uploaded documents are per-session, not global. Each `session_id` gets its own
+Chroma collection (`user_kb_<sha256(session_id)[:32]>` — hashed rather than a
+direct pass-through, since `session_id` is client-supplied and Chroma
+collection names have strict character/length constraints). `ContextManager`
+conversation state was already keyed by `session_id`; `ScholarBotEngine`
+extends the same pattern to uploaded-document storage
+(`get_user_store(session_id)`), so two people using the app at once never see
+each other's document or conversation history. "Clear conversation" in the UI
+calls `POST /session/{id}/reset`, which drops both.
+
+Retrieval reads for the shared guideline/drug-label collections and a
+session's own document collection happen through the same `Retriever`
+instance without any per-request mutation of shared state (session stores are
+passed in as a `session_stores` override on each call) — avoiding the same
+class of race condition documented in "How I'd scale this" for the engine
+singleton.
+
+One open item: session collections aren't garbage-collected on their own — a
+session that's abandoned without hitting "Clear conversation" leaves an empty
+or small orphaned Chroma collection behind. Fine for a demo; a real deployment
+would want a TTL-based sweep (e.g. a periodic job dropping collections idle
+longer than N hours).
+
 ## Vector store: Chroma vs. Pinecone
 
 Chroma was chosen for this rebuild. Documented tradeoff:
@@ -155,8 +180,9 @@ and trivially scales horizontally (see `k8s/frontend-hpa.yaml`). The backend
 currently runs as a single replica because:
 - Chroma's `PersistentClient` is a single-process embedded store, backed by a
   `ReadWriteOnce` PVC — a second pod can't safely share it.
-- `ScholarBotEngine` holds per-session `ContextManager` state in an in-memory
-  dict, so a second replica wouldn't see a session created on the first.
+- `ScholarBotEngine` holds per-session `ContextManager` state *and* per-session
+  uploaded-document stores in in-memory dicts, so a second replica wouldn't see
+  a session (or its uploaded document) created on the first.
 
 To scale past one backend replica, in order of effort:
 1. **Move session state out of the process** — Redis-backed `ContextManager`

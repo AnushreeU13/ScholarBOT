@@ -9,7 +9,7 @@ import threading
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
@@ -63,13 +63,21 @@ app.add_middleware(
 
 
 @app.get("/health", response_model=HealthResponse)
-def health() -> HealthResponse:
+def health(session_id: str = "default") -> HealthResponse:
+    """
+    guidelines_chunks/druglabels_chunks are global (shared reference KBs).
+    user_chunks is scoped to `session_id` — each session has its own uploaded-
+    document store, so this reports "does *this caller's* session have a
+    document loaded", not a global count. Callers that don't pass session_id
+    (e.g. a container orchestrator's liveness probe) just see 0, which is
+    harmless for a liveness check.
+    """
     engine = get_engine()
     return HealthResponse(
         status="ok",
         guidelines_chunks=engine.guidelines_store.count(),
         druglabels_chunks=engine.druglabels_store.count(),
-        user_chunks=engine.user_store.count(),
+        user_chunks=engine.get_user_store(session_id).count(),
     )
 
 
@@ -102,11 +110,17 @@ def reset_session(session_id: str) -> dict:
 
 
 @app.post("/upload", response_model=UploadResponse)
-async def upload(file: UploadFile = File(...)) -> UploadResponse:
+async def upload(file: UploadFile = File(...), session_id: str = Form("default")) -> UploadResponse:
+    """
+    Ingests into the caller's own session-scoped store (see
+    ScholarBotEngine.get_user_store) — uploads from different sessions never
+    mix, so concurrent users each only ever see their own document.
+    """
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Only PDF files are supported.")
 
     engine = get_engine()
+    user_store = engine.get_user_store(session_id)
 
     with tempfile.TemporaryDirectory() as tmp:
         tmp_path = Path(tmp) / file.filename
@@ -114,14 +128,13 @@ async def upload(file: UploadFile = File(...)) -> UploadResponse:
             shutil.copyfileobj(file.file, f)
 
         try:
-            stats = ingest_user_pdf(tmp_path, doc_name=file.filename, store=engine.user_store)
+            stats = ingest_user_pdf(tmp_path, doc_name=file.filename, store=user_store)
         except Exception as e:
             raise HTTPException(status_code=422, detail=f"Ingestion failed: {e}") from e
 
     if stats["added_chunks"] == 0:
         raise HTTPException(status_code=422, detail="Zero chunks extracted — is this a scanned/image-only PDF?")
 
-    engine.reload_user_kb()
     return UploadResponse(
         added_chunks=stats["added_chunks"],
         total_chars=stats["total_chars"],

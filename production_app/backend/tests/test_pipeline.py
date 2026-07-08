@@ -13,7 +13,7 @@ class FakeRetriever:
     def retrieve(self, query, target_kbs, **kwargs):
         return self._chunks
 
-    def stratified_sample(self, store_name, n=16):
+    def stratified_sample(self, store_name, n=16, **kwargs):
         return self._sample
 
 
