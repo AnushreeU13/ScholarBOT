@@ -1,11 +1,64 @@
-# ScholarBOT — production rebuild
+# ScholarBOT
 
-A production-shaped rebuild of the ScholarBOT clinical RAG pipeline (evidence-only
-Q&A over WHO/CDC TB and pneumonia guidelines + drug labels, built in the parent
-repo). This directory is a standalone, deployable app: React/TypeScript frontend,
-FastAPI backend, Chroma vector store, pytest CI, Docker, and Kubernetes manifests.
-The original Streamlit + FAISS app one level up is unaffected — this is a parallel
-rebuild for portfolio/skill purposes, not a replacement.
+**Try it live: [huggingface.co/spaces/AnushreeU/scholarbot](https://huggingface.co/spaces/AnushreeU/scholarbot)**
+
+## What this is
+
+At some point, everyone ends up Googling their symptoms. A clinician does
+something similar, just with better sources — cross-referencing guidelines,
+drug labels, and their own uploaded case notes instead of a search engine
+built for everything else on the internet.
+
+ScholarBOT is built for both of those people. Instead of an open-ended web
+search, it queries a **curated knowledge base** in plain language — the kind
+of question you'd actually type, not a boolean search string. Every answer
+is grounded in that knowledge base: the specific passages it drew from are
+shown alongside the answer as citations, split into a **clinician summary**
+(technical, sourced) and a **patient summary** (plain-language, same
+sources). If the retrieved evidence doesn't clear a confidence bar, the tool
+**abstains** rather than guess — a wrong "I don't know" is annoying; a wrong
+medical answer stated confidently is a different kind of problem.
+
+The tool itself is a fairly simple RAG (retrieval-augmented generation)
+system:
+- **Retriever** — a dense embedding search (BGE-large-en-v1.5, 1024-dim) over
+  the knowledge base, narrowed by a lightweight intent router, then
+  re-ordered by a cross-encoder reranker (`ms-marco-MiniLM-L6-v2`) for
+  precision. An earlier IR evaluation on this exact corpus found that adding
+  classic keyword search (BM25) into the mix *hurt* ranking quality here, so
+  retrieval is dense-only by design, not by omission.
+- **Generator** — GPT-4o-mini, instructed to answer *only* from the retrieved
+  passages and to output a structured abstain signal when it can't. A second
+  self-critique pass reviews the draft against the evidence and strikes any
+  claim that isn't actually supported before it reaches the user.
+- **Deployed as** — a React/TypeScript chat UI talking to a FastAPI backend,
+  Chroma as the vector store, containerized with Docker, with Kubernetes
+  manifests for a local cluster and a live one-container deployment on
+  Hugging Face Spaces.
+
+As a proof of concept, the knowledge base currently covers two pulmonary
+diseases — **tuberculosis** and **pneumonia** — plus their associated
+medications. The scope is intentionally narrow: it's easier to demonstrate a
+system abstains correctly *outside* its domain when that domain is well
+defined. Source material comes from public clinical guidelines: **CDC**,
+**WHO**, **ATS/IDSA**, **NICE (UK)**, the **British Thoracic Society**, and
+**Medscape**, plus structured drug label data from **DailyMed** (FDA). See
+[Knowledge base](#knowledge-base) below for exact figures.
+
+Users can also upload their own PDF (a case report, a discharge summary,
+whatever) and choose whether ScholarBOT answers from the curated knowledge
+base, from their uploaded document only, or lean on both — each user's
+upload is private to their own session; nobody else sees it.
+
+## Core design principles
+
+- **Fail-closed** — abstains when confidence is low rather than generating an uncertain answer
+- **Evidence-only** — no outside knowledge is ever added; every sentence traces back to a retrieved passage
+- **Dual-audience output** — a technical clinician summary and a plain-language patient summary for the same evidence
+- **Full traceability** — every claim links to a knowledge-base document and page
+- **Context retention** — follow-up questions with pronouns ("how is it treated?") resolve against conversation history before retrieval
+
+## Repo layout
 
 ```
 production_app/
@@ -14,6 +67,28 @@ production_app/
 ├── docker/      Dockerfiles + docker-compose for local/demo deployment
 └── k8s/         Kubernetes manifests (minikube / k3s)
 ```
+
+This directory is a standalone, deployable rebuild of the ScholarBOT
+pipeline from the parent repo (which runs as a Streamlit + FAISS app). The
+two are independent — this rebuild swaps in a proper frontend/backend split,
+Chroma instead of FAISS, tests, CI, and container/orchestration configs, but
+doesn't touch or depend on the parent app.
+
+## Tech stack
+
+| Layer | Choice |
+|---|---|
+| Frontend | React + TypeScript, Vite |
+| Backend | FastAPI (Python), Uvicorn |
+| Vector store | Chroma (embedded, persistent) |
+| Embedding model | `BAAI/bge-large-en-v1.5` (1024-dim, via `sentence-transformers`) |
+| Reranker | `cross-encoder/ms-marco-MiniLM-L6-v2` |
+| LLM | OpenAI `gpt-4o-mini` |
+| Testing | pytest + pytest-cov, 80% coverage gate (currently ~95%) |
+| CI | GitHub Actions (backend tests, frontend build/lint, Docker build smoke test) |
+| Containerization | Docker (separate frontend/backend images for compose/k8s; a combined image for Spaces) |
+| Orchestration | Kubernetes manifests (namespace, Deployments, Services, PVC, HPA, Ingress) |
+| Live deployment | Hugging Face Spaces (Docker SDK) |
 
 ## Architecture
 
@@ -33,16 +108,35 @@ production_app/
                                               └─────────────────────┘
 ```
 
-Request flow mirrors the original pipeline: `ContextManager` resolves pronouns/
-meta-references → `router` classifies domain + intent (keyword fast path, LLM
-fallback for ambiguous queries) → `Retriever` does dense search per target
-collection + cross-encoder rerank → `RAGPipeline` generates an evidence-only
-answer and self-critiques it, abstaining rather than guessing when evidence is
-thin. See `backend/app/` — each module is a direct, tested port of the
-corresponding numbered file in the parent repo (`01_config.py` → `config.py`,
-etc.), with FAISS/BM25 swapped for Chroma dense-only retrieval (the parent
-repo's own IR eval found BM25/RRF hurt ranking quality on this corpus, so
-dense-only + rerank was kept as-is here).
+Request flow: `ContextManager` resolves pronouns/meta-references in the
+query → `router` classifies domain + intent (a fast keyword path for clear
+cases, LLM fallback for ambiguous ones) → `Retriever` does dense search
+against the target collection(s) + cross-encoder rerank → `RAGPipeline`
+generates an evidence-only answer and self-critiques it, abstaining rather
+than guessing when evidence is thin. See `backend/app/` — each module is a
+direct, tested port of the corresponding numbered file in the parent repo
+(`01_config.py` → `config.py`, etc.).
+
+## Knowledge base
+
+Two Chroma collections, built from public guideline/drug-label exports:
+
+| Collection | Chunks (source data) | Sources |
+|---|---|---|
+| `guidelines_kb` | 3,219 | CDC, WHO, ATS/IDSA, NICE (UK), British Thoracic Society, Medscape — TB and community-acquired pneumonia (CAP) clinical guidelines |
+| `druglabels_kb` | 15,185 | DailyMed (FDA structured product labels) — TB and CAP medications |
+
+Plus a per-session `user_kb_<hash>` collection for each uploaded document
+(see [Multi-user document isolation](#multi-user-document-isolation)).
+
+Rebuild the KB from source:
+
+```bash
+cd backend
+python scripts/migrate_to_chroma.py \
+  --guidelines ../../dataset/guidelines_chunks_cleaned.jsonl \
+  --druglabels ../../dataset/druglabels_chunks.jsonl
+```
 
 ## Multi-user document isolation
 
@@ -60,8 +154,8 @@ Retrieval reads for the shared guideline/drug-label collections and a
 session's own document collection happen through the same `Retriever`
 instance without any per-request mutation of shared state (session stores are
 passed in as a `session_stores` override on each call) — avoiding the same
-class of race condition documented in "How I'd scale this" for the engine
-singleton.
+class of race condition documented in [How I'd scale this](#how-id-scale-this)
+for the engine singleton.
 
 One open item: session collections aren't garbage-collected on their own — a
 session that's abandoned without hitting "Clear conversation" leaves an empty
@@ -85,16 +179,30 @@ Chroma was chosen for this rebuild. Documented tradeoff:
 For a self-contained, free, easy-to-run demo — the goal here — Chroma wins.
 For a real multi-tenant production deployment with unpredictable scale,
 Pinecone's managed infrastructure removes an entire operational burden (see
-"How I'd scale this" below for exactly when that tradeoff flips).
+[How I'd scale this](#how-id-scale-this) for exactly when that tradeoff flips).
 
-## Backend
+## Try the live demo
+
+**https://huggingface.co/spaces/AnushreeU/scholarbot**
+
+1. Ask a question directly — e.g. *"What are the symptoms of pneumonia?"* or
+   *"What is the standard dosage of isoniazid for adults?"* — answered from
+   the curated knowledge base, with citations in the sidebar.
+2. Or upload a PDF, check **"Search my document only"**, and ask it to
+   summarize the document or answer questions about it specifically.
+3. Ask something outside TB/pneumonia (or with genuinely insufficient
+   evidence) and watch it abstain instead of guessing.
+
+## Running it yourself
+
+### Backend
 
 ```bash
 cd backend
 python -m venv .venv && . .venv/Scripts/activate   # or source .venv/bin/activate on macOS/Linux
 pip install -r requirements-dev.txt
 
-# One-time: migrate the existing guideline/drug-label KB into Chroma
+# One-time: build the KB (see "Knowledge base" above)
 python scripts/migrate_to_chroma.py \
   --guidelines ../../dataset/guidelines_chunks_cleaned.jsonl \
   --druglabels ../../dataset/druglabels_chunks.jsonl
@@ -107,10 +215,10 @@ Tests (mocked embedder/reranker/LLM — no GPU or network needed, runs in a few
 seconds):
 
 ```bash
-pytest    # enforces an 80% coverage gate (pytest.ini); currently ~94%
+pytest    # enforces an 80% coverage gate (pytest.ini); currently ~95%
 ```
 
-## Frontend
+### Frontend
 
 ```bash
 cd frontend
@@ -118,7 +226,7 @@ npm install
 npm run dev     # :5173, proxies /api -> http://localhost:8000 (see vite.config.ts)
 ```
 
-## Docker Compose (local full stack)
+### Docker Compose (local full stack)
 
 ```bash
 cd docker
@@ -127,7 +235,7 @@ docker compose up --build
 # frontend: http://localhost:5173   backend: http://localhost:8000
 ```
 
-## Kubernetes (minikube / k3s)
+### Kubernetes (minikube / k3s)
 
 ```bash
 # minikube
@@ -155,7 +263,7 @@ k3s: same manifests apply directly (Traefik ships built in — change
 `ingressClassName: nginx` to `traefik` in `k8s/ingress.yaml`, or drop the
 Ingress and use k3s's `svclb` + a NodePort Service instead).
 
-## Deploying to Hugging Face Spaces
+### Deploying your own copy to Hugging Face Spaces
 
 The two-container layout (separate frontend/backend images) doesn't fit a
 Space, which runs one container on one port. `docker/Dockerfile.spaces`
@@ -202,3 +310,22 @@ To scale past one backend replica, in order of effort:
    keyword fast path already avoids an LLM call for most queries; a
    request-level cache (query hash → route/retrieval result) would cut
    further cost on repeated or near-duplicate questions across users.
+
+## Known limitations
+
+- **Cross-document comparison questions** ("what's the difference between X
+  and Y?") are hard for this architecture — retrieval finds passages about X
+  and passages about Y separately, but the evidence-only generation gate
+  correctly refuses to synthesize a comparison unless a single retrieved
+  passage actually draws one. It abstains rather than guesses, which is the
+  intended fail-closed behavior, but it does mean genuinely comparative
+  questions often come back empty.
+- **Confidence score is an internal ranking signal, not a calibrated
+  probability** — it's the raw cross-encoder reranker score, which is
+  unbounded (not a 0–1 value). The UI clamps it for display; the underlying
+  number is still just "did this pass the threshold," not "how sure is the
+  model," and shouldn't be over-interpreted.
+- **No cross-KB "search both curated data and my document" mode** —
+  currently it's one or the other per query (see the `force_user_kb` toggle).
+- See [Multi-user document isolation](#multi-user-document-isolation) for the
+  orphaned-session-collection caveat.
