@@ -130,9 +130,19 @@ def route(query: str, has_user_doc: bool = False, force_user_kb: bool = False) -
     Abstain: only when BOTH keyword and LLM find no in-domain signal.
     """
     if force_user_kb:
+        # A "summarize"/"overview" query still needs intent="summarize" here,
+        # not "general" — otherwise the pipeline sends it through dense
+        # retrieval + cross-encoder rerank against the literal query text.
+        # "Summarize this" has no specific content to match against, so the
+        # reranker scores every chunk low/negative and it abstains as
+        # low-confidence even though the document has a perfectly summarizable
+        # document. Stratified sampling (the summarize path) doesn't have
+        # this problem since it doesn't depend on query/chunk similarity.
+        q = query.lower()
+        intent = "summarize" if ("summar" in q or "overview" in q) else "general"
         return {
             "domain": "user_doc",
-            "intent": "general",
+            "intent": intent,
             "target_kbs": [config.COLLECTION_USER],
             "abstain": False,
             "reason": "Force user_kb mode.",

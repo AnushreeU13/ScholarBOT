@@ -16,9 +16,28 @@ def test_keyword_fast_path_drug():
 
 
 def test_force_user_kb_short_circuits():
-    decision = router.route("summarize it", force_user_kb=True)
+    decision = router.route("What does this say about dosing?", force_user_kb=True)
     assert decision["target_kbs"] == ["user_kb"]
     assert decision["abstain"] is False
+    assert decision["intent"] == "general"
+
+
+def test_force_user_kb_with_summarize_query_uses_summarize_intent():
+    """
+    Regression test for a real production bug: with "Search my document only"
+    checked, force_user_kb=True previously always set intent="general" even
+    for a "summarize this" query — sending it through dense retrieval +
+    rerank against the literal query text, which scores everything low/
+    negative for a vague summarize request and always abstained as
+    low-confidence, even for a document with plenty of summarizable content.
+    """
+    decision = router.route("summarize the doc I just uploaded", force_user_kb=True)
+    assert decision["intent"] == "summarize"
+    assert decision["target_kbs"] == ["user_kb"]
+    assert decision["abstain"] is False
+
+    decision2 = router.route("give me an overview of this", force_user_kb=True)
+    assert decision2["intent"] == "summarize"
 
 
 def test_out_of_domain_abstains_when_llm_also_abstains(monkeypatch):
