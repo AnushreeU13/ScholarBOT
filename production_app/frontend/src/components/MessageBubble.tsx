@@ -1,4 +1,5 @@
 import type { ConversationMessage } from '../types'
+import { formatConfidencePercent } from '../utils/format'
 
 interface Props {
   message: ConversationMessage
@@ -73,7 +74,7 @@ export default function MessageBubble({ message, onSelectEvidence, isSelected }:
         )}
         <button className="evidence-link" onClick={() => onSelectEvidence(message)}>
           View {response.evidence_chunks.length} source{response.evidence_chunks.length === 1 ? '' : 's'} ·
-          confidence {(response.confidence * 100).toFixed(0)}%
+          confidence {formatConfidencePercent(response.confidence)}
         </button>
       </div>
     </div>

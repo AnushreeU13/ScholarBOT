@@ -1,4 +1,5 @@
 import type { ConversationMessage } from '../types'
+import { formatConfidencePercent } from '../utils/format'
 
 interface Props {
   message: ConversationMessage | null
@@ -15,7 +16,7 @@ export default function CitationsPanel({ message }: Props) {
       ) : (
         <>
           <div className="citations-meta">
-            <span>Confidence: {(response.confidence * 100).toFixed(0)}%</span>
+            <span>Confidence: {formatConfidencePercent(response.confidence)}</span>
             <span>KB: {response.source || 'n/a'}</span>
           </div>
           <ol className="citations-list">

@@ -69,8 +69,11 @@ def _build_citation(meta: Dict, store_name: str) -> str:
         config.COLLECTION_GUIDELINES: "Existing KB - Guidelines",
     }
     kb = kb_labels.get(store_name, "KB")
+    # source_title is what the drug-label JSONL export actually uses; the
+    # rest cover the guidelines export and user-upload metadata shapes.
     doc = (meta.get("document_name") or meta.get("document") or
-           meta.get("title") or meta.get("file_name") or "Unknown")
+           meta.get("title") or meta.get("file_name") or
+           meta.get("source_title") or "Unknown")
     pages = meta.get("page_numbers") or meta.get("page_number")
     page_str = ""
     if isinstance(pages, list) and pages:

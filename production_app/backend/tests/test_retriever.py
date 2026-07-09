@@ -69,6 +69,20 @@ def test_build_citation_unknown_document():
     assert "Unknown" in citation
 
 
+def test_build_citation_falls_back_to_source_title():
+    """
+    Regression test: the drug-label JSONL export uses "source_title" for the
+    document name, not "document_name"/"title"/etc — citations were silently
+    showing "Document: Unknown" for every drug-label answer in production.
+    """
+    citation = _build_citation(
+        {"source_title": "AMOXICILLIN AND CLAVULANATE POTASSIUM TABLET [NUCARE PHARMACEUTICALS,INC.]"},
+        "druglabels_kb",
+    )
+    assert "AMOXICILLIN" in citation
+    assert "Unknown" not in citation
+
+
 def test_check_sufficiency_no_api_key_returns_bool_of_chunks(monkeypatch):
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     assert check_sufficiency("q", []) is False
